@@ -23,20 +23,12 @@ function ProjectCard({ project, delay, isFeature = false }) {
     return () => observer.disconnect();
   }, [delay]);
 
-  const handleMouseMove = (e) => {
-    // Only apply mouse effects if not animating to avoid conflicts
-    if (!visible) return;
-    const rect = innerRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const rotateX = ((y / rect.height) - 0.5) * 5; // Reduced intensity for performance
-    const rotateY = ((x / rect.width) - 0.5) * 5;
-    innerRef.current.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-  };
+  // Mouse effects completely disabled for maximum performance
 
   const resetTilt = () => {
-    innerRef.current.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+    if (innerRef.current) {
+      innerRef.current.style.transform = "";
+    }
   };
 
   return (
@@ -47,9 +39,7 @@ function ProjectCard({ project, delay, isFeature = false }) {
     >
       <div
         ref={innerRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={resetTilt}
-        className={`group relative bg-white/80 dark:bg-slate-900/90 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:border-purple-300 dark:hover:border-purple-600 transition-[box-shadow,border-color,transform] duration-300 hover:scale-105 h-full flex flex-col ${isFeature ? 'lg:flex-row shadow-xl border-purple-200 dark:border-purple-800' : ''}`}
+        className={`relative bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-lg h-full flex flex-col ${isFeature ? 'lg:flex-row border-purple-200 dark:border-purple-800' : ''}`}
       >
         <div className={`relative overflow-hidden ${isFeature ? 'lg:w-2/5' : ''}`}>
           <img

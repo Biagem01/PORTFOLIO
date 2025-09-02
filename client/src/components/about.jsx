@@ -22,20 +22,12 @@ function SkillCard({ category, items, delay }) {
     return () => observer.disconnect();
   }, []);
 
-  const handleMouseMove = (e) => {
-    // Disabled during animation to prevent conflicts
-    if (!visible) return;
-    const rect = innerRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const rotateX = ((y / rect.height) - 0.5) * 8; // Reduced intensity
-    const rotateY = ((x / rect.width) - 0.5) * 8;
-    innerRef.current.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-  };
+  // Mouse effects disabled for maximum performance
 
   const resetTilt = () => {
-    innerRef.current.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+    if (innerRef.current) {
+      innerRef.current.style.transform = "";
+    }
   };
 
   return (
@@ -46,9 +38,7 @@ function SkillCard({ category, items, delay }) {
     >
       <div
         ref={innerRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={resetTilt}
-        className="group bg-white/80 dark:bg-slate-900/90 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 rounded-xl p-6 shadow-md hover:shadow-xl hover:border-purple-300 dark:hover:border-purple-600 transition-[box-shadow,border-color,transform] duration-300 hover:scale-105 h-full"
+        className="bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-slate-700 rounded-xl p-6 shadow-lg h-full"
       >
         <div className="text-center mb-5">
           <h4 className="title text-lg font-bold text-slate-800 dark:text-slate-100 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">
@@ -60,7 +50,7 @@ function SkillCard({ category, items, delay }) {
           {items.map((skill, i) => (
             <span
               key={skill}
-              className="bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-600 group-hover:from-purple-100 group-hover:to-purple-200 dark:group-hover:from-purple-900/30 dark:group-hover:to-purple-800/30 group-hover:border-purple-300 dark:group-hover:border-purple-600 group-hover:text-purple-700 dark:group-hover:text-purple-300 transition-all duration-300 hover:scale-110 cursor-default shadow-sm hover:shadow-md"
+              className="bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-600 cursor-default shadow-sm"
               style={{
                 animationDelay: `${i * 0.1}s`,
                 opacity: visible ? 1 : 0,
@@ -137,15 +127,13 @@ export default function About() {
 
           <div
             ref={avatarRef}
-            className={`relative group transition-transform duration-700
-                        ${avatarVisible ? "animate-fade-in-right opacity-100" : "opacity-0"}`}
+            className={`relative ${avatarVisible ? "animate-fade-in-right opacity-100" : "opacity-0"}`}
           >
             <img
               src={Avatar}
               alt="Profile"
-              className="rounded-2xl shadow-spectacular w-full max-w-md mx-auto transition-transform duration-500 group-hover:scale-105 animate-border"
+              className="rounded-2xl shadow-lg w-full max-w-md mx-auto"
             />
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-purple-600/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 glow-pulse"></div>
           </div>
         </div>
 
