@@ -39,7 +39,7 @@ function ProjectCard({ project, delay, isFeature = false }) {
     >
       <div
         ref={innerRef}
-        className={`relative bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-lg h-full flex flex-col ${isFeature ? 'lg:flex-row border-purple-200 dark:border-purple-800' : ''}`}
+        className={`relative card-modern rounded-3xl overflow-hidden h-full flex flex-col transition-transform duration-300 hover:scale-[1.02] ${isFeature ? 'lg:flex-row border-2 border-gradient-to-r from-purple-400 to-pink-400' : ''}`}
       >
         <div className={`relative overflow-hidden ${isFeature ? 'lg:w-2/5' : ''}`}>
           <img
@@ -152,10 +152,12 @@ export default function Projects() {
     >
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="title text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-100 mb-4">
-            My Projects
+          <h2 className="title text-4xl md:text-5xl font-bold mb-4 text-glow">
+            <span className="bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500 bg-clip-text text-transparent">
+              My Projects
+            </span>
           </h2>
-          <div className="w-16 h-0.5 bg-purple-600 mx-auto mb-6"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-transparent via-cyan-500 to-transparent mx-auto mb-6 rounded-full"></div>
           <p className="p-font text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
             A collection of my most significant works, showcasing my technical skills and passion for development
           </p>

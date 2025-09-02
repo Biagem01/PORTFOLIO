@@ -42,7 +42,7 @@ function ProjectShowcaseCard({ project, index }) {
     >
       <div
         ref={innerRef}
-        className="relative bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-lg h-full flex flex-col"
+        className="relative card-modern rounded-3xl overflow-hidden h-full flex flex-col transition-transform duration-300 hover:scale-[1.02]"
       >
         <div className="relative overflow-hidden">
           <img

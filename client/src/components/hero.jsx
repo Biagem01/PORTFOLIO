@@ -15,26 +15,33 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="font-hero min-h-screen flex items-center justify-center relative overflow-hidden pt-20"
+      className="font-hero min-h-screen flex items-center justify-center relative overflow-hidden pt-20 geometric-pattern"
     >
+      {/* Floating decorative elements */}
+      <div className="floating-elements"></div>
+      
+      {/* Additional background shapes */}
+      <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-xl"></div>
+      <div className="absolute bottom-40 right-20 w-24 h-24 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 rounded-full blur-xl"></div>
+      <div className="absolute top-1/2 left-10 w-16 h-16 bg-gradient-to-br from-yellow-400/20 to-orange-400/20 rounded-full blur-lg"></div>
 
       <div className="container mx-auto px-6 text-center relative z-10">
         <div className="animate-fade-in">
           <h1 className="text-6xl md:text-8xl font-bold mb-6 text-shadow animate-fade-in">
-            <span className="bg-gradient-to-r from-slate-800 via-purple-600 to-slate-800 dark:from-slate-100 dark:via-purple-400 dark:to-slate-100 bg-clip-text text-transparent hover:scale-110 transition-transform duration-500 drop-shadow-2xl">
+            <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent hover:scale-110 transition-transform duration-500 drop-shadow-2xl">
               Biagio
             </span>{" "}
-            <span className="bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-600 bg-clip-text text-transparent glow-pulse animate-bounce-slow drop-shadow-2xl">Cubisino</span>
+            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent glow-pulse animate-bounce-slow drop-shadow-2xl">Cubisino</span>
           </h1>
           <p className="text-xl md:text-3xl text-slate-600 dark:text-slate-300 mb-12 max-w-4xl mx-auto leading-relaxed font-light drop-shadow-lg animate-slide-in-left">
             Full Stack Developer crafting exceptional digital experiences with{" "}
-            <span className="font-semibold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent animate-pulse"> modern technologies</span>
+            <span className="font-bold bg-gradient-to-r from-emerald-400 via-blue-500 to-purple-600 bg-clip-text text-transparent animate-pulse"> modern technologies</span>
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8 animate-slide-in-right">
             <button
               onClick={() => scrollToSection("projects")}
-              className="group relative gradient-cosmic text-white px-12 py-6 rounded-3xl hover-cosmic font-bold text-lg overflow-hidden shadow-cosmic glow-pulse animate-float"
+              className="group relative gradient-vibrant text-white px-12 py-6 rounded-3xl font-bold text-lg overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 animate-float hover:scale-105"
             >
               <span className="relative z-10 drop-shadow-md">✨ View My Work</span>
               <div className="absolute inset-0 gradient-sunset opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>

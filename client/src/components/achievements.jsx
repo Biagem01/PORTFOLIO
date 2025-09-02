@@ -25,7 +25,7 @@ function AchievementCard({ achievement, index }) {
       className={`${visible ? "animate-fade-in-right opacity-100" : "opacity-0"}`}
       style={{ animationDelay: `${index * 0.2}s` }}
     >
-      <div className="relative bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-slate-700 rounded-2xl p-8 shadow-lg h-full">
+      <div className="relative card-modern rounded-3xl p-8 h-full transition-transform duration-300 hover:scale-[1.02]">
         <div className="text-center">
           <div className="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">
             {achievement.icon}
@@ -76,15 +76,18 @@ export default function Achievements() {
   ];
 
   return (
-    <section id="achievements" className="py-20 relative">
+    <section id="achievements" className="py-20 relative section-decorative">
+      {/* Decorative background elements */}
+      <div className="absolute top-16 right-16 w-24 h-24 bg-gradient-to-br from-yellow-400/10 to-orange-400/10 rounded-full blur-xl"></div>
+      <div className="absolute bottom-16 left-16 w-28 h-28 bg-gradient-to-br from-red-400/10 to-pink-400/10 rounded-full blur-2xl"></div>
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="title text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-100 mb-4 drop-shadow-lg">
-            <span className="bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-600 bg-clip-text text-transparent animate-pulse">
+          <h2 className="title text-4xl md:text-5xl font-bold mb-4 drop-shadow-lg text-glow">
+            <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text text-transparent animate-pulse">
               🌟 Achievements
             </span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto mb-6 rounded-full"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-transparent via-orange-500 to-transparent mx-auto mb-6 rounded-full"></div>
           <p className="p-font text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
             Milestones and accomplishments that showcase my growth as a developer and passion for technology
           </p>

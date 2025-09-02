@@ -38,7 +38,7 @@ function SkillCard({ category, items, delay }) {
     >
       <div
         ref={innerRef}
-        className="bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-slate-700 rounded-xl p-6 shadow-lg h-full"
+        className="card-modern rounded-2xl p-6 h-full transition-transform duration-300 hover:scale-[1.02]"
       >
         <div className="text-center mb-5">
           <h4 className="title text-lg font-bold text-slate-800 dark:text-slate-100 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">
@@ -50,7 +50,7 @@ function SkillCard({ category, items, delay }) {
           {items.map((skill, i) => (
             <span
               key={skill}
-              className="bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-600 cursor-default shadow-sm"
+              className="tech-badge text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold cursor-default transition-all duration-300 hover:scale-105"
               style={{
                 animationDelay: `${i * 0.1}s`,
                 opacity: visible ? 1 : 0,
@@ -95,7 +95,10 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" className="p-font py-20 relative">
+    <section id="about" className="p-font py-20 relative section-decorative">
+      {/* Decorative background elements */}
+      <div className="absolute top-10 left-10 w-20 h-20 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full blur-xl"></div>
+      <div className="absolute bottom-20 right-10 w-32 h-32 bg-gradient-to-br from-pink-400/10 to-yellow-400/10 rounded-full blur-2xl"></div>
       <div className="container mx-auto px-6 relative z-10">
         {/* Titolo */}
         <div className="text-center mb-16">
@@ -140,12 +143,12 @@ export default function About() {
         {/* Skills */}
         <div className="mt-24">
           <div className="text-center mb-16">
-            <h3 className="title text-4xl md:text-5xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-600 bg-clip-text text-transparent">
+            <h3 className="title text-4xl md:text-5xl font-bold mb-4 text-glow">
+              <span className="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
                 My Skills
               </span>
             </h3>
-            <div className="w-16 h-0.5 bg-purple-600 mx-auto mb-6"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-purple-500 to-transparent mx-auto mb-6 rounded-full"></div>
             <p className="p-font text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
               Technologies and tools I use to create innovative digital experiences
             </p>
