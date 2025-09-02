@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Johnson - Full Stack Developer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563EB',
+                        secondary: '#1E293B',
+                        accent: '#F59E0B',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'float': 'float 3s ease-in-out infinite',
+                    }
+                }
+            }
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        html { scroll-behavior: smooth; }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+    <!-- @COMPONENT: Navigation -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold text-primary">
+                    <span data-bind="developer.name">AJ</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-slate-600 hover:text-primary transition-colors duration-200">Home</a>
+                    <a href="#about" class="nav-link text-slate-600 hover:text-primary transition-colors duration-200">About</a>
+                    <a href="#projects" class="nav-link text-slate-600 hover:text-primary transition-colors duration-200">Projects</a>
+                    <a href="#contact" class="nav-link text-slate-600 hover:text-primary transition-colors duration-200">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-slate-600 hover:text-primary" id="mobile-menu-btn" data-event="click:toggleMobileMenu">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div class="md:hidden mt-4 pb-4 hidden" id="mobile-menu">
+                <div class="flex flex-col space-y-4">
+                    <a href="#home" class="nav-link text-slate-600 hover:text-primary transition-colors duration-200">Home</a>
+                    <a href="#about" class="nav-link text-slate-600 hover:text-primary transition-colors duration-200">About</a>
+                    <a href="#projects" class="nav-link text-slate-600 hover:text-primary transition-colors duration-200">Projects</a>
+                    <a href="#contact" class="nav-link text-slate-600 hover:text-primary transition-colors duration-200">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- @END_COMPONENT: Navigation -->
+
+    <!-- @COMPONENT: Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        <!-- Background decorative elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-primary/10 rounded-full animate-float"></div>
+            <div class="absolute top-3/4 right-1/4 w-24 h-24 bg-accent/10 rounded-full animate-float" style="animation-delay: 1s;"></div>
+            <div class="absolute top-1/2 right-1/3 w-16 h-16 bg-primary/5 rounded-full animate-float" style="animation-delay: 2s;"></div>
+        </div>
+
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="animate-fade-in">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                    <span class="text-slate-800" data-bind="developer.firstName">Alex</span>
+                    <span class="text-primary" data-bind="developer.lastName">Johnson</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-slate-600 mb-8 max-w-3xl mx-auto">
+                    <span data-bind="developer.tagline">Full Stack Developer crafting exceptional digital experiences with modern technologies</span>
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#projects" class="bg-primary text-white px-8 py-4 rounded-lg hover:bg-primary/90 transition-all duration-300 hover:transform hover:scale-105 shadow-lg hover:shadow-xl">
+                        View My Work
+                    </a>
+                    <a href="#contact" class="border-2 border-primary text-primary px-8 py-4 rounded-lg hover:bg-primary hover:text-white transition-all duration-300 hover:transform hover:scale-105">
+                        Get In Touch
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scroll indicator -->
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <i class="fas fa-chevron-down text-slate-400 text-xl"></i>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Hero Section -->
+
+    <!-- @COMPONENT: About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-slate-800 mb-4">About Me</h2>
+                <p class="text-xl text-slate-600 max-w-2xl mx-auto">
+                    Passionate about creating digital solutions that make a difference
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div class="prose prose-lg">
+                        <p class="text-slate-600 leading-relaxed" data-mock="true">
+                            I'm a Full Stack Developer with 5+ years of experience building scalable web applications. 
+                            I specialize in React, Node.js, and cloud technologies, with a passion for clean code and 
+                            user-centered design.
+                        </p>
+                        <p class="text-slate-600 leading-relaxed" data-mock="true">
+                            When I'm not coding, you'll find me exploring new technologies, contributing to open source 
+                            projects, or hiking in the mountains. I believe in continuous learning and staying current 
+                            with industry trends.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap gap-3">
+                        <!-- @MAP: skills.map(skill => ( -->
+                        <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-medium" data-mock="true">React</span>
+                        <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-medium" data-mock="true">Node.js</span>
+                        <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-medium" data-mock="true">TypeScript</span>
+                        <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-medium" data-mock="true">Python</span>
+                        <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-medium" data-mock="true">AWS</span>
+                        <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-medium" data-mock="true">MongoDB</span>
+                        <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-medium" data-mock="true">PostgreSQL</span>
+                        <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-medium" data-mock="true">Docker</span>
+                        <!-- @END_MAP )) -->
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <!-- Professional headshot placeholder -->
+                    <!-- A professional headshot of a developer in a modern office setting -->
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&h=600" 
+                         alt="Professional headshot" 
+                         class="rounded-2xl shadow-2xl w-full max-w-md mx-auto" 
+                         data-mock-image="true" 
+                         data-implementation="Replace with actual professional photo" />
+                    
+                    <!-- Decorative elements -->
+                    <div class="absolute -top-4 -right-4 w-24 h-24 bg-accent/20 rounded-full -z-10"></div>
+                    <div class="absolute -bottom-4 -left-4 w-32 h-32 bg-primary/10 rounded-full -z-10"></div>
+                </div>
+            </div>
+
+            <!-- Experience Timeline -->
+            <div class="mt-20">
+                <h3 class="text-3xl font-bold text-slate-800 mb-12 text-center">Experience</h3>
+                <div class="space-y-8">
+                    <!-- @MAP: experiences.map(experience => ( -->
+                    <div class="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300" data-mock="true">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                            <div>
+                                <h4 class="text-xl font-semibold text-slate-800">Senior Full Stack Developer</h4>
+                                <p class="text-primary font-medium">TechCorp Solutions</p>
+                            </div>
+                            <span class="text-slate-500 text-sm">2022 - Present</span>
+                        </div>
+                        <p class="text-slate-600">Led development of scalable web applications serving 100k+ users. Implemented microservices architecture and improved system performance by 40%.</p>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300" data-mock="true">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                            <div>
+                                <h4 class="text-xl font-semibold text-slate-800">Full Stack Developer</h4>
+                                <p class="text-primary font-medium">StartupXYZ</p>
+                            </div>
+                            <span class="text-slate-500 text-sm">2020 - 2022</span>
+                        </div>
+                        <p class="text-slate-600">Built the company's main product from MVP to production. Worked with React, Node.js, and AWS to create a real-time collaboration platform.</p>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300" data-mock="true">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                            <div>
+                                <h4 class="text-xl font-semibold text-slate-800">Frontend Developer</h4>
+                                <p class="text-primary font-medium">Digital Agency Pro</p>
+                            </div>
+                            <span class="text-slate-500 text-sm">2019 - 2020</span>
+                        </div>
+                        <p class="text-slate-600">Developed responsive websites and web applications for various clients. Specialized in React and modern JavaScript frameworks.</p>
+                    </div>
+                    <!-- @END_MAP )) -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: About Section -->
+
+    <!-- @COMPONENT: Projects Section -->
+    <section id="projects" class="py-20 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-slate-800 mb-4">Featured Projects</h2>
+                <p class="text-xl text-slate-600 max-w-2xl mx-auto">
+                    A showcase of my recent work and technical expertise
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- @MAP: projects.map(project => ( -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:transform hover:-translate-y-2 overflow-hidden" data-mock="true">
+                    <!-- E-commerce dashboard with modern interface and analytics charts -->
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300" 
+                         alt="E-commerce dashboard project" 
+                         class="w-full h-48 object-cover"
+                         data-mock-image="true" />
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-slate-800 mb-2">E-Commerce Dashboard</h3>
+                        <p class="text-slate-600 mb-4">A comprehensive admin dashboard for managing online stores with real-time analytics, inventory management, and order tracking.</p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">React</span>
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">Node.js</span>
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">MongoDB</span>
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">Chart.js</span>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <a href="#" class="text-primary hover:text-primary/80 transition-colors" data-event="click:openProject" data-implementation="Link to live demo">
+                                <i class="fas fa-external-link-alt mr-1"></i> Live Demo
+                            </a>
+                            <a href="#" class="text-slate-600 hover:text-slate-800 transition-colors" data-event="click:openGithub" data-implementation="Link to GitHub repository">
+                                <i class="fab fa-github mr-1"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:transform hover:-translate-y-2 overflow-hidden" data-mock="true">
+                    <!-- Task management application with kanban board interface -->
+                    <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300" 
+                         alt="Task management app project" 
+                         class="w-full h-48 object-cover"
+                         data-mock-image="true" />
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-slate-800 mb-2">Task Management App</h3>
+                        <p class="text-slate-600 mb-4">A collaborative project management tool with drag-and-drop functionality, team collaboration, and progress tracking.</p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">React</span>
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">TypeScript</span>
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">Express</span>
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">PostgreSQL</span>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <a href="#" class="text-primary hover:text-primary/80 transition-colors" data-event="click:openProject">
+                                <i class="fas fa-external-link-alt mr-1"></i> Live Demo
+                            </a>
+                            <a href="#" class="text-slate-600 hover:text-slate-800 transition-colors" data-event="click:openGithub">
+                                <i class="fab fa-github mr-1"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:transform hover:-translate-y-2 overflow-hidden" data-mock="true">
+                    <!-- Social media platform with modern mobile interface -->
+                    <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300" 
+                         alt="Social media platform project" 
+                         class="w-full h-48 object-cover"
+                         data-mock-image="true" />
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-slate-800 mb-2">Social Media Platform</h3>
+                        <p class="text-slate-600 mb-4">A full-featured social platform with real-time messaging, content sharing, and advanced privacy controls.</p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">React Native</span>
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">Node.js</span>
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">GraphQL</span>
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">AWS</span>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <a href="#" class="text-primary hover:text-primary/80 transition-colors" data-event="click:openProject">
+                                <i class="fas fa-external-link-alt mr-1"></i> Live Demo
+                            </a>
+                            <a href="#" class="text-slate-600 hover:text-slate-800 transition-colors" data-event="click:openGithub">
+                                <i class="fab fa-github mr-1"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:transform hover:-translate-y-2 overflow-hidden" data-mock="true">
+                    <!-- Weather forecast application with beautiful UI and location services -->
+                    <img src="https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300" 
+                         alt="Weather app project" 
+                         class="w-full h-48 object-cover"
+                         data-mock-image="true" />
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-slate-800 mb-2">Weather Forecast App</h3>
+                        <p class="text-slate-600 mb-4">A beautiful weather application with location-based forecasts, interactive maps, and personalized weather alerts.</p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">Vue.js</span>
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">Python</span>
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">FastAPI</span>
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">Redis</span>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <a href="#" class="text-primary hover:text-primary/80 transition-colors" data-event="click:openProject">
+                                <i class="fas fa-external-link-alt mr-1"></i> Live Demo
+                            </a>
+                            <a href="#" class="text-slate-600 hover:text-slate-800 transition-colors" data-event="click:openGithub">
+                                <i class="fab fa-github mr-1"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:transform hover:-translate-y-2 overflow-hidden" data-mock="true">
+                    <!-- Cryptocurrency trading dashboard with charts and market data -->
+                    <img src="https://images.unsplash.com/photo-1642790106117-e829e14a795f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300" 
+                         alt="Crypto trading dashboard project" 
+                         class="w-full h-48 object-cover"
+                         data-mock-image="true" />
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-slate-800 mb-2">Crypto Trading Dashboard</h3>
+                        <p class="text-slate-600 mb-4">Real-time cryptocurrency trading platform with advanced charting, portfolio management, and market analysis tools.</p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">React</span>
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">WebSocket</span>
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">D3.js</span>
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">Docker</span>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <a href="#" class="text-primary hover:text-primary/80 transition-colors" data-event="click:openProject">
+                                <i class="fas fa-external-link-alt mr-1"></i> Live Demo
+                            </a>
+                            <a href="#" class="text-slate-600 hover:text-slate-800 transition-colors" data-event="click:openGithub">
+                                <i class="fab fa-github mr-1"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:transform hover:-translate-y-2 overflow-hidden" data-mock="true">
+                    <!-- Online learning platform with video streaming and course management -->
+                    <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300" 
+                         alt="Learning platform project" 
+                         class="w-full h-48 object-cover"
+                         data-mock-image="true" />
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-slate-800 mb-2">Learning Platform</h3>
+                        <p class="text-slate-600 mb-4">An online education platform with video streaming, interactive quizzes, progress tracking, and certification system.</p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">Next.js</span>
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">Prisma</span>
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">Stripe</span>
+                            <span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-medium">Vercel</span>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <a href="#" class="text-primary hover:text-primary/80 transition-colors" data-event="click:openProject">
+                                <i class="fas fa-external-link-alt mr-1"></i> Live Demo
+                            </a>
+                            <a href="#" class="text-slate-600 hover:text-slate-800 transition-colors" data-event="click:openGithub">
+                                <i class="fab fa-github mr-1"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- @END_MAP )) -->
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center text-primary hover:text-primary/80 transition-colors text-lg font-medium" data-event="click:viewAllProjects">
+                    View All Projects 
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Projects Section -->
+
+    <!-- @COMPONENT: Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-slate-800 mb-4">Get In Touch</h2>
+                <p class="text-xl text-slate-600 max-w-2xl mx-auto">
+                    Let's discuss your next project or potential collaboration opportunities
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                <!-- Contact Info -->
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-slate-800 mb-6">Let's Connect</h3>
+                        <p class="text-slate-600 mb-8">
+                            I'm always interested in hearing about new opportunities and exciting projects. 
+                            Whether you're a company looking to hire, or you're a fellow developer wanting to collaborate, 
+                            feel free to reach out!
+                        </p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-envelope text-primary"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-slate-800">Email</p>
+                                <p class="text-slate-600" data-bind="developer.email">alex.johnson@email.com</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-phone text-primary"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-slate-800">Phone</p>
+                                <p class="text-slate-600" data-bind="developer.phone">+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-primary"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-slate-800">Location</p>
+                                <p class="text-slate-600" data-bind="developer.location">San Francisco, CA</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div>
+                        <p class="font-medium text-slate-800 mb-4">Follow me on social media</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 bg-slate-100 hover:bg-primary hover:text-white rounded-lg flex items-center justify-center transition-all duration-300" data-event="click:openSocial" data-implementation="Link to LinkedIn profile">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-slate-100 hover:bg-primary hover:text-white rounded-lg flex items-center justify-center transition-all duration-300" data-event="click:openSocial" data-implementation="Link to GitHub profile">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-slate-100 hover:bg-primary hover:text-white rounded-lg flex items-center justify-center transition-all duration-300" data-event="click:openSocial" data-implementation="Link to Twitter profile">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-slate-100 hover:bg-primary hover:text-white rounded-lg flex items-center justify-center transition-all duration-300" data-event="click:openSocial" data-implementation="Link to portfolio or personal website">
+                                <i class="fas fa-globe"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="bg-slate-50 rounded-xl p-8">
+                    <form class="space-y-6" id="contact-form" data-event="submit:handleContactSubmit" data-implementation="Should validate form and show success/error messages">
+                        <!-- @STATE: formData:object = {name: '', email: '', message: ''} -->
+                        <!-- @STATE: isSubmitting:boolean = false -->
+                        <!-- @STATE: errors:object = {} -->
+                        
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-slate-700 mb-2">Full Name</label>
+                            <input 
+                                type="text" 
+                                id="name" 
+                                name="name"
+                                class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200" 
+                                placeholder="Your full name"
+                                data-bind="formData.name"
+                                data-validation="required|min:2"
+                                required>
+                            <span class="text-red-500 text-sm hidden" id="name-error" data-bind="errors.name"></span>
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-slate-700 mb-2">Email Address</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email"
+                                class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200" 
+                                placeholder="your.email@example.com"
+                                data-bind="formData.email"
+                                data-validation="required|email"
+                                required>
+                            <span class="text-red-500 text-sm hidden" id="email-error" data-bind="errors.email"></span>
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-slate-700 mb-2">Message</label>
+                            <textarea 
+                                id="message" 
+                                name="message"
+                                rows="5" 
+                                class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200 resize-none" 
+                                placeholder="Tell me about your project or just say hello..."
+                                data-bind="formData.message"
+                                data-validation="required|min:10"
+                                required></textarea>
+                            <span class="text-red-500 text-sm hidden" id="message-error" data-bind="errors.message"></span>
+                        </div>
+
+                        <button 
+                            type="submit" 
+                            class="w-full bg-primary text-white py-3 px-6 rounded-lg hover:bg-primary/90 transition-all duration-300 hover:transform hover:scale-105 shadow-lg hover:shadow-xl font-medium"
+                            data-bind="isSubmitting">
+                            <span id="submit-text">Send Message</span>
+                            <span id="submit-loading" class="hidden">
+                                <i class="fas fa-spinner fa-spin mr-2"></i>
+                                Sending...
+                            </span>
+                        </button>
+
+                        <!-- Success/Error Messages -->
+                        <div id="form-success" class="hidden bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            Thank you! Your message has been sent successfully.
+                        </div>
+                        <div id="form-error" class="hidden bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg">
+                            <i class="fas fa-exclamation-circle mr-2"></i>
+                            Sorry, there was an error sending your message. Please try again.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Contact Section -->
+
+    <!-- @COMPONENT: Footer -->
+    <footer class="bg-secondary text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4" data-bind="developer.name">Alex Johnson</h3>
+                    <p class="text-slate-300 mb-4">
+                        Full Stack Developer passionate about creating exceptional digital experiences.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-slate-300 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="text-slate-300 hover:text-white transition-colors">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="text-slate-300 hover:text-white transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-slate-300 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#about" class="text-slate-300 hover:text-white transition-colors">About</a></li>
+                        <li><a href="#projects" class="text-slate-300 hover:text-white transition-colors">Projects</a></li>
+                        <li><a href="#contact" class="text-slate-300 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Get In Touch</h4>
+                    <p class="text-slate-300 mb-2">
+                        <i class="fas fa-envelope mr-2"></i>
+                        <span data-bind="developer.email">alex.johnson@email.com</span>
+                    </p>
+                    <p class="text-slate-300 mb-2">
+                        <i class="fas fa-phone mr-2"></i>
+                        <span data-bind="developer.phone">+1 (555) 123-4567</span>
+                    </p>
+                    <p class="text-slate-300">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        <span data-bind="developer.location">San Francisco, CA</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-600 mt-8 pt-8 text-center">
+                <p class="text-slate-300">
+                    © 2024 <span data-bind="developer.name">Alex Johnson</span>. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+    <!-- @END_COMPONENT: Footer -->
+
+    <script>
+        // TODO: Implement business logic, API calls, and state management
+        
+        (function() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // Close mobile menu when clicking on nav links
+            const navLinks = document.querySelectorAll('a[href^="#"]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Contact form validation and submission
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Simple form validation
+                    const name = document.getElementById('name').value.trim();
+                    const email = document.getElementById('email').value.trim();
+                    const message = document.getElementById('message').value.trim();
+                    
+                    let isValid = true;
+                    const errors = {};
+                    
+                    // Reset previous errors
+                    document.querySelectorAll('.text-red-500').forEach(el => el.classList.add('hidden'));
+                    document.querySelectorAll('.border-red-500').forEach(el => el.classList.remove('border-red-500'));
+                    
+                    // Validate name
+                    if (name.length < 2) {
+                        errors.name = 'Name must be at least 2 characters long';
+                        isValid = false;
+                    }
+                    
+                    // Validate email
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(email)) {
+                        errors.email = 'Please enter a valid email address';
+                        isValid = false;
+                    }
+                    
+                    // Validate message
+                    if (message.length < 10) {
+                        errors.message = 'Message must be at least 10 characters long';
+                        isValid = false;
+                    }
+                    
+                    // Display errors
+                    Object.keys(errors).forEach(field => {
+                        const errorElement = document.getElementById(`${field}-error`);
+                        const inputElement = document.getElementById(field);
+                        if (errorElement && inputElement) {
+                            errorElement.textContent = errors[field];
+                            errorElement.classList.remove('hidden');
+                            inputElement.classList.add('border-red-500');
+                        }
+                    });
+                    
+                    if (isValid) {
+                        // Simulate form submission
+                        const submitBtn = contactForm.querySelector('button[type="submit"]');
+                        const submitText = document.getElementById('submit-text');
+                        const submitLoading = document.getElementById('submit-loading');
+                        const successMsg = document.getElementById('form-success');
+                        
+                        if (submitText && submitLoading) {
+                            submitText.classList.add('hidden');
+                            submitLoading.classList.remove('hidden');
+                            submitBtn.disabled = true;
+                        }
+                        
+                        // Simulate API call delay
+                        setTimeout(() => {
+                            if (submitText && submitLoading && successMsg) {
+                                submitText.classList.remove('hidden');
+                                submitLoading.classList.add('hidden');
+                                submitBtn.disabled = false;
+                                successMsg.classList.remove('hidden');
+                                contactForm.reset();
+                                
+                                // Hide success message after 5 seconds
+                                setTimeout(() => {
+                                    successMsg.classList.add('hidden');
+                                }, 5000);
+                            }
+                        }, 2000);
+                    }
+                });
+            }
+
+            // Active navigation highlighting
+            const sections = document.querySelectorAll('section[id]');
+            const navLinksAll = document.querySelectorAll('nav a[href^="#"]');
+            
+            function highlightActiveSection() {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.offsetHeight;
+                    if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinksAll.forEach(link => {
+                    link.classList.remove('text-primary', 'font-semibold');
+                    link.classList.add('text-slate-600');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.remove('text-slate-600');
+                        link.classList.add('text-primary', 'font-semibold');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', highlightActiveSection);
+            highlightActiveSection(); // Initial call
+            
+            // Smooth scroll for navigation links
+            navLinksAll.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        const offsetTop = targetSection.offsetTop - 80;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
