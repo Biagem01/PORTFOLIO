@@ -23,12 +23,15 @@ function SkillCard({ category, items, delay }) {
   }, []);
 
   const handleMouseMove = (e) => {
-    const rect = innerRef.current.getBoundingClientRect();
+    // Disabled during animation to prevent conflicts
+    if (!visible) return;
+    const rect = innerRef.current?.getBoundingClientRect();
+    if (!rect) return;
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    const rotateX = ((y / rect.height) - 0.5) * 20;
-    const rotateY = ((x / rect.width) - 0.5) * 20;
-    innerRef.current.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.1)`;
+    const rotateX = ((y / rect.height) - 0.5) * 8; // Reduced intensity
+    const rotateY = ((x / rect.width) - 0.5) * 8;
+    innerRef.current.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
   };
 
   const resetTilt = () => {
@@ -38,14 +41,14 @@ function SkillCard({ category, items, delay }) {
   return (
     <div
       ref={wrapperRef}
-      className={`${visible ? "animate-fade-in-right opacity-100 transform-none" : "opacity-0 transform translate-x-32"} transition-opacity duration-700`}
+      className={`${visible ? "animate-fade-in-right opacity-100" : "opacity-0"}`}
       style={{ animationDelay: `${delay}s` }}
     >
       <div
         ref={innerRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={resetTilt}
-        className="group bg-white/80 dark:bg-slate-900/90 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 rounded-xl p-6 shadow-md hover:shadow-xl hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-500 hover:scale-105 h-full"
+        className="group bg-white/80 dark:bg-slate-900/90 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 rounded-xl p-6 shadow-md hover:shadow-xl hover:border-purple-300 dark:hover:border-purple-600 transition-[box-shadow,border-color,transform] duration-300 hover:scale-105 h-full"
       >
         <div className="text-center mb-5">
           <h4 className="title text-lg font-bold text-slate-800 dark:text-slate-100 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">

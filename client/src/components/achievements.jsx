@@ -22,10 +22,10 @@ function AchievementCard({ achievement, index }) {
   return (
     <div
       ref={wrapperRef}
-      className={`${visible ? "animate-fade-in-right opacity-100 transform-none" : "opacity-0 transform translate-x-32"} transition-opacity duration-700`}
+      className={`${visible ? "animate-fade-in-right opacity-100" : "opacity-0"}`}
       style={{ animationDelay: `${index * 0.2}s` }}
     >
-      <div className="group relative bg-white/80 dark:bg-slate-900/90 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 rounded-2xl p-8 shadow-md hover:shadow-2xl hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-500 hover:scale-105 h-full">
+      <div className="group relative bg-white/80 dark:bg-slate-900/90 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 rounded-2xl p-8 shadow-md hover:shadow-2xl hover:border-purple-300 dark:hover:border-purple-600 transition-[box-shadow,border-color,transform] duration-300 hover:scale-105 h-full">
         <div className="text-center">
           <div className="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">
             {achievement.icon}

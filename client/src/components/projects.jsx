@@ -24,12 +24,15 @@ function ProjectCard({ project, delay, isFeature = false }) {
   }, [delay]);
 
   const handleMouseMove = (e) => {
-    const rect = innerRef.current.getBoundingClientRect();
+    // Only apply mouse effects if not animating to avoid conflicts
+    if (!visible) return;
+    const rect = innerRef.current?.getBoundingClientRect();
+    if (!rect) return;
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    const rotateX = ((y / rect.height) - 0.5) * 10;
-    const rotateY = ((x / rect.width) - 0.5) * 10;
-    innerRef.current.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+    const rotateX = ((y / rect.height) - 0.5) * 5; // Reduced intensity for performance
+    const rotateY = ((x / rect.width) - 0.5) * 5;
+    innerRef.current.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
   };
 
   const resetTilt = () => {
@@ -39,14 +42,14 @@ function ProjectCard({ project, delay, isFeature = false }) {
   return (
     <div
       ref={wrapperRef}
-      className={`${visible ? "animate-fade-in-right opacity-100 transform-none" : "opacity-0 transform translate-x-32"} transition-opacity duration-700`}
+      className={`${visible ? "animate-fade-in-right opacity-100" : "opacity-0"}`}
       style={{ animationDelay: `${delay * 0.2}s` }}
     >
       <div
         ref={innerRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={resetTilt}
-        className={`group relative bg-white/80 dark:bg-slate-900/90 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-500 hover:scale-105 h-full flex flex-col ${isFeature ? 'lg:flex-row shadow-xl border-purple-200 dark:border-purple-800' : ''}`}
+        className={`group relative bg-white/80 dark:bg-slate-900/90 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:border-purple-300 dark:hover:border-purple-600 transition-[box-shadow,border-color,transform] duration-300 hover:scale-105 h-full flex flex-col ${isFeature ? 'lg:flex-row shadow-xl border-purple-200 dark:border-purple-800' : ''}`}
       >
         <div className={`relative overflow-hidden ${isFeature ? 'lg:w-2/5' : ''}`}>
           <img
