@@ -54,10 +54,10 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // Porta presa dall'env oppure 5000, compatibile in locale
-  const port = parseInt(process.env.PORT || '5001', 10);
+  // Port configuration for Replit compatibility - frontend should bind to 5000
+  const port = parseInt(process.env.PORT || '5000', 10);
 
-  server.listen(port, () => {
-    log(`✅ Server in ascolto su http://localhost:${port}`);
+  server.listen(port, "0.0.0.0", () => {
+    log(`✅ Server running on http://0.0.0.0:${port}`);
   });
 })();
