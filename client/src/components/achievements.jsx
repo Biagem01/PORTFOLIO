@@ -6,7 +6,13 @@ function AchievementCard({ achievement, index }) {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => setVisible(entry.isIntersecting),
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+        } else {
+          setVisible(false); // Reset animation when leaving viewport for repeatable animations
+        }
+      },
       { threshold: 0.2 }
     );
     if (wrapperRef.current) observer.observe(wrapperRef.current);
@@ -16,7 +22,7 @@ function AchievementCard({ achievement, index }) {
   return (
     <div
       ref={wrapperRef}
-      className={`${visible ? "animate-bounce-in opacity-100 transform-none" : "opacity-0 transform translate-y-8"} transition-all duration-700 animate-float`}
+      className={`${visible ? "animate-fade-in-right opacity-100 transform-none" : "opacity-0 transform translate-x-16"} transition-opacity duration-500`}
       style={{ animationDelay: `${index * 0.2}s` }}
     >
       <div className="group relative bg-white/80 dark:bg-slate-900/90 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 rounded-2xl p-8 shadow-md hover:shadow-2xl hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-500 hover:scale-105 h-full">

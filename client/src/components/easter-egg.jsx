@@ -25,7 +25,7 @@ export default function EasterEgg() {
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999] flex items-center justify-center animate-fade-in">
-      <div className="text-center space-y-6 animate-bounce-in">
+      <div className="text-center space-y-6 animate-fade-in-right">
         <div className="text-8xl animate-spin">🎉</div>
         <h2 className="title text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 bg-clip-text text-transparent">
           You found the Easter Egg!

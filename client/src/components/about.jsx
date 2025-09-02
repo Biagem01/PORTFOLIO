@@ -9,7 +9,13 @@ function SkillCard({ category, items, delay }) {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => setVisible(entry.isIntersecting),
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+        } else {
+          setVisible(false); // Reset animation when leaving viewport for repeatable animations
+        }
+      },
       { threshold: 0.2 }
     );
     if (wrapperRef.current) observer.observe(wrapperRef.current);
@@ -32,7 +38,7 @@ function SkillCard({ category, items, delay }) {
   return (
     <div
       ref={wrapperRef}
-      className={`${visible ? "animate-bounce-in opacity-100 transform-none" : "opacity-0 transform translate-y-8"} transition-all duration-700`}
+      className={`${visible ? "animate-fade-in-right opacity-100 transform-none" : "opacity-0 transform translate-x-16"} transition-opacity duration-500`}
       style={{ animationDelay: `${delay}s` }}
     >
       <div
@@ -82,7 +88,13 @@ export default function About() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => setAvatarVisible(entry.isIntersecting),
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setAvatarVisible(true);
+        } else {
+          setAvatarVisible(false); // Reset animation when leaving viewport
+        }
+      },
       { threshold: 0.2 }
     );
     if (avatarRef.current) observer.observe(avatarRef.current);
@@ -123,7 +135,7 @@ export default function About() {
           <div
             ref={avatarRef}
             className={`relative group transition-transform duration-700
-                        ${avatarVisible ? "animate-bounce-in opacity-100" : "opacity-0"}`}
+                        ${avatarVisible ? "animate-fade-in-right opacity-100" : "opacity-0"}`}
           >
             <img
               src={Avatar}

@@ -15,9 +15,10 @@ function ProjectShowcaseCard({ project, index }) {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setTimeout(() => setVisible(true), index * 200);
+          // Immediate animation for better performance
+          setVisible(true);
         } else {
-          setVisible(false);
+          setVisible(false); // Reset animation when leaving viewport
         }
       },
       { threshold: 0.1 }
@@ -43,8 +44,8 @@ function ProjectShowcaseCard({ project, index }) {
   return (
     <div
       ref={wrapperRef}
-      className={`${visible ? "animate-bounce-in opacity-100 transform-none" : "opacity-0 transform translate-y-8"} transition-all duration-700 animate-float`}
-      style={{ animationDelay: `${index * 0.2}s` }}
+      className={`${visible ? "animate-fade-in-right opacity-100 transform-none" : "opacity-0 transform translate-x-16"} transition-opacity duration-500`}
+      style={{ animationDelay: `${index * 0.1}s` }}
     >
       <div
         ref={innerRef}
