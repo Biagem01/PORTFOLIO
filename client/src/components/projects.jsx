@@ -51,36 +51,51 @@ function ProjectModal({ project, onClose }) {
   };
 
   return (
-    <div className="relative bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-2xl border border-purple-200/30 dark:border-purple-400/20 backdrop-blur-xl">
-      {/* Sticky Close Button */}
-      {/* Close Button sempre fisso */}
-    {/* Sticky Close Button */}
-
-
-
+    <div className="relative bg-gradient-to-br from-white/98 via-purple-50/90 to-indigo-50/95 
+                    dark:from-gray-900/98 dark:via-purple-950/90 dark:to-indigo-950/95 
+                    backdrop-blur-2xl rounded-[2rem] overflow-hidden shadow-2xl 
+                    border-2 border-gradient-to-br from-purple-200/60 via-indigo-200/60 to-pink-200/60 
+                    dark:border-purple-500/40 mx-4 my-6 
+                    hover:shadow-purple-500/20 transition-all duration-500
+                    before:absolute before:inset-0 before:bg-gradient-to-br 
+                    before:from-purple-500/5 before:via-transparent before:to-indigo-500/5 
+                    before:rounded-[2rem] before:pointer-events-none">
       {/* Enhanced Header with Image */}
-      <div className="relative h-64 md:h-80 overflow-hidden">
+      <div className="relative h-80 md:h-[28rem] overflow-hidden rounded-t-[2rem]">
         <img 
           src={project.image} 
           alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+          className="w-full h-full object-cover transition-all duration-1000 hover:scale-110 hover:brightness-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-transparent to-blue-900/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-600/50 via-indigo-600/30 to-pink-600/40"></div>
         
-        {/* Floating decorative elements */}
-        <div className="absolute top-8 left-8 w-16 h-16 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-8 right-8 w-12 h-12 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-full blur-lg animate-bounce"></div>
+        {/* Enhanced floating decorative elements */}
+        <div className="absolute top-10 left-10 w-24 h-24 bg-gradient-to-br from-purple-400/40 to-pink-400/40 rounded-full blur-3xl animate-pulse shadow-2xl"></div>
+        <div className="absolute top-20 right-16 w-20 h-20 bg-gradient-to-br from-cyan-400/40 to-blue-400/40 rounded-full blur-2xl animate-bounce shadow-xl"></div>
+        <div className="absolute bottom-20 right-10 w-16 h-16 bg-gradient-to-br from-yellow-400/30 to-orange-400/30 rounded-full blur-xl animate-pulse shadow-lg"></div>
+        
+        {/* Sparkle effects */}
+        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-white rounded-full animate-ping"></div>
+        <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-purple-300 rounded-full animate-pulse"></div>
+        <div className="absolute bottom-1/3 left-1/2 w-1.5 h-1.5 bg-cyan-300 rounded-full animate-ping" style={{animationDelay: '0.5s'}}></div>
         
         <div className="absolute bottom-8 left-8 right-8">
-          <h2 className="title text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-2xl bg-gradient-to-r from-white via-purple-100 to-white bg-clip-text text-transparent">
+          <h2 className="title text-3xl md:text-4xl font-bold text-white mb-6 drop-shadow-xl 
+                         animate-fade-in">
             {project.title}
           </h2>
-          <div className="flex items-center gap-4 text-white/90">
-            <span className="bg-gradient-to-r from-purple-500/30 to-indigo-500/30 backdrop-blur-lg px-4 py-2 rounded-full text-sm font-semibold border border-white/20 shadow-lg">
+          <div className="flex flex-wrap items-center gap-4 text-white">
+            <span className="bg-gradient-to-r from-purple-500/40 to-indigo-500/40 backdrop-blur-xl 
+                           px-5 py-2 rounded-xl text-sm font-semibold border border-white/30 
+                           shadow-lg hover:scale-105 transition-all duration-300 
+                           hover:shadow-purple-500/30">
               {details.role}
             </span>
-            <span className="bg-gradient-to-r from-blue-500/30 to-cyan-500/30 backdrop-blur-lg px-4 py-2 rounded-full text-sm font-semibold border border-white/20 shadow-lg">
+            <span className="bg-gradient-to-r from-blue-500/40 to-cyan-500/40 backdrop-blur-xl 
+                           px-5 py-2 rounded-xl text-sm font-semibold border border-white/30 
+                           shadow-lg hover:scale-105 transition-all duration-300 
+                           hover:shadow-blue-500/30">
               {details.duration}
             </span>
           </div>
@@ -88,65 +103,122 @@ function ProjectModal({ project, onClose }) {
       </div>
 
       {/* Enhanced Content */}
-      <div className="p-8 md:p-10 bg-gradient-to-br from-slate-50/50 via-white to-purple-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-purple-950/50">
+      <div className="relative p-10 md:p-16 bg-gradient-to-br from-white/95 via-purple-50/90 to-indigo-50/95 
+                     dark:from-gray-900/95 dark:via-purple-950/90 dark:to-indigo-950/95 
+                     backdrop-blur-xl overflow-hidden
+                     before:absolute before:inset-0 before:bg-gradient-to-br 
+                     before:from-purple-500/3 before:via-transparent before:to-indigo-500/3 
+                     before:pointer-events-none">
         {/* Description */}
-        <div className="mb-10">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-2xl">📖</span>
+        <div className="mb-12">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="relative w-12 h-12 bg-gradient-to-br from-purple-500 via-indigo-600 to-purple-700 
+                           rounded-2xl flex items-center justify-center shadow-xl 
+                           hover:shadow-purple-500/30 transition-all duration-300 hover:scale-110 
+                           hover:rotate-3 group animate-float">
+              <span className="text-xl group-hover:scale-110 transition-transform duration-300">📖</span>
+              <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl"></div>
+              <div className="absolute -inset-1 bg-gradient-to-br from-purple-500/30 to-indigo-500/30 rounded-2xl blur opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
-            <h3 className="title text-2xl font-bold bg-gradient-to-r from-slate-800 to-purple-700 dark:from-white dark:to-purple-300 bg-clip-text text-transparent">
-              Description
+            <h3 className="title text-2xl md:text-3xl font-bold bg-gradient-to-r from-slate-800 via-purple-700 to-indigo-700 
+                         dark:from-white dark:via-purple-300 dark:to-indigo-300 bg-clip-text text-transparent">
+              Descrizione del Progetto
             </h3>
           </div>
-          <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm p-6 rounded-2xl border border-purple-200/50 dark:border-purple-400/30 shadow-lg">
-            <p className="p-font text-slate-700 dark:text-slate-300 leading-relaxed text-lg">
+          <div className="relative bg-gradient-to-br from-white/80 via-purple-50/60 to-indigo-50/80 
+                         dark:from-gray-800/80 dark:via-purple-900/60 dark:to-indigo-900/80 
+                         backdrop-blur-xl p-8 rounded-2xl border border-purple-200/50 
+                         dark:border-purple-500/30 shadow-xl hover:shadow-purple-500/10 
+                         transition-all duration-300 hover:scale-[1.01] group overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 via-indigo-500 to-pink-500 rounded-t-2xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/3 via-transparent to-indigo-500/3 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <p className="relative z-10 p-font text-slate-700 dark:text-slate-200 leading-relaxed text-lg">
               {project.description}
             </p>
           </div>
         </div>
 
         {/* Technologies */}
-        <div className="mb-10">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-2xl">🛠️</span>
+        <div className="mb-12">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="relative w-12 h-12 bg-gradient-to-br from-indigo-500 via-blue-600 to-cyan-600 
+                           rounded-2xl flex items-center justify-center shadow-xl 
+                           hover:shadow-blue-500/30 transition-all duration-300 hover:scale-110 
+                           hover:rotate-3 group animate-float" 
+                 style={{animationDelay: '0.5s'}}>
+              <span className="text-xl group-hover:scale-110 transition-transform duration-300">🛠️</span>
+              <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl"></div>
+              <div className="absolute -inset-1 bg-gradient-to-br from-blue-500/30 to-cyan-500/30 rounded-2xl blur opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
-            <h3 className="title text-2xl font-bold bg-gradient-to-r from-slate-800 to-blue-700 dark:from-white dark:to-blue-300 bg-clip-text text-transparent">
-              Technologies Used
+            <h3 className="title text-2xl md:text-3xl font-bold bg-gradient-to-r from-slate-800 via-blue-700 to-cyan-700 
+                         dark:from-white dark:via-blue-300 dark:to-cyan-300 bg-clip-text text-transparent">
+              Tecnologie Utilizzate
             </h3>
           </div>
-          <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm p-6 rounded-2xl border border-blue-200/50 dark:border-blue-400/30 shadow-lg">
-            <div className="flex flex-wrap gap-3">
+          <div className="relative bg-gradient-to-br from-white/80 via-blue-50/60 to-cyan-50/80 
+                         dark:from-gray-800/80 dark:via-blue-900/60 dark:to-cyan-900/80 
+                         backdrop-blur-xl p-8 rounded-2xl border border-blue-200/50 
+                         dark:border-blue-500/30 shadow-xl hover:shadow-blue-500/10 
+                         transition-all duration-300 hover:scale-[1.01] group overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-cyan-500 to-indigo-500 rounded-t-2xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/3 via-transparent to-cyan-500/3 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="relative z-10 flex flex-wrap gap-3">
               {project.technologies.map((tech, index) => (
-                <span
+                <div
                   key={tech}
-                  className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-5 py-3 rounded-xl text-sm font-bold hover:scale-110 hover:shadow-lg transition-all duration-300 shadow-md border border-white/20 backdrop-blur-sm"
+                  className="group/tech relative bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-600 
+                           text-white px-4 py-2 rounded-xl text-sm font-semibold 
+                           hover:scale-105 hover:shadow-lg hover:shadow-purple-500/30 
+                           transition-all duration-300 shadow-md border border-white/20 
+                           backdrop-blur-sm animate-fade-in overflow-hidden cursor-default"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  {tech}
-                </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover/tech:opacity-100 transition-all duration-500 transform translate-x-[-100%] group-hover/tech:translate-x-[100%]"></div>
+                  <span className="relative z-10">{tech}</span>
+                </div>
               ))}
             </div>
           </div>
         </div>
 
         {/* Key Features */}
-        <div className="mb-10">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-2xl">✨</span>
+        <div className="mb-12">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="relative w-12 h-12 bg-gradient-to-br from-emerald-500 via-teal-600 to-green-600 
+                           rounded-2xl flex items-center justify-center shadow-xl 
+                           hover:shadow-emerald-500/30 transition-all duration-300 hover:scale-110 
+                           hover:rotate-3 group animate-float" 
+                 style={{animationDelay: '1s'}}>
+              <span className="text-xl group-hover:scale-110 transition-transform duration-300">✨</span>
+              <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl"></div>
+              <div className="absolute -inset-1 bg-gradient-to-br from-emerald-500/30 to-teal-500/30 rounded-2xl blur opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
-            <h3 className="title text-2xl font-bold bg-gradient-to-r from-slate-800 to-emerald-700 dark:from-white dark:to-emerald-300 bg-clip-text text-transparent">
-              Key Features
+            <h3 className="title text-2xl md:text-3xl font-bold bg-gradient-to-r from-slate-800 via-emerald-700 to-teal-700 
+                         dark:from-white dark:via-emerald-300 dark:to-teal-300 bg-clip-text text-transparent">
+              Caratteristiche Principali
             </h3>
           </div>
-          <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm p-6 rounded-2xl border border-emerald-200/50 dark:border-emerald-400/30 shadow-lg">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="relative bg-gradient-to-br from-white/80 via-emerald-50/60 to-teal-50/80 
+                         dark:from-gray-800/80 dark:via-emerald-900/60 dark:to-teal-900/80 
+                         backdrop-blur-xl p-8 rounded-2xl border border-emerald-200/50 
+                         dark:border-emerald-500/30 shadow-xl hover:shadow-emerald-500/10 
+                         transition-all duration-300 hover:scale-[1.01] group overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-green-500 rounded-t-2xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/3 via-transparent to-teal-500/3 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-4">
               {details.features.map((feature, index) => (
-                <div key={index} className="flex items-center gap-4 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 p-4 rounded-xl border border-emerald-200 dark:border-emerald-600/30 hover:scale-[1.02] transition-transform duration-300 shadow-sm">
-                  <div className="w-3 h-3 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex-shrink-0 animate-pulse"></div>
-                  <span className="text-slate-700 dark:text-slate-300 text-sm font-semibold">{feature}</span>
+                <div key={index} className="group/feature relative flex items-center gap-3 
+                                          bg-gradient-to-br from-emerald-50/70 via-teal-50/70 to-green-50/70 
+                                          dark:from-emerald-900/30 dark:via-teal-900/30 dark:to-green-900/30 
+                                          p-4 rounded-xl border border-emerald-200/60 
+                                          dark:border-emerald-600/40 hover:scale-[1.02] 
+                                          transition-all duration-300 shadow-md 
+                                          hover:shadow-emerald-500/20 backdrop-blur-sm overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/5 via-transparent to-teal-400/5 opacity-0 group-hover/feature:opacity-100 transition-opacity duration-300"></div>
+                  <div className="relative w-3 h-3 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full 
+                                 flex-shrink-0 animate-pulse shadow-md group-hover/feature:scale-110 
+                                 transition-transform duration-300"></div>
+                  <span className="relative text-slate-700 dark:text-slate-200 text-sm font-semibold group-hover/feature:text-emerald-700 dark:group-hover/feature:text-emerald-300 transition-colors duration-300">{feature}</span>
                 </div>
               ))}
             </div>
@@ -154,56 +226,94 @@ function ProjectModal({ project, onClose }) {
         </div>
 
         {/* Challenges & Learnings */}
-        <div className="grid md:grid-cols-2 gap-6 mb-10">
-          <div className="bg-gradient-to-br from-orange-50 via-red-50 to-pink-50 dark:from-orange-900/20 dark:via-red-900/20 dark:to-pink-900/20 p-8 rounded-2xl border border-orange-200/50 dark:border-orange-600/30 shadow-lg backdrop-blur-sm hover:scale-[1.02] transition-transform duration-300">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-xl">🎯</span>
+        <div className="grid md:grid-cols-2 gap-6 mb-12">
+          <div className="group relative bg-gradient-to-br from-orange-50/80 via-red-50/80 to-pink-50/80 
+                         dark:from-orange-900/30 dark:via-red-900/30 dark:to-pink-900/30 
+                         p-6 rounded-2xl border border-orange-200/60 
+                         dark:border-orange-500/40 shadow-xl backdrop-blur-xl 
+                         hover:scale-[1.02] transition-all duration-300 
+                         hover:shadow-orange-500/20 overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 rounded-t-2xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-400/5 via-transparent to-red-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative z-10">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="relative w-10 h-10 bg-gradient-to-br from-orange-500 via-red-600 to-pink-600 
+                               rounded-xl flex items-center justify-center shadow-lg 
+                               group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                  <span className="text-lg">🎯</span>
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-xl"></div>
+                </div>
+                <h4 className="title text-xl font-bold bg-gradient-to-r from-orange-700 via-red-700 to-pink-700 
+                             dark:from-orange-300 dark:via-red-300 dark:to-pink-300 bg-clip-text text-transparent">
+                  Sfide Affrontate
+                </h4>
               </div>
-              <h4 className="title text-xl font-bold bg-gradient-to-r from-orange-700 to-red-700 dark:from-orange-300 dark:to-red-300 bg-clip-text text-transparent">
-                Challenges
-              </h4>
+              <p className="text-orange-700 dark:text-orange-200 text-base leading-relaxed">
+                {details.challenges}
+              </p>
             </div>
-            <p className="text-orange-700 dark:text-orange-200 text-base leading-relaxed">
-              {details.challenges}
-            </p>
           </div>
-          <div className="bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-green-900/20 dark:via-emerald-900/20 dark:to-teal-900/20 p-8 rounded-2xl border border-green-200/50 dark:border-green-600/30 shadow-lg backdrop-blur-sm hover:scale-[1.02] transition-transform duration-300">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-xl">🌱</span>
+          <div className="group relative bg-gradient-to-br from-green-50/80 via-emerald-50/80 to-teal-50/80 
+                         dark:from-green-900/30 dark:via-emerald-900/30 dark:to-teal-900/30 
+                         p-6 rounded-2xl border border-green-200/60 
+                         dark:border-green-500/40 shadow-xl backdrop-blur-xl 
+                         hover:scale-[1.02] transition-all duration-300 
+                         hover:shadow-green-500/20 overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 rounded-t-2xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-green-400/5 via-transparent to-emerald-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="relative z-10">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="relative w-10 h-10 bg-gradient-to-br from-green-500 via-emerald-600 to-teal-600 
+                               rounded-xl flex items-center justify-center shadow-lg 
+                               group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                  <span className="text-lg">🌱</span>
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-xl"></div>
+                </div>
+                <h4 className="title text-xl font-bold bg-gradient-to-r from-green-700 via-emerald-700 to-teal-700 
+                             dark:from-green-300 dark:via-emerald-300 dark:to-teal-300 bg-clip-text text-transparent">
+                  Competenze Acquisite
+                </h4>
               </div>
-              <h4 className="title text-xl font-bold bg-gradient-to-r from-green-700 to-emerald-700 dark:from-green-300 dark:to-emerald-300 bg-clip-text text-transparent">
-                Learnings
-              </h4>
+              <p className="text-green-700 dark:text-green-200 text-base leading-relaxed">
+                {details.learnings}
+              </p>
             </div>
-            <p className="text-green-700 dark:text-green-200 text-base leading-relaxed">
-              {details.learnings}
-            </p>
           </div>
         </div>
 
         {/* Enhanced Action Buttons */}
-        <div className="flex gap-6">
+        <div className="flex flex-col sm:flex-row gap-4">
           <a
             href={project.demoLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex-1 relative bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white px-8 py-6 rounded-2xl font-bold text-center transition-all duration-500 flex items-center justify-center gap-4 shadow-2xl hover:shadow-purple-500/25 hover:scale-105 transform overflow-hidden border border-white/20"
+            className="group flex-1 relative bg-gradient-to-br from-purple-500 via-indigo-600 to-pink-600 
+                     hover:from-indigo-600 hover:via-purple-600 hover:to-pink-700 
+                     text-white px-6 py-4 rounded-xl font-bold text-center 
+                     transition-all duration-500 flex items-center justify-center gap-3 
+                     shadow-xl hover:shadow-purple-500/30 hover:scale-105 transform overflow-hidden 
+                     border border-white/30 hover:border-white/50 backdrop-blur-sm animate-pulse-glow"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-x-[-100%] group-hover:translate-x-[100%]"></div>
-            <span className="text-2xl group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">🌐</span>
-            <span className="text-lg relative z-10">Live Demo</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-x-[-100%] group-hover:translate-x-[100%]"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-400/10 via-transparent to-pink-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <span className="text-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 relative z-10">🌐</span>
+            <span className="text-lg relative z-10 group-hover:tracking-wide transition-all duration-300">Demo Live</span>
           </a>
           <a
             href={project.githubLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex-1 relative bg-gradient-to-r from-slate-700 via-gray-800 to-slate-900 hover:from-gray-800 hover:via-slate-900 hover:to-black text-white px-8 py-6 rounded-2xl font-bold text-center transition-all duration-500 flex items-center justify-center gap-4 shadow-2xl hover:shadow-gray-500/25 hover:scale-105 transform overflow-hidden border border-white/10"
+            className="group flex-1 relative bg-gradient-to-br from-slate-700 via-gray-800 to-black 
+                     hover:from-gray-800 hover:via-slate-900 hover:to-gray-900 
+                     text-white px-6 py-4 rounded-xl font-bold text-center 
+                     transition-all duration-500 flex items-center justify-center gap-3 
+                     shadow-xl hover:shadow-gray-500/30 hover:scale-105 transform overflow-hidden 
+                     border border-white/20 hover:border-white/40 backdrop-blur-sm"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-x-[-100%] group-hover:translate-x-[100%]"></div>
-            <span className="text-2xl group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">📚</span>
-            <span className="text-lg relative z-10">View Code</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-x-[-100%] group-hover:translate-x-[100%]"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-600/10 via-transparent to-slate-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <span className="text-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 relative z-10">📚</span>
+            <span className="text-lg relative z-10 group-hover:tracking-wide transition-all duration-300">Codice Sorgente</span>
           </a>
         </div>
       </div>
@@ -314,55 +424,39 @@ function ProjectCard({ project, delay, isFeature = false }) {
           </div>
         </DialogTrigger>
       <DialogContent
-  className="max-w-6xl w-[95vw] max-h-[95vh] overflow-y-auto p-0 
-             border-0 bg-transparent shadow-none [&>button]:hidden 
-             scrollbar-thin scrollbar-track-transparent 
-             scrollbar-thumb-purple-500/30 hover:scrollbar-thumb-purple-500/50"
->
-  <div className="relative">
-    {/* Bottone chiusura */}
-    <button
-      onClick={() => setIsModalOpen(false)}
-      className="sticky top-12 right-4 ml-auto z-[200] w-12 h-12 bg-white/90 dark:bg-black/80 
-                 backdrop-blur-xl border border-white/50 dark:border-white/30 
-                 rounded-full flex items-center justify-center text-slate-700 
-                 dark:text-white hover:bg-white dark:hover:bg-black/90 
-                 transition-all duration-300 hover:scale-110 hover:rotate-90 shadow-2xl"
-    >
-      <svg
-        className="w-6 h-6 transition-transform duration-300"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
+        className="max-w-6xl w-[95vw] max-h-[95vh] overflow-y-auto p-0 
+                   border-0 bg-transparent shadow-none [&>button]:hidden 
+                   scrollbar-thin scrollbar-track-transparent 
+                   scrollbar-thumb-purple-500/30 hover:scrollbar-thumb-purple-500/50"
       >
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </button>
+        <div className="relative">
+          {/* Bottone chiusura sticky */}
+          <button
+            onClick={() => setIsModalOpen(false)}
+            className="sticky top-4 right-4 ml-auto z-[200] w-12 h-12 bg-white/95 dark:bg-black/90 
+                       backdrop-blur-xl border border-white/70 dark:border-white/30 
+                       rounded-full flex items-center justify-center text-slate-700 
+                       dark:text-white hover:bg-white dark:hover:bg-black/90 
+                       transition-all duration-300 hover:scale-110 hover:rotate-90 shadow-2xl"
+          >
+            <svg
+              className="w-6 h-6 transition-transform duration-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
 
-    {/* Header + contenuto insieme */}
-    <div className="relative">
-      {/* Header */}
-      <div className="relative h-64 md:h-80 overflow-hidden">
-        <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-transparent to-blue-900/30"></div>
-      </div>
-
-      {/* Contenuto */}
-      <div className="p-8 md:p-10 
-                      bg-gradient-to-br from-slate-50/50 via-white to-purple-50/30 
-                      dark:from-gray-900 dark:via-gray-800 dark:to-purple-950/50 
-                      rounded-b-3xl">
-        <DialogTitle className="sr-only">{project.title} - Project Details</DialogTitle>
-        <DialogDescription className="sr-only">
-          Detailed information about the {project.title} project including features, technologies, and implementation details.
-        </DialogDescription>
-        
-        <ProjectModal project={project} onClose={() => setIsModalOpen(false)} />
-      </div>
-    </div>
-  </div>
-</DialogContent>
+          <DialogTitle className="sr-only">{project.title} - Project Details</DialogTitle>
+          <DialogDescription className="sr-only">
+            Detailed information about the {project.title} project including features, technologies, and implementation details.
+          </DialogDescription>
+          
+          <ProjectModal project={project} onClose={() => setIsModalOpen(false)} />
+        </div>
+      </DialogContent>
 
 
       </Dialog>
