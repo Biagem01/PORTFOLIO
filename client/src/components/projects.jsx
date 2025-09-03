@@ -75,12 +75,12 @@ function ProjectModal({ project, onClose }) {
             {project.title}
           </h2>
           <div className="flex flex-wrap items-center gap-4 text-white">
-            <span className="bg-gradient-to-r from-purple-500/40 to-indigo-500/40 backdrop-blur-xl 
+            <span className="bg-gradient-to-r from-purple-500/60 to-indigo-500/60 
                            px-5 py-2 rounded-xl text-sm font-semibold border border-white/30 
                            shadow-lg hover:scale-102 transition-transform duration-200">
               {details.role}
             </span>
-            <span className="bg-gradient-to-r from-blue-500/40 to-cyan-500/40 backdrop-blur-xl 
+            <span className="bg-gradient-to-r from-blue-500/60 to-cyan-500/60 
                            px-5 py-2 rounded-xl text-sm font-semibold border border-white/30 
                            shadow-lg hover:scale-102 transition-transform duration-200">
               {details.duration}
@@ -162,20 +162,18 @@ function ProjectModal({ project, onClose }) {
                            transition-transform duration-200 hover:scale-105 group">
               <span className="text-xl">✨</span>
               <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl"></div>
-              <div className="absolute -inset-1 bg-gradient-to-br from-emerald-500/30 to-teal-500/30 rounded-2xl blur opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
             <h3 className="title text-2xl md:text-3xl font-bold bg-gradient-to-r from-slate-800 via-emerald-700 to-teal-700 
                          dark:from-white dark:via-emerald-300 dark:to-teal-300 bg-clip-text text-transparent">
               Caratteristiche Principali
             </h3>
           </div>
-          <div className="relative bg-gradient-to-br from-white/80 via-emerald-50/60 to-teal-50/80 
-                         dark:from-gray-800/80 dark:via-emerald-900/60 dark:to-teal-900/80 
-                         backdrop-blur-xl p-8 rounded-2xl border border-emerald-200/50 
+          <div className="relative bg-gradient-to-br from-white/95 via-emerald-50/80 to-teal-50/95 
+                         dark:from-gray-800/95 dark:via-emerald-900/80 dark:to-teal-900/95 
+                         p-8 rounded-2xl border border-emerald-200/50 
                          dark:border-emerald-500/30 shadow-xl hover:shadow-emerald-500/10 
                          transition-all duration-300 hover:scale-[1.01] group overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-green-500 rounded-t-2xl"></div>
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/3 via-transparent to-teal-500/3 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-4">
               {details.features.map((feature, index) => (
                 <div key={index} className="group/feature relative flex items-center gap-3 
@@ -198,16 +196,13 @@ function ProjectModal({ project, onClose }) {
           <div className="group relative bg-gradient-to-br from-orange-50/80 via-red-50/80 to-pink-50/80 
                          dark:from-orange-900/30 dark:via-red-900/30 dark:to-pink-900/30 
                          p-6 rounded-2xl border border-orange-200/60 
-                         dark:border-orange-500/40 shadow-xl backdrop-blur-xl 
-                         hover:scale-[1.02] transition-all duration-300 
-                         hover:shadow-orange-500/20 overflow-hidden">
+                         dark:border-orange-500/40 shadow-xl 
+                         overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 rounded-t-2xl"></div>
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-400/5 via-transparent to-red-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <div className="relative z-10">
               <div className="flex items-center gap-4 mb-4">
                 <div className="relative w-10 h-10 bg-gradient-to-br from-orange-500 via-red-600 to-pink-600 
-                               rounded-xl flex items-center justify-center shadow-lg 
-                               group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                               rounded-xl flex items-center justify-center shadow-lg">
                   <span className="text-lg">🎯</span>
                   <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-xl"></div>
                 </div>
@@ -224,16 +219,13 @@ function ProjectModal({ project, onClose }) {
           <div className="group relative bg-gradient-to-br from-green-50/80 via-emerald-50/80 to-teal-50/80 
                          dark:from-green-900/30 dark:via-emerald-900/30 dark:to-teal-900/30 
                          p-6 rounded-2xl border border-green-200/60 
-                         dark:border-green-500/40 shadow-xl backdrop-blur-xl 
-                         hover:scale-[1.02] transition-all duration-300 
-                         hover:shadow-green-500/20 overflow-hidden">
+                         dark:border-green-500/40 shadow-xl 
+                         overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 rounded-t-2xl"></div>
-            <div className="absolute inset-0 bg-gradient-to-br from-green-400/5 via-transparent to-emerald-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <div className="relative z-10">
               <div className="flex items-center gap-4 mb-4">
                 <div className="relative w-10 h-10 bg-gradient-to-br from-green-500 via-emerald-600 to-teal-600 
-                               rounded-xl flex items-center justify-center shadow-lg 
-                               group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                               rounded-xl flex items-center justify-center shadow-lg">
                   <span className="text-lg">🌱</span>
                   <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-xl"></div>
                 </div>
@@ -307,6 +299,25 @@ function ProjectCard({ project, delay, isFeature = false }) {
     if (wrapperRef.current) observer.observe(wrapperRef.current);
     return () => observer.disconnect();
   }, [delay]);
+
+  // Body scroll lock when modal is open
+  useEffect(() => {
+    if (isModalOpen) {
+      // Prevent body scroll
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = '0px'; // Prevent layout shift
+    } else {
+      // Restore body scroll
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    };
+  }, [isModalOpen]);
 
   // Mouse effects completely disabled for maximum performance
 
@@ -389,18 +400,17 @@ function ProjectCard({ project, delay, isFeature = false }) {
       <DialogContent
         className="max-w-6xl w-[95vw] max-h-[95vh] overflow-y-auto p-0 
                    border-0 bg-transparent shadow-none [&>button]:hidden 
-                   scrollbar-thin scrollbar-track-transparent 
-                   scrollbar-thumb-purple-500/30 hover:scrollbar-thumb-purple-500/50"
+                   animate-in fade-in-0 zoom-in-95 duration-300"
       >
         <div className="relative">
           {/* Bottone chiusura sticky */}
           <button
             onClick={() => setIsModalOpen(false)}
             className="sticky top-4 right-4 ml-auto z-[200] w-12 h-12 bg-white/95 dark:bg-black/90 
-                       backdrop-blur-xl border border-white/70 dark:border-white/30 
+                       border border-white/70 dark:border-white/30 
                        rounded-full flex items-center justify-center text-slate-700 
                        dark:text-white hover:bg-white dark:hover:bg-black/90 
-                       transition-all duration-300 hover:scale-110 hover:rotate-90 shadow-2xl"
+                       transition-all duration-200 hover:scale-105 shadow-lg"
           >
             <svg
               className="w-6 h-6 transition-transform duration-300"
