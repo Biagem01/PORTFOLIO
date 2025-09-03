@@ -1,0 +1,72 @@
+1. Troppi effetti animati contemporaneamente
+
+Hai decine di @keyframes e classi animate come:
+
+float, floatBeautiful, floating-particles
+
+gradientShift, gradient-animation, gradient-cosmic
+
+pulse-glow, glow-pulse
+
+shimmer, text-shimmer
+
+breathe, sparkle, magnetic-hover, morphing-card
+
+Ogni animazione, soprattutto su sfondi complessi o elementi grandi, fa lavorare molto la GPU. Se più di 10-15 elementi animati sono visibili contemporaneamente, il browser va in tilt, soprattutto in locale.
+
+Soluzione:
+
+Usa animazioni solo quando servono, e possibilmente solo su elementi piccoli (icona, badge, testo) invece di sezioni intere.
+
+Usa transform e opacity nelle animazioni, evitando top/left/width/height che causano reflow costosi.
+
+Considera di disattivare animazioni in dark mode o sui dispositivi più lenti.
+
+2. Gradienti animati su grandi aree
+
+Classi come gradientShift applicate a body, sezioni o card grandi: cambiare background-position di grandi sfondi è pesantissimo.
+
+Soluzione:
+
+Limitare l’uso dei gradienti animati alle aree piccole.
+
+Ridurre il background-size da 400% a 200% se possibile.
+
+Oppure sostituire con un’immagine statica o gradienti più semplici.
+
+3. Glassmorphism e backdrop-filter
+
+Hai moltissime card e elementi con:
+
+backdrop-filter: blur(20px);
+
+
+Questo è noto per rallentare parecchio il rendering, perché il browser deve fare il blur dell’intero contenuto sottostante in tempo reale.
+
+Soluzione:
+
+Ridurre il blur (es. da 30px → 10px).
+
+Limitare il numero di card visibili contemporaneamente con glass effect.
+
+Considerare un fallback senza blur su mobile/locale.
+
+4. Floating elements assoluti
+
+Le pseudo-classi ::before e ::after animate con float su interi contenitori generano costante repaint, peggiorando il lag.
+
+Soluzione:
+
+Limitare il numero di pseudo-elementi animati.
+
+Assicurati di avere will-change: transform; (già fatto, bene), ma considera di ridurre la frequenza e la distanza del movimento.
+
+5. Suggerimenti generali
+
+Usa requestAnimationFrame se alcune animazioni sono controllate da JS.
+
+Controlla le immagini grandi: anche background-image troppo grandi causano lag.
+
+Testa con Chrome DevTools → Performance: puoi vedere quali animazioni o elementi consumano più FPS.
+
+Considera lazy loading: carica immagini, video o sezioni solo quando entrano nella viewport.
