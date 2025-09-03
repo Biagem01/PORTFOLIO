@@ -115,12 +115,12 @@ export default function LoadingScreen() {
           ))}
         </div>
 
-        {/* Rotating tech icons */}
+        {/* Rotating social icons */}
         <div className="absolute -bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-8 animate-pulse">
-          <div className="text-3xl animate-spin" style={{ animationDuration: '3s' }}>⚛️</div>
-          <div className="text-3xl animate-spin" style={{ animationDuration: '4s', animationDirection: 'reverse' }}>🚀</div>
-          <div className="text-3xl animate-spin" style={{ animationDuration: '5s' }}>💻</div>
-          <div className="text-3xl animate-spin" style={{ animationDuration: '3.5s', animationDirection: 'reverse' }}>🎨</div>
+          <div className="text-3xl animate-spin" style={{ animationDuration: '3s' }}>📷</div>
+          <div className="text-3xl animate-spin" style={{ animationDuration: '4s', animationDirection: 'reverse' }}>📚</div>
+          <div className="text-3xl animate-spin" style={{ animationDuration: '5s' }}>💼</div>
+          <div className="text-3xl animate-spin" style={{ animationDuration: '3.5s', animationDirection: 'reverse' }}>🌐</div>
         </div>
       </div>
     </div>
