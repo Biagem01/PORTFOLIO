@@ -255,7 +255,7 @@ function ProjectModal({ project, onClose }) {
                      border border-white/30"
           >
             <span className="text-2xl relative z-10">🌐</span>
-            <span className="text-lg relative z-10">Demo Live</span>
+            <span className="text-lg relative z-10 group-hover:tracking-wide transition-all duration-300">Demo Live</span>
           </a>
           <a
             href={project.githubLink}
@@ -269,7 +269,7 @@ function ProjectModal({ project, onClose }) {
                      border border-white/20"
           >
             <span className="text-2xl relative z-10">📚</span>
-            <span className="text-lg relative z-10">Codice Sorgente</span>
+             <span className="text-lg relative z-10 group-hover:tracking-wide transition-all duration-300">Codice Sorgente</span>
           </a>
         </div>
       </div>
@@ -398,19 +398,20 @@ function ProjectCard({ project, delay, isFeature = false }) {
           </div>
         </DialogTrigger>
       <DialogContent
-        className="max-w-6xl w-[95vw] max-h-[95vh] overflow-y-auto p-0 
-                   border-0 bg-transparent shadow-none [&>button]:hidden 
-                   animate-in fade-in-0 zoom-in-95 duration-300"
-      >
+         className="max-w-6xl w-[95vw] max-h-[95vh] overflow-y-auto p-0 
+             border-0 bg-transparent shadow-none [&>button]:hidden 
+             scrollbar-thin scrollbar-track-transparent 
+             scrollbar-thumb-purple-500/30 hover:scrollbar-thumb-purple-500/50"
+>
         <div className="relative">
           {/* Bottone chiusura sticky */}
           <button
             onClick={() => setIsModalOpen(false)}
-            className="sticky top-4 right-4 ml-auto z-[200] w-12 h-12 bg-white/95 dark:bg-black/90 
-                       border border-white/70 dark:border-white/30 
+             className="sticky top-4 right-4 ml-auto z-[200] w-12 h-12 bg-white/90 dark:bg-black/90 
+                       backdrop-blur-xl border border-white/70 dark:border-white/30 
                        rounded-full flex items-center justify-center text-slate-700 
                        dark:text-white hover:bg-white dark:hover:bg-black/90 
-                       transition-all duration-200 hover:scale-105 shadow-lg"
+                       transition-all duration-300 hover:scale-110 hover:rotate-90 shadow-2xl"
           >
             <svg
               className="w-6 h-6 transition-transform duration-300"
