@@ -53,16 +53,10 @@ function ProjectModal({ project, onClose }) {
   return (
     <div className="relative bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-2xl border border-purple-200/30 dark:border-purple-400/20 backdrop-blur-xl">
       {/* Sticky Close Button */}
-      <div className="sticky top-0 z-[70] flex justify-end p-4 bg-gradient-to-b from-white/95 to-transparent dark:from-gray-900/95 dark:to-transparent backdrop-blur-sm">
-        <button
-          onClick={onClose}
-          className="w-12 h-12 bg-white/90 dark:bg-black/80 backdrop-blur-xl border border-white/50 dark:border-white/30 rounded-full flex items-center justify-center text-slate-700 dark:text-white hover:bg-white dark:hover:bg-black/90 transition-all duration-300 hover:scale-110 hover:rotate-90 shadow-2xl group"
-        >
-          <svg className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
+      {/* Close Button sempre fisso */}
+    {/* Sticky Close Button */}
+
+
 
       {/* Enhanced Header with Image */}
       <div className="relative h-64 md:h-80 overflow-hidden">
@@ -319,11 +313,58 @@ function ProjectCard({ project, delay, isFeature = false }) {
             </div>
           </div>
         </DialogTrigger>
-        <DialogContent className="max-w-6xl w-[95vw] max-h-[95vh] overflow-y-auto p-0 border-0 bg-transparent shadow-none [&>button]:hidden scrollbar-thin scrollbar-track-transparent scrollbar-thumb-purple-500/30 hover:scrollbar-thumb-purple-500/50">
-          <DialogTitle className="sr-only">{project.title} - Project Details</DialogTitle>
-          <DialogDescription className="sr-only">Detailed information about the {project.title} project including features, technologies, and implementation details.</DialogDescription>
-          <ProjectModal project={project} onClose={() => setIsModalOpen(false)} />
-        </DialogContent>
+      <DialogContent
+  className="max-w-6xl w-[95vw] max-h-[95vh] overflow-y-auto p-0 
+             border-0 bg-transparent shadow-none [&>button]:hidden 
+             scrollbar-thin scrollbar-track-transparent 
+             scrollbar-thumb-purple-500/30 hover:scrollbar-thumb-purple-500/50"
+>
+  <div className="relative">
+    {/* Bottone chiusura */}
+    <button
+      onClick={() => setIsModalOpen(false)}
+      className="sticky top-12 right-4 ml-auto z-[200] w-12 h-12 bg-white/90 dark:bg-black/80 
+                 backdrop-blur-xl border border-white/50 dark:border-white/30 
+                 rounded-full flex items-center justify-center text-slate-700 
+                 dark:text-white hover:bg-white dark:hover:bg-black/90 
+                 transition-all duration-300 hover:scale-110 hover:rotate-90 shadow-2xl"
+    >
+      <svg
+        className="w-6 h-6 transition-transform duration-300"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    {/* Header + contenuto insieme */}
+    <div className="relative">
+      {/* Header */}
+      <div className="relative h-64 md:h-80 overflow-hidden">
+        <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-transparent to-blue-900/30"></div>
+      </div>
+
+      {/* Contenuto */}
+      <div className="p-8 md:p-10 
+                      bg-gradient-to-br from-slate-50/50 via-white to-purple-50/30 
+                      dark:from-gray-900 dark:via-gray-800 dark:to-purple-950/50 
+                      rounded-b-3xl">
+        <DialogTitle className="sr-only">{project.title} - Project Details</DialogTitle>
+        <DialogDescription className="sr-only">
+          Detailed information about the {project.title} project including features, technologies, and implementation details.
+        </DialogDescription>
+        
+        <ProjectModal project={project} onClose={() => setIsModalOpen(false)} />
+      </div>
+    </div>
+  </div>
+</DialogContent>
+
+
       </Dialog>
     </div>
   );
