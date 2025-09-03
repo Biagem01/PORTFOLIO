@@ -52,15 +52,17 @@ function ProjectModal({ project, onClose }) {
 
   return (
     <div className="relative bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-2xl border border-purple-200/30 dark:border-purple-400/20 backdrop-blur-xl">
-      {/* Fixed Close Button */}
-      <button
-        onClick={onClose}
-        className="fixed top-6 right-6 z-[60] w-12 h-12 bg-white/90 dark:bg-black/80 backdrop-blur-xl border border-white/50 dark:border-white/30 rounded-full flex items-center justify-center text-slate-700 dark:text-white hover:bg-white dark:hover:bg-black/90 transition-all duration-300 hover:scale-110 hover:rotate-90 shadow-2xl group"
-      >
-        <svg className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
+      {/* Sticky Close Button */}
+      <div className="sticky top-0 z-[70] flex justify-end p-4 bg-gradient-to-b from-white/95 to-transparent dark:from-gray-900/95 dark:to-transparent backdrop-blur-sm">
+        <button
+          onClick={onClose}
+          className="w-12 h-12 bg-white/90 dark:bg-black/80 backdrop-blur-xl border border-white/50 dark:border-white/30 rounded-full flex items-center justify-center text-slate-700 dark:text-white hover:bg-white dark:hover:bg-black/90 transition-all duration-300 hover:scale-110 hover:rotate-90 shadow-2xl group"
+        >
+          <svg className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
 
       {/* Enhanced Header with Image */}
       <div className="relative h-64 md:h-80 overflow-hidden">
