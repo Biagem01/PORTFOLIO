@@ -157,34 +157,31 @@ function ProjectModal({ project, onClose }) {
         {/* Key Features */}
         <div className="mb-12">
           <div className="flex items-center gap-4 mb-6">
-            <div className="relative w-12 h-12 bg-gradient-to-br from-emerald-500 via-teal-600 to-green-600 
-                           rounded-2xl flex items-center justify-center shadow-xl 
-                           transition-transform duration-200 hover:scale-105 group">
+            <div className="relative w-12 h-12 bg-gradient-to-br from-blue-500 via-purple-600 to-indigo-600 
+                           rounded-2xl flex items-center justify-center shadow-lg 
+                           transition-transform duration-200 group">
               <span className="text-xl">✨</span>
               <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl"></div>
             </div>
-            <h3 className="title text-2xl md:text-3xl font-bold bg-gradient-to-r from-slate-800 via-emerald-700 to-teal-700 
-                         dark:from-white dark:via-emerald-300 dark:to-teal-300 bg-clip-text text-transparent">
+            <h3 className="title text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 
+                         dark:from-blue-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
               Caratteristiche Principali
             </h3>
           </div>
-          <div className="relative bg-gradient-to-br from-white/95 via-emerald-50/80 to-teal-50/95 
-                         dark:from-gray-800/95 dark:via-emerald-900/80 dark:to-teal-900/95 
-                         p-8 rounded-2xl border border-emerald-200/50 
-                         dark:border-emerald-500/30 shadow-xl hover:shadow-emerald-500/10 
-                         transition-all duration-300 hover:scale-[1.01] group overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 via-teal-500 to-green-500 rounded-t-2xl"></div>
+          <div className="relative card-modern p-8 rounded-2xl border border-slate-200/50 
+                         dark:border-slate-600/30 shadow-lg group overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-500 rounded-t-2xl"></div>
             <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-4">
               {details.features.map((feature, index) => (
                 <div key={index} className="group/feature relative flex items-center gap-3 
-                                          bg-gradient-to-br from-emerald-50/70 via-teal-50/70 to-green-50/70 
-                                          dark:from-emerald-900/30 dark:via-teal-900/30 dark:to-green-900/30 
-                                          p-4 rounded-xl border border-emerald-200/60 
-                                          dark:border-emerald-600/40 hover:scale-[1.01] 
-                                          transition-transform duration-200 shadow-md overflow-hidden">
-                  <div className="relative w-3 h-3 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full 
-                                 flex-shrink-0 shadow-md"></div>
-                  <span className="relative text-slate-700 dark:text-slate-200 text-sm font-semibold">{feature}</span>
+                                          bg-gradient-to-br from-slate-50/70 via-blue-50/70 to-purple-50/70 
+                                          dark:from-slate-800/50 dark:via-blue-900/30 dark:to-purple-900/30 
+                                          p-4 rounded-xl border border-slate-200/60 
+                                          dark:border-slate-600/40 hover:scale-[1.005] 
+                                          transition-transform duration-200 shadow-sm overflow-hidden">
+                  <div className="relative w-3 h-3 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full 
+                                 flex-shrink-0 shadow-sm"></div>
+                  <span className="relative text-slate-700 dark:text-slate-300 text-sm font-medium">{feature}</span>
                 </div>
               ))}
             </div>
@@ -193,48 +190,44 @@ function ProjectModal({ project, onClose }) {
 
         {/* Challenges & Learnings */}
         <div className="grid md:grid-cols-2 gap-6 mb-12">
-          <div className="group relative bg-gradient-to-br from-orange-50/80 via-red-50/80 to-pink-50/80 
-                         dark:from-orange-900/30 dark:via-red-900/30 dark:to-pink-900/30 
-                         p-6 rounded-2xl border border-orange-200/60 
-                         dark:border-orange-500/40 shadow-xl 
+          <div className="group relative card-modern p-6 rounded-2xl border border-slate-200/60 
+                         dark:border-slate-600/40 shadow-lg 
                          overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 rounded-t-2xl"></div>
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-slate-500 via-blue-500 to-purple-500 rounded-t-2xl"></div>
             <div className="relative z-10">
               <div className="flex items-center gap-4 mb-4">
-                <div className="relative w-10 h-10 bg-gradient-to-br from-orange-500 via-red-600 to-pink-600 
+                <div className="relative w-10 h-10 bg-gradient-to-br from-slate-500 via-blue-600 to-purple-600 
                                rounded-xl flex items-center justify-center shadow-lg">
                   <span className="text-lg">🎯</span>
                   <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-xl"></div>
                 </div>
-                <h4 className="title text-xl font-bold bg-gradient-to-r from-orange-700 via-red-700 to-pink-700 
-                             dark:from-orange-300 dark:via-red-300 dark:to-pink-300 bg-clip-text text-transparent">
+                <h4 className="title text-xl font-bold bg-gradient-to-r from-slate-700 via-blue-700 to-purple-700 
+                             dark:from-slate-300 dark:via-blue-300 dark:to-purple-300 bg-clip-text text-transparent">
                   Sfide Affrontate
                 </h4>
               </div>
-              <p className="text-orange-700 dark:text-orange-200 text-base leading-relaxed">
+              <p className="text-slate-600 dark:text-slate-300 text-base leading-relaxed">
                 {details.challenges}
               </p>
             </div>
           </div>
-          <div className="group relative bg-gradient-to-br from-green-50/80 via-emerald-50/80 to-teal-50/80 
-                         dark:from-green-900/30 dark:via-emerald-900/30 dark:to-teal-900/30 
-                         p-6 rounded-2xl border border-green-200/60 
-                         dark:border-green-500/40 shadow-xl 
+          <div className="group relative card-modern p-6 rounded-2xl border border-slate-200/60 
+                         dark:border-slate-600/40 shadow-lg 
                          overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 rounded-t-2xl"></div>
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 rounded-t-2xl"></div>
             <div className="relative z-10">
               <div className="flex items-center gap-4 mb-4">
-                <div className="relative w-10 h-10 bg-gradient-to-br from-green-500 via-emerald-600 to-teal-600 
+                <div className="relative w-10 h-10 bg-gradient-to-br from-purple-500 via-indigo-600 to-blue-600 
                                rounded-xl flex items-center justify-center shadow-lg">
                   <span className="text-lg">🌱</span>
                   <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-xl"></div>
                 </div>
-                <h4 className="title text-xl font-bold bg-gradient-to-r from-green-700 via-emerald-700 to-teal-700 
-                             dark:from-green-300 dark:via-emerald-300 dark:to-teal-300 bg-clip-text text-transparent">
+                <h4 className="title text-xl font-bold bg-gradient-to-r from-purple-700 via-indigo-700 to-blue-700 
+                             dark:from-purple-300 dark:via-indigo-300 dark:to-blue-300 bg-clip-text text-transparent">
                   Competenze Acquisite
                 </h4>
               </div>
-              <p className="text-green-700 dark:text-green-200 text-base leading-relaxed">
+              <p className="text-slate-600 dark:text-slate-300 text-base leading-relaxed">
                 {details.learnings}
               </p>
             </div>
@@ -250,12 +243,12 @@ function ProjectModal({ project, onClose }) {
             className="group flex-1 relative bg-gradient-to-br from-purple-500 via-indigo-600 to-pink-600 
                      hover:from-indigo-600 hover:via-purple-600 hover:to-pink-700 
                      text-white px-6 py-4 rounded-xl font-bold text-center 
-                     transition-all duration-300 flex items-center justify-center gap-3 
-                     shadow-xl hover:scale-102 transform overflow-hidden 
+                     transition-all duration-200 flex items-center justify-center gap-3 
+                     shadow-lg hover:scale-101 transform overflow-hidden 
                      border border-white/30"
           >
             <span className="text-2xl relative z-10">🌐</span>
-            <span className="text-lg relative z-10 group-hover:tracking-wide transition-all duration-300">Demo Live</span>
+            <span className="title text-lg relative z-10">Demo Live</span>
           </a>
           <a
             href={project.githubLink}
@@ -264,12 +257,12 @@ function ProjectModal({ project, onClose }) {
             className="group flex-1 relative bg-gradient-to-br from-slate-700 via-gray-800 to-black 
                      hover:from-gray-800 hover:via-slate-900 hover:to-gray-900 
                      text-white px-6 py-4 rounded-xl font-bold text-center 
-                     transition-all duration-300 flex items-center justify-center gap-3 
-                     shadow-xl hover:scale-102 transform overflow-hidden 
+                     transition-all duration-200 flex items-center justify-center gap-3 
+                     shadow-lg hover:scale-101 transform overflow-hidden 
                      border border-white/20"
           >
             <span className="text-2xl relative z-10">📚</span>
-             <span className="text-lg relative z-10 group-hover:tracking-wide transition-all duration-300">Codice Sorgente</span>
+            <span className="title text-lg relative z-10">Codice Sorgente</span>
           </a>
         </div>
       </div>
@@ -398,20 +391,20 @@ function ProjectCard({ project, delay, isFeature = false }) {
           </div>
         </DialogTrigger>
       <DialogContent
-         className="max-w-6xl w-[95vw] max-h-[95vh] overflow-y-auto p-0 
-             border-0 bg-transparent shadow-none [&>button]:hidden 
-             scrollbar-thin scrollbar-track-transparent 
-             scrollbar-thumb-purple-500/30 hover:scrollbar-thumb-purple-500/50"
->
+        className="max-w-6xl w-[95vw] max-h-[95vh] overflow-y-auto p-0 
+                   border-0 bg-transparent shadow-none [&>button]:hidden 
+                   scrollbar-thin scrollbar-track-transparent 
+                   scrollbar-thumb-purple-500/30 hover:scrollbar-thumb-purple-500/50"
+      >
         <div className="relative">
           {/* Bottone chiusura sticky */}
           <button
             onClick={() => setIsModalOpen(false)}
-             className="sticky top-4 right-4 ml-auto z-[200] w-12 h-12 bg-white/90 dark:bg-black/90 
-                       backdrop-blur-xl border border-white/70 dark:border-white/30 
+            className="sticky top-4 right-4 ml-auto z-[200] w-12 h-12 bg-white/95 dark:bg-black/90 
+                       border border-white/70 dark:border-white/30 
                        rounded-full flex items-center justify-center text-slate-700 
                        dark:text-white hover:bg-white dark:hover:bg-black/90 
-                       transition-all duration-300 hover:scale-110 hover:rotate-90 shadow-2xl"
+                       transition-all duration-200 hover:scale-105 shadow-lg"
           >
             <svg
               className="w-6 h-6 transition-transform duration-300"
