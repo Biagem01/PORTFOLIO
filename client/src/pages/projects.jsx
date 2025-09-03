@@ -185,9 +185,9 @@ export default function ProjectsPage() {
       <AnimatedBackground />
       {/* Background animato con forme geometriche */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-10 w-64 h-64 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-60 right-20 w-96 h-96 bg-gradient-to-r from-blue-400/10 to-indigo-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-gradient-to-r from-teal-400/10 to-cyan-400/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
+        <div className="absolute top-20 left-10 w-24 h-24 bg-gradient-to-r from-purple-400/5 to-pink-400/5 rounded-full blur-xl"></div>
+        <div className="absolute top-60 right-20 w-24 h-24 bg-gradient-to-r from-blue-400/5 to-indigo-400/5 rounded-full blur-xl"></div>
+        <div className="absolute bottom-20 left-1/3 w-24 h-24 bg-gradient-to-r from-teal-400/5 to-cyan-400/5 rounded-full blur-xl"></div>
       </div>
       
       {/* Pattern decorativo */}

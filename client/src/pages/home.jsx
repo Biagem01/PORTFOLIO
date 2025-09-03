@@ -40,15 +40,15 @@ export default function Home() {
       <div className="absolute inset-0 overflow-hidden">
         {/* Massive cosmic blobs layer 1 */}
         <div className="absolute top-1/4 left-1/4 w-96 h-96 gradient-cosmic opacity-20 blur-3xl"></div>
-        <div className="absolute top-3/4 right-1/4 w-80 h-80 gradient-sunset opacity-25 blur-3xl"></div>
+        <div className="absolute top-3/4 right-1/4 w-32 h-32 gradient-sunset opacity-25 blur-xl"></div>
         <div className="absolute top-1/2 right-1/3 w-64 h-64 gradient-ocean opacity-30 blur-3xl"></div>
         <div className="absolute bottom-1/4 left-1/3 w-72 h-72 gradient-ethereal opacity-20 blur-3xl"></div>
         
         {/* Additional mega blobs layer 2 */}
-        <div className="absolute top-10 right-10 w-80 h-80 gradient-royal opacity-15 blur-2xl"></div>
-        <div className="absolute bottom-10 left-10 w-96 h-96 gradient-cosmic opacity-15 blur-3xl"></div>
+        <div className="absolute top-10 right-10 w-32 h-32 gradient-royal opacity-15 blur-xl"></div>
+        <div className="absolute bottom-10 left-10 w-32 h-32 gradient-cosmic opacity-15 blur-xl"></div>
         <div className="absolute top-1/3 left-1/2 w-64 h-64 gradient-sunset opacity-20 blur-3xl"></div>
-        <div className="absolute bottom-1/3 right-1/2 w-88 h-88 gradient-ocean opacity-20 blur-2xl"></div>
+        <div className="absolute bottom-1/3 right-1/2 w-32 h-32 gradient-ocean opacity-20 blur-xl"></div>
         
         {/* Medium floating blobs layer 3 */}
         <div className="absolute top-16 left-1/3 w-48 h-48 gradient-ethereal opacity-25 blur-xl"></div>
@@ -79,8 +79,7 @@ export default function Home() {
         <div className="absolute top-3/4 left-1/3 w-4 h-4 gradient-sunset animate-small rounded-full sparkle" style={{ animationDelay: "2.7s" }}></div>
         <div className="absolute bottom-3/4 right-1/3 w-6 h-6 gradient-ocean animate-small rounded-full breathe shadow-ethereal" style={{ animationDelay: "1.2s" }}></div>
 
-        {/* Multi-layer aurora backgrounds */}
-        <div className="absolute inset-0 aurora-bg opacity-40"></div>
+        {/* RIMOSSO aurora-bg su inset-0 - troppo pesante per performance */}
 
         {/* Enhanced cosmic grid with moving pattern */}
         <div className="absolute inset-0 opacity-[0.05]">

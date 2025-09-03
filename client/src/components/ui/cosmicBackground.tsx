@@ -3,9 +3,9 @@ export default function CosmicBackground() {
     <div className="absolute inset-0 overflow-hidden -z-10">
       {/* Large floating cosmic blobs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 gradient-cosmic opacity-20 blur-3xl"></div>
-      <div className="absolute top-3/4 right-1/4 w-80 h-80 gradient-sunset opacity-25 float-beautiful blur-3xl" style={{ animationDelay: "1s" }}></div>
-      <div className="absolute top-1/2 right-1/3 w-64 h-64 gradient-ocean opacity-30 breathe blur-3xl" style={{ animationDelay: "2s" }}></div>
-      <div className="absolute bottom-1/4 left-1/3 w-72 h-72 gradient-ethereal opacity-20 sparkle blur-3xl" style={{ animationDelay: "3s" }}></div>
+      <div className="absolute top-3/4 right-1/4 w-80 h-80 gradient-sunset opacity-25 blur-3xl"></div>
+      <div className="absolute top-1/2 right-1/3 w-64 h-64 gradient-ocean opacity-30 blur-3xl"></div>
+      <div className="absolute bottom-1/4 left-1/3 w-72 h-72 gradient-ethereal opacity-20 blur-3xl"></div>
 
       {/* Sparkle particles */}
       <div className="absolute top-32 left-1/4 w-6 h-6 gradient-cosmic animate-small rounded-full sparkle shadow-cosmic"></div>
@@ -15,7 +15,7 @@ export default function CosmicBackground() {
       <div className="absolute bottom-1/3 right-1/5 w-7 h-7 gradient-ethereal rounded-full float-beautiful" style={{ animationDelay: "3s" }}></div>
 
       {/* Aurora background */}
-      <div className="absolute inset-0 aurora-bg opacity-30"></div>
+      {/* RIMOSSO aurora-bg su inset-0 - troppo pesante per performance */}
 
       {/* Subtle cosmic grid */}
       <div className="absolute inset-0 opacity-[0.03]">

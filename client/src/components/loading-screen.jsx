@@ -56,7 +56,7 @@ export default function LoadingScreen() {
       {/* Floating orbs */}
       <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl animate-pulse"></div>
       <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-gradient-to-r from-indigo-500/20 to-cyan-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-xl" style={{ animationDelay: '2s' }}></div>
 
       <div className="text-center space-y-12 relative z-10">
         {/* Enhanced logo */}
@@ -88,7 +88,7 @@ export default function LoadingScreen() {
           
           {/* Enhanced progress bar */}
           <div className="relative">
-            <div className="w-96 h-3 bg-slate-800/50 rounded-full overflow-hidden backdrop-blur-sm border border-slate-700/50">
+            <div className="w-80 h-3 bg-slate-800/50 rounded-full overflow-hidden border border-slate-700/50">
               <div 
                 className="h-full bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 rounded-full transition-all duration-300 relative overflow-hidden"
                 style={{ width: `${progress}%` }}

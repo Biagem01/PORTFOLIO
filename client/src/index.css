@@ -129,25 +129,22 @@
 /* Dark mode specific styles */
 .dark .glass-ultra {
   background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(3px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   will-change: transform;
   backface-visibility: hidden;
 }
 
+/* COMPLETAMENTE DISABILITATO - aurora-bg su inset-0 è troppo pesante */
 .dark .aurora-bg {
   background: linear-gradient(45deg, 
-    rgba(59, 130, 246, 0.15) 0%,
-    rgba(147, 51, 234, 0.15) 25%,
-    rgba(6, 182, 212, 0.15) 50%,
-    rgba(16, 185, 129, 0.15) 75%,
-    rgba(59, 130, 246, 0.15) 100%);
-  background-size: 250% 250%;
-  animation: gradientShift 15s ease infinite;
-  will-change: background-position;
-  backface-visibility: hidden;
-  transform: translateZ(0);
+    rgba(59, 130, 246, 0.08) 0%,
+    rgba(147, 51, 234, 0.08) 25%,
+    rgba(6, 182, 212, 0.08) 50%,
+    rgba(16, 185, 129, 0.08) 75%,
+    rgba(59, 130, 246, 0.08) 100%);
+  /* ANIMAZIONE COMPLETAMENTE RIMOSSA PER PERFORMANCE */
 }
 
 .dark .text-shimmer {
@@ -370,29 +367,55 @@
   }
 }
 
-/* Extreme performance mode for older devices */
+/* Extreme performance mode for mobile devices */
 @media (max-width: 768px) {
+  /* Completely remove all glass effects */
   .glass-ultra,
   .glass-card-enhanced,
   .glass-card,
-  .glass-effect {
+  .glass-effect,
+  .glass-morphism {
     backdrop-filter: none !important;
-    background: rgba(255, 255, 255, 0.9) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
   }
   
   .dark .glass-ultra,
   .dark .glass-card-enhanced,
   .dark .glass-card,
-  .dark .glass-effect {
-    background: rgba(30, 41, 59, 0.9) !important;
+  .dark .glass-effect,
+  .dark .glass-morphism {
+    background: rgba(30, 41, 59, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
   }
   
-  /* Disable all gradient animations on small screens */
+  /* Disable ALL animations on mobile */
   .gradient-animation,
+  .gradient-animation.animate-small,
   .text-gradient-animated,
   .text-shimmer,
-  .dark .text-shimmer {
+  .dark .text-shimmer,
+  .animate-float,
+  .animate-pulse-slow,
+  .animate-bounce-slow,
+  .float-beautiful,
+  .breathe,
+  .sparkle,
+  .glow-pulse {
     animation: none !important;
+  }
+  
+  /* Remove will-change on mobile to save memory */
+  * {
+    will-change: auto !important;
+  }
+  
+  /* Static gradients only */
+  .gradient-vibrant,
+  .gradient-cosmic,
+  .gradient-cosmic-enhanced {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    background-size: 100% 100% !important;
   }
 }
 
@@ -415,7 +438,7 @@
 .tech-badge {
   background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
   border: 1px solid rgba(147, 51, 234, 0.2);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(3px);
   will-change: transform;
   backface-visibility: hidden;
 }
@@ -477,7 +500,7 @@
 /* Dark mode navbar */
 .dark .glass-effect {
   background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(4px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   will-change: transform;
   backface-visibility: hidden;
@@ -581,7 +604,7 @@
 
   .glass-effect {
     background: var(--glass-bg);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(4px);
     border: 1px solid var(--glass-border);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     will-change: transform;
@@ -590,7 +613,7 @@
 
   .glass-card {
     background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(4px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     will-change: transform;
@@ -647,7 +670,7 @@
   .skill-tag {
     background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
     border: 1px solid rgba(59, 130, 246, 0.2);
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(3px);
     transition: all 0.3s ease;
     will-change: transform;
     backface-visibility: hidden;
@@ -787,7 +810,7 @@
 /* Enhanced glass effects */
 .glass-card-enhanced {
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 
     0 8px 32px rgba(0, 0, 0, 0.1),
@@ -803,18 +826,15 @@
     0 0 15px rgba(59, 130, 246, 0.2);
 }
 
+/* COMPLETAMENTE DISABILITATO - aurora-bg su inset-0 è troppo pesante */
 .aurora-bg {
   background: linear-gradient(45deg, 
-    rgba(59, 130, 246, 0.1) 0%,
-    rgba(147, 51, 234, 0.1) 25%,
-    rgba(6, 182, 212, 0.1) 50%,
-    rgba(16, 185, 129, 0.1) 75%,
-    rgba(59, 130, 246, 0.1) 100%);
-  background-size: 250% 250%;
-  animation: gradientShift 15s ease infinite;
-  will-change: background-position;
-  backface-visibility: hidden;
-  transform: translateZ(0);
+    rgba(59, 130, 246, 0.05) 0%,
+    rgba(147, 51, 234, 0.05) 25%,
+    rgba(6, 182, 212, 0.05) 50%,
+    rgba(16, 185, 129, 0.05) 75%,
+    rgba(59, 130, 246, 0.05) 100%);
+  /* ANIMAZIONE COMPLETAMENTE RIMOSSA PER PERFORMANCE */
 }
 
 /* Ultra Beautiful Gradients */
@@ -841,7 +861,7 @@
 /* Enhanced Glass Effects */
 .glass-ultra {
   background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 
     0 20px 40px rgba(0, 0, 0, 0.1),
@@ -1130,7 +1150,7 @@
 
 .animate-border-content {
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(5px);
   border-radius: calc(1rem - 3px);
   padding: 1.5rem;
 }
@@ -1171,7 +1191,7 @@
 /* Enhanced glass morphism */
 .glass-morphism {
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(3px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
