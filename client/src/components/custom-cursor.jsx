@@ -5,8 +5,16 @@ export default function CustomCursor() {
   const [isPointer, setIsPointer] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
+    
     const updateMousePosition = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setMousePosition({ x: e.clientX, y: e.clientY });
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     const updateCursorType = (e) => {
@@ -32,8 +40,9 @@ export default function CustomCursor() {
           isPointer ? 'scale-150' : 'scale-100'
         }`}
         style={{
-          transform: `translate(${mousePosition.x - 12}px, ${mousePosition.y - 12}px)`,
-          transition: isPointer ? 'transform 0s, scale 0.15s ease-out' : 'transform 0s, scale 0.15s ease-out',
+          transform: `translate3d(${mousePosition.x - 12}px, ${mousePosition.y - 12}px, 0)`,
+          transition: 'scale 0.15s ease-out',
+          willChange: 'transform'
         }}
       >
         <div className={`w-full h-full rounded-full border-2 ${
@@ -47,8 +56,9 @@ export default function CustomCursor() {
       <div
         className="fixed top-0 left-0 w-2 h-2 pointer-events-none z-50"
         style={{
-          transform: `translate(${mousePosition.x - 4}px, ${mousePosition.y - 4}px)`,
-          transition: 'transform 0.1s ease-out',
+          transform: `translate3d(${mousePosition.x - 4}px, ${mousePosition.y - 4}px, 0)`,
+          transition: 'transform 0.08s ease-out',
+          willChange: 'transform'
         }}
       >
         <div className="w-full h-full rounded-full bg-gradient-to-r from-purple-600 to-pink-600 animate-pulse" />

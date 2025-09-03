@@ -1,10 +1,169 @@
 import { useRef, useEffect, useState } from "react";
 import Image1 from "../../src/image/MovieReview.jpg";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
+// Project Modal Component
+function ProjectModal({ project, onClose }) {
+  const additionalDetails = {
+    "MovieReview": {
+      features: ["User Authentication", "Movie Search & Discovery", "Review System", "Rating System", "Responsive Design", "Real-time Updates"],
+      challenges: "Implementing real-time movie data integration and creating an intuitive user experience for movie discovery.",
+      learnings: "Enhanced skills in React state management, API integration, and user authentication flows.",
+      duration: "3 months",
+      role: "Full Stack Developer"
+    },
+    "LookBook": {
+      features: ["RESTful API Design", "User Management", "Product Catalog", "Exchange System", "MySQL Database", "Authentication"],
+      challenges: "Designing a scalable backend architecture for clothing exchange and implementing secure transaction handling.",
+      learnings: "Deepened understanding of backend architecture, database design, and API security best practices.",
+      duration: "2 months",
+      role: "Backend Developer"
+    },
+    "New York Times Clone": {
+      features: ["Responsive Layout", "Real-time News", "Category Filtering", "Search Functionality", "Firebase Integration", "Modern UI/UX"],
+      challenges: "Recreating the complex layout of NYT while maintaining performance and responsive design across all devices.",
+      learnings: "Advanced React patterns, responsive design techniques, and Firebase integration for real-time data.",
+      duration: "1 month",
+      role: "Frontend Developer"
+    },
+    "Orizon Travel Agency": {
+      features: ["CRUD Operations", "Country Management", "Trip Planning", "PHP Backend", "MySQL Database", "JavaScript Frontend"],
+      challenges: "Creating a comprehensive travel management system with intuitive CRUD operations and data relationships.",
+      learnings: "PHP development, database relationships, and frontend-backend communication through Fetch API.",
+      duration: "2 months",
+      role: "Full Stack Developer"
+    }
+  };
+
+  const details = additionalDetails[project.title] || {
+    features: [],
+    challenges: "Various technical challenges solved during development.",
+    learnings: "Continuous learning and skill improvement.",
+    duration: "Variable",
+    role: "Developer"
+  };
+
+  return (
+    <div className="relative">
+      {/* Header with Image */}
+      <div className="relative h-64 md:h-80 overflow-hidden rounded-t-2xl">
+        <img 
+          src={project.image} 
+          alt={project.title}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+        <div className="absolute bottom-6 left-6 right-6">
+          <h2 className="title text-3xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg">
+            {project.title}
+          </h2>
+          <div className="flex items-center gap-4 text-white/90">
+            <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
+              {details.role}
+            </span>
+            <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
+              {details.duration}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-6 md:p-8">
+        {/* Description */}
+        <div className="mb-8">
+          <h3 className="title text-xl font-bold text-slate-800 dark:text-white mb-4">📖 Description</h3>
+          <p className="p-font text-slate-600 dark:text-slate-300 leading-relaxed text-base">
+            {project.description}
+          </p>
+        </div>
+
+        {/* Technologies */}
+        <div className="mb-8">
+          <h3 className="title text-xl font-bold text-slate-800 dark:text-white mb-4">🛠️ Technologies Used</h3>
+          <div className="flex flex-wrap gap-3">
+            {project.technologies.map((tech, index) => (
+              <span
+                key={tech}
+                className="bg-gradient-to-r from-purple-100 to-indigo-100 dark:from-purple-900/30 dark:to-indigo-900/30 text-purple-700 dark:text-purple-300 px-4 py-2 rounded-xl text-sm font-semibold border border-purple-200 dark:border-purple-600 hover:scale-105 transition-transform duration-200 shadow-sm"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Key Features */}
+        <div className="mb-8">
+          <h3 className="title text-xl font-bold text-slate-800 dark:text-white mb-4">✨ Key Features</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {details.features.map((feature, index) => (
+              <div key={index} className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-200 dark:border-slate-600">
+                <div className="w-2 h-2 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full flex-shrink-0"></div>
+                <span className="text-slate-700 dark:text-slate-300 text-sm font-medium">{feature}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Challenges & Learnings */}
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <div className="bg-orange-50 dark:bg-orange-900/20 p-6 rounded-xl border border-orange-200 dark:border-orange-600/30">
+            <h4 className="title text-lg font-bold text-orange-800 dark:text-orange-300 mb-3 flex items-center gap-2">
+              🎯 <span>Challenges</span>
+            </h4>
+            <p className="text-orange-700 dark:text-orange-200 text-sm leading-relaxed">
+              {details.challenges}
+            </p>
+          </div>
+          <div className="bg-green-50 dark:bg-green-900/20 p-6 rounded-xl border border-green-200 dark:border-green-600/30">
+            <h4 className="title text-lg font-bold text-green-800 dark:text-green-300 mb-3 flex items-center gap-2">
+              🌱 <span>Learnings</span>
+            </h4>
+            <p className="text-green-700 dark:text-green-200 text-sm leading-relaxed">
+              {details.learnings}
+            </p>
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex gap-4">
+          <a
+            href={project.demoLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white px-6 py-4 rounded-xl font-bold text-center transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl hover:scale-[1.02] transform"
+          >
+            <span className="text-xl">🌐</span>
+            <span>Live Demo</span>
+          </a>
+          <a
+            href={project.githubLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 bg-gradient-to-r from-slate-600 via-slate-700 to-slate-800 hover:from-slate-700 hover:via-slate-800 hover:to-slate-900 text-white px-6 py-4 rounded-xl font-bold text-center transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl hover:scale-[1.02] transform"
+          >
+            <span className="text-xl">📚</span>
+            <span>View Code</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function ProjectCard({ project, delay, isFeature = false }) {
   const wrapperRef = useRef(null);
   const innerRef = useRef(null);
   const [visible, setVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -78,15 +237,21 @@ function ProjectCard({ project, delay, isFeature = false }) {
             </div>
 
             <div className="flex gap-4 mt-auto">
-              <a
-                href={project.demoLink}
-                className="title group/link flex-1 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white px-6 py-3 rounded-xl font-bold text-center transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl hover:scale-110 transform border border-white/20 hover:border-white/40 backdrop-blur-sm"
-              >
-                <span className="group-hover/link:rotate-45 group-hover/link:scale-125 transition-all duration-500">🌐</span>
-                Live Demo
-              </a>
+              <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+                <DialogTrigger asChild>
+                  <button className="title group/link flex-1 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white px-6 py-3 rounded-xl font-bold text-center transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl hover:scale-110 transform border border-white/20 hover:border-white/40 backdrop-blur-sm">
+                    <span className="group-hover/link:rotate-45 group-hover/link:scale-125 transition-all duration-500">👁️</span>
+                    View Details
+                  </button>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl w-[95vw] max-h-[90vh] overflow-y-auto p-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-purple-200/50 dark:border-purple-400/30">
+                  <ProjectModal project={project} onClose={() => setIsModalOpen(false)} />
+                </DialogContent>
+              </Dialog>
               <a
                 href={project.githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="title group/link flex-1 bg-gradient-to-r from-slate-600 via-slate-700 to-slate-800 hover:from-slate-700 hover:via-slate-800 hover:to-slate-900 dark:from-slate-600 dark:via-slate-700 dark:to-slate-800 dark:hover:from-slate-500 dark:hover:via-slate-600 dark:hover:to-slate-700 text-white px-6 py-3 rounded-xl font-bold text-center transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl hover:scale-110 transform border border-white/20 hover:border-white/40 backdrop-blur-sm"
               >
                 <span className="group-hover/link:rotate-45 group-hover/link:scale-125 transition-all duration-500">📚</span>
@@ -108,7 +273,7 @@ export default function Projects() {
       description:
         "MovieReview is a full-stack platform for movie and TV enthusiasts, allowing users to discover, review, and manage their favorite content.",
       image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2659&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      technologies: ["Javascript", "React", "Node.js", "Express.js", "MySQL"],
+      technologies: ["JavaScript", "React", "Node.js", "Express.js", "MySQL"],
       demoLink: "https://movie-review-alpha-red.vercel.app/",
       githubLink: "https://github.com/Biagem01/MovieReview",
     },
@@ -118,7 +283,7 @@ export default function Projects() {
         "LookBook is a platform for selling and exchanging second-hand clothing. This project is a RESTful API backend built in Node.js, designed to simplify the experience for users who want to sell, buy, or exchange clothing.",
       image:
         "https://images.unsplash.com/photo-1743877428895-fd3aabd06528?q=80&w=2710&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      technologies: ["HTML", "CSS", "Node.js", "Express.js","MySQL"],
+      technologies: ["HTML", "CSS", "Node.js", "Express.js", "MySQL"],
       demoLink: "#",
       githubLink: "https://github.com/Biagem01/LookBook",
     },
@@ -128,7 +293,7 @@ export default function Projects() {
         "Real-time A modern, responsive clone of the New York Times homepage, created as the final project for Start2Impact's React course. The goal was to recreate a structure similar to the famous newspaper, using modern technologies and front-end development best practices. trading platform with advanced charting, portfolio management, and market analysis tools.",
       image:
         "https://images.unsplash.com/photo-1630874763468-20dd32919156?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      technologies: ["HTML", "CSS", "JavaScript", "React (Vite) ", "Firebase"],
+      technologies: ["HTML", "CSS", "JavaScript", "React (Vite)", "Firebase"],
       demoLink: "https://newyorkclone.netlify.app/home",
       githubLink: "https://github.com/Biagem01/NYT-CLONE",
     },

@@ -11,59 +11,63 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative py-12 mt-16">
-      {/* Ultra spectacular footer background with theme-aware colors */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-100 via-blue-100/90 to-purple-100 dark:from-slate-900 dark:via-purple-900/90 dark:to-indigo-900 border-t-4 border-purple-300 dark:border-purple-400/50"></div>
-      <div className="absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-transparent dark:from-black/30 dark:via-transparent dark:to-transparent"></div>
+    <footer className="relative py-16 mt-20">
+      {/* Enhanced footer background with improved gradients */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/80 to-purple-50 dark:from-gray-900 dark:via-purple-950/80 dark:to-indigo-950 border-t border-purple-200/30 dark:border-purple-400/20"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-blue-100/40 via-transparent to-transparent dark:from-purple-900/20 dark:via-transparent dark:to-transparent"></div>
       
-      {/* Grid pattern overlay for texture */}
-      <div className="absolute inset-0 opacity-10" style={{
-        backgroundImage: `radial-gradient(circle at 25px 25px, rgba(255,255,255,0.3) 2px, transparent 0)`,
-        backgroundSize: '50px 50px'
+      {/* Enhanced pattern overlay */}
+      <div className="absolute inset-0 opacity-5 dark:opacity-10" style={{
+        backgroundImage: `
+          radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.4) 0%, transparent 50%),
+          radial-gradient(circle at 75% 75%, rgba(168, 85, 247, 0.3) 0%, transparent 50%)
+        `,
+        backgroundSize: '100px 100px'
       }}></div>
       
-      {/* Additional floating blobs for footer */}
-      <div className="absolute top-10 left-10 w-32 h-32 gradient-cosmic opacity-20 liquid-blob blur-2xl"></div>
-      <div className="absolute bottom-10 right-10 w-40 h-40 gradient-sunset opacity-15 breathe blur-2xl" style={{ animationDelay: "2s" }}></div>
-      <div className="absolute top-1/2 left-1/3 w-24 h-24 gradient-ethereal opacity-25 sparkle blur-xl" style={{ animationDelay: "1s" }}></div>
+      
+      {/* Improved floating elements */}
+      <div className="absolute top-8 left-8 w-24 h-24 bg-gradient-to-br from-purple-500/10 to-blue-500/10 rounded-full blur-xl animate-float opacity-30"></div>
+      <div className="absolute bottom-8 right-8 w-32 h-32 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-full blur-2xl breathe opacity-20" style={{ animationDelay: "2s" }}></div>
+      <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-gradient-to-br from-cyan-500/15 to-teal-500/15 rounded-full blur-lg sparkle opacity-25" style={{ animationDelay: "1s" }}></div>
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Brand Section */}
           <div className="text-center md:text-left animate-fade-in">
-            <h3 className="title text-xl font-bold mb-4 text-slate-900 dark:text-white drop-shadow-lg">
+            <h3 className="title text-2xl font-bold mb-4 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 dark:from-purple-400 dark:via-cyan-400 dark:to-purple-500 bg-clip-text text-transparent drop-shadow-lg">
               ✨ Biagio Cubisino
             </h3>
-            <p className="p-font text-slate-700 dark:text-white/90 mb-6 text-sm drop-shadow-md leading-relaxed font-medium">
+            <p className="p-font text-slate-600 dark:text-slate-300 mb-6 text-sm leading-relaxed font-medium">
               Full Stack Developer passionate about creating exceptional digital experiences with modern technologies 🚀
             </p>
-            <div className="flex justify-center md:justify-start space-x-6">
+            <div className="flex justify-center md:justify-start space-x-4">
               <a
                 href="https://www.linkedin.com/in/biagio-cubisino-40a6ab252/"
-                className="w-12 h-12 glass-ultra border border-white/30 rounded-xl flex items-center justify-center transition-all duration-300 shadow-cosmic hover:gradient-cosmic hover:text-white hover:scale-125 hover:shadow-xl animate-float glow-pulse"
+                className="group w-14 h-14 bg-white/10 dark:bg-white/5 backdrop-blur-lg border border-purple-200/50 dark:border-purple-400/30 rounded-2xl flex items-center justify-center transition-all duration-300 hover:bg-gradient-to-br hover:from-blue-500 hover:to-purple-600 hover:text-white hover:scale-110 hover:shadow-lg hover:shadow-purple-500/25 animate-float"
               >
-                <i className="fab fa-linkedin-in text-xl drop-shadow-md"></i>
+                <i className="fab fa-linkedin-in text-xl text-slate-700 dark:text-slate-300 group-hover:text-white transition-colors duration-300"></i>
               </a>
               <a
                 href="https://github.com/Biagem01?tab=repositories"
-                className="w-12 h-12 glass-ultra border border-white/30 rounded-xl flex items-center justify-center transition-all duration-300 shadow-cosmic hover:gradient-cosmic hover:text-white hover:scale-125 hover:shadow-xl animate-float glow-pulse"
+                className="group w-14 h-14 bg-white/10 dark:bg-white/5 backdrop-blur-lg border border-purple-200/50 dark:border-purple-400/30 rounded-2xl flex items-center justify-center transition-all duration-300 hover:bg-gradient-to-br hover:from-gray-700 hover:to-gray-900 hover:text-white hover:scale-110 hover:shadow-lg hover:shadow-gray-500/25 animate-float"
                 style={{ animationDelay: "0.2s" }}
               >
-                <i className="fab fa-github text-xl drop-shadow-md"></i>
+                <i className="fab fa-github text-xl text-slate-700 dark:text-slate-300 group-hover:text-white transition-colors duration-300"></i>
               </a>
               <a
                 href="mailto:biagio.99cubisino@gmail.com"
-                className="w-12 h-12 glass-ultra border border-white/30 rounded-xl flex items-center justify-center transition-all duration-300 shadow-cosmic hover:gradient-cosmic hover:text-white hover:scale-125 hover:shadow-xl animate-float glow-pulse"
+                className="group w-14 h-14 bg-white/10 dark:bg-white/5 backdrop-blur-lg border border-purple-200/50 dark:border-purple-400/30 rounded-2xl flex items-center justify-center transition-all duration-300 hover:bg-gradient-to-br hover:from-pink-500 hover:to-red-500 hover:text-white hover:scale-110 hover:shadow-lg hover:shadow-pink-500/25 animate-float"
                 style={{ animationDelay: "0.4s" }}
               >
-                <i className="fas fa-envelope text-xl drop-shadow-md"></i>
+                <i className="fas fa-envelope text-xl text-slate-700 dark:text-slate-300 group-hover:text-white transition-colors duration-300"></i>
               </a>
             </div>
           </div>
 
           {/* Quick Links */}
           <div className="text-center animate-slide-in-left">
-            <h4 className="title text-lg font-bold mb-4 text-slate-900 dark:text-white drop-shadow-lg">🔗 Quick Links</h4>
+            <h4 className="title text-lg font-bold mb-6 text-slate-800 dark:text-white">🔗 Quick Links</h4>
             <ul className="space-y-4">
               {[
                 { id: "home", label: "🏠 Home", icon: "🏠" },
@@ -74,7 +78,7 @@ export default function Footer() {
                 <li key={item.id}>
                   <button
                     onClick={() => scrollToSection(item.id)}
-                    className="text-slate-700 dark:text-white/80 hover:text-slate-900 dark:hover:text-white transition-all duration-300 text-sm hover:scale-105 drop-shadow-md p-2 rounded-lg hover:bg-slate-200/50 dark:hover:bg-white/10 animate-fade-in font-medium border border-transparent hover:border-slate-300 dark:hover:border-white/20"
+                    className="text-slate-600 dark:text-slate-300 hover:text-purple-600 dark:hover:text-purple-400 transition-all duration-300 text-sm hover:scale-105 p-3 rounded-xl hover:bg-white/20 dark:hover:bg-white/5 animate-fade-in font-medium border border-transparent hover:border-purple-200 dark:hover:border-purple-400/30 backdrop-blur-sm hover:shadow-sm"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     {item.label}
@@ -86,23 +90,23 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div className="text-center md:text-left animate-slide-in-right">
-            <h4 className="title text-lg font-bold mb-4 text-slate-900 dark:text-white drop-shadow-lg">📞 Get In Touch</h4>
+            <h4 className="title text-lg font-bold mb-6 text-slate-800 dark:text-white">📞 Get In Touch</h4>
             <div className="space-y-3">
-              <div className="bg-slate-800/10 dark:bg-white/15 backdrop-blur-lg p-3 rounded-lg border border-slate-300 dark:border-white/30 hover:scale-102 hover:bg-slate-200/20 dark:hover:bg-white/20 transition-all duration-300 shadow-lg">
-                <div className="p-font text-slate-800 dark:text-white flex items-center justify-center md:justify-start drop-shadow-md font-medium">
-                  <i className="fas fa-envelope mr-2 text-blue-600 dark:text-cyan-300 flex-shrink-0 text-sm"></i>
-                  <span className="text-xs md:text-sm break-all">biagio.99cubisino@gmail.com</span>
+              <div className="group bg-white/20 dark:bg-white/5 backdrop-blur-lg p-4 rounded-xl border border-purple-200/30 dark:border-purple-400/20 hover:scale-[1.02] hover:bg-white/30 dark:hover:bg-white/10 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10">
+                <div className="p-font text-slate-700 dark:text-slate-300 flex items-center justify-center md:justify-start font-medium">
+                  <i className="fas fa-envelope mr-3 text-blue-500 dark:text-cyan-400 flex-shrink-0 text-base group-hover:scale-110 transition-transform duration-300"></i>
+                  <span className="text-sm break-all">biagio.99cubisino@gmail.com</span>
                 </div>
               </div>
-              <div className="bg-slate-800/10 dark:bg-white/15 backdrop-blur-lg p-3 rounded-lg border border-slate-300 dark:border-white/30 hover:scale-102 hover:bg-slate-200/20 dark:hover:bg-white/20 transition-all duration-300 shadow-lg">
-                <p className="p-font text-slate-800 dark:text-white flex items-center justify-center md:justify-start text-xs md:text-sm drop-shadow-md font-medium">
-                  <i className="fas fa-phone mr-2 text-green-600 dark:text-green-300 flex-shrink-0 text-sm"></i>
+              <div className="group bg-white/20 dark:bg-white/5 backdrop-blur-lg p-4 rounded-xl border border-purple-200/30 dark:border-purple-400/20 hover:scale-[1.02] hover:bg-white/30 dark:hover:bg-white/10 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10">
+                <p className="p-font text-slate-700 dark:text-slate-300 flex items-center justify-center md:justify-start text-sm font-medium">
+                  <i className="fas fa-phone mr-3 text-green-500 dark:text-green-400 flex-shrink-0 text-base group-hover:scale-110 transition-transform duration-300"></i>
                   +39 342 5180540
                 </p>
               </div>
-              <div className="bg-slate-800/10 dark:bg-white/15 backdrop-blur-lg p-3 rounded-lg border border-slate-300 dark:border-white/30 hover:scale-102 hover:bg-slate-200/20 dark:hover:bg-white/20 transition-all duration-300 shadow-lg">
-                <p className="p-font text-slate-800 dark:text-white flex items-center justify-center md:justify-start text-xs md:text-sm drop-shadow-md font-medium">
-                  <i className="fas fa-map-marker-alt mr-2 text-orange-600 dark:text-orange-300 flex-shrink-0 text-sm"></i>
+              <div className="group bg-white/20 dark:bg-white/5 backdrop-blur-lg p-4 rounded-xl border border-purple-200/30 dark:border-purple-400/20 hover:scale-[1.02] hover:bg-white/30 dark:hover:bg-white/10 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10">
+                <p className="p-font text-slate-700 dark:text-slate-300 flex items-center justify-center md:justify-start text-sm font-medium">
+                  <i className="fas fa-map-marker-alt mr-3 text-orange-500 dark:text-orange-400 flex-shrink-0 text-base group-hover:scale-110 transition-transform duration-300"></i>
                   Comiso, RG 🇮🇹
                 </p>
               </div>
@@ -111,11 +115,11 @@ export default function Footer() {
         </div>
 
         {/* Copyright Section */}
-        <div className="bg-slate-800/10 dark:bg-white/15 backdrop-blur-lg border-t-2 border-slate-300 dark:border-white/40 mt-8 pt-4 text-center rounded-lg p-4 shadow-lg animate-fade-in">
-          <p className="p-font text-slate-900 dark:text-white text-sm drop-shadow-md font-bold">
-            © 2025 <span className="text-purple-600 dark:text-cyan-300 font-extrabold">Biagio Cubisino</span>. All rights reserved. ✨
+        <div className="bg-white/20 dark:bg-white/5 backdrop-blur-lg border-t border-purple-200/40 dark:border-purple-400/30 mt-12 pt-6 text-center rounded-2xl p-6 shadow-lg animate-fade-in">
+          <p className="p-font text-slate-700 dark:text-slate-300 text-sm font-semibold">
+            © 2025 <span className="bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 dark:from-purple-400 dark:via-cyan-400 dark:to-purple-500 bg-clip-text text-transparent font-bold">Biagio Cubisino</span>. All rights reserved. ✨
           </p>
-          <p className="p-font text-slate-700 dark:text-white/80 mt-2 text-xs font-medium">
+          <p className="p-font text-slate-600 dark:text-slate-400 mt-3 text-xs font-medium">
             Made with ❤️ and lots of ☕
           </p>
         </div>

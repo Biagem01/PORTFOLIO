@@ -17,9 +17,9 @@ export default function AnimatedBackground() {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Particles array
+    // Particles array - reduced for better performance
     const particles = [];
-    const particleCount = 50;
+    const particleCount = 20;
 
     // Create particles
     for (let i = 0; i < particleCount; i++) {
@@ -27,14 +27,22 @@ export default function AnimatedBackground() {
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         size: Math.random() * 3 + 1,
-        speedX: (Math.random() - 0.5) * 0.5,
-        speedY: (Math.random() - 0.5) * 0.5,
+        speedX: (Math.random() - 0.5) * 0.3,
+        speedY: (Math.random() - 0.5) * 0.3,
         opacity: Math.random() * 0.5 + 0.2
       });
     }
 
-    // Animation loop
-    const animate = () => {
+    // Animation loop - optimized for performance
+    let lastTime = 0;
+    const animate = (currentTime) => {
+      // Throttle to 30fps for better performance
+      if (currentTime - lastTime < 33) {
+        animationFrameId = requestAnimationFrame(animate);
+        return;
+      }
+      lastTime = currentTime;
+      
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       particles.forEach(particle => {
@@ -54,18 +62,18 @@ export default function AnimatedBackground() {
         ctx.fillStyle = `rgba(139, 69, 19, ${particle.opacity})`;
         ctx.fill();
 
-        // Draw connections
-        particles.forEach(otherParticle => {
+        // Draw connections - optimized (reduced connections)
+        particles.slice(particles.indexOf(particle) + 1).forEach(otherParticle => {
           const dx = particle.x - otherParticle.x;
           const dy = particle.y - otherParticle.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 100) {
+          if (distance < 80) {
             ctx.beginPath();
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(otherParticle.x, otherParticle.y);
-            ctx.strokeStyle = `rgba(139, 69, 19, ${0.1 * (1 - distance / 100)})`;
-            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = `rgba(139, 69, 19, ${0.08 * (1 - distance / 80)})`;
+            ctx.lineWidth = 0.3;
             ctx.stroke();
           }
         });
