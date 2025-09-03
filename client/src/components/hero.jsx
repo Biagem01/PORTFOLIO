@@ -41,11 +41,11 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8 animate-slide-in-right">
             <button
               onClick={() => scrollToSection("projects")}
-              className="group relative gradient-vibrant text-white px-12 py-6 rounded-3xl font-bold text-lg overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 animate-float hover:scale-105"
+              className="group relative gradient-vibrant animate-small text-white px-12 py-6 rounded-3xl font-bold text-lg overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 animate-float hover:scale-105"
             >
               <span className="relative z-10 drop-shadow-md">✨ View My Work</span>
               <div className="absolute inset-0 gradient-sunset opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="absolute inset-0 animate-pulse opacity-30 gradient-animation"></div>
+              <div className="absolute inset-0 animate-pulse opacity-30 gradient-animation animate-small"></div>
             </button>
             <button
               onClick={() => scrollToSection("contact")}

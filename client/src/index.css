@@ -67,11 +67,7 @@
   50% { box-shadow: 0 0 20px rgba(147, 51, 234, 0.6), 0 0 30px rgba(147, 51, 234, 0.4); }
 }
 
-@keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+/* Rimossa - consolidata in gradientShift */
 
 @keyframes shimmer {
   0% { transform: translateX(-100%) rotate(45deg); }
@@ -93,7 +89,7 @@
 
 .animate-gradient-shift {
   background-size: 150% 150%;
-  animation: gradient-shift 5s ease infinite;
+  animation: gradientShift 8s ease infinite;
   will-change: background-position;
   backface-visibility: hidden;
   transform: translateZ(0);
@@ -224,10 +220,7 @@
   transform: translateZ(0);
 }
 
-@keyframes float {
-  0%, 100% { transform: translate3d(0, 0px, 0) rotate(0deg); }
-  50% { transform: translate3d(0, -20px, 0) rotate(180deg); }
-}
+/* Rimossa definizione duplicata - usando versione principale */
 
 /* Custom scrollbar for modal */
 .scrollbar-thin {
@@ -261,7 +254,7 @@
   background-clip: content-box;
 }
 
-/* Enhanced gradients - optimized for performance */
+/* Enhanced gradients - limit animations to small elements only */
 .gradient-vibrant {
   background: linear-gradient(135deg, 
     #667eea 0%, 
@@ -269,8 +262,12 @@
     #f093fb 50%, 
     #f5576c 75%, 
     #4facfe 100%);
+}
+
+/* Animated version only for small elements */
+.gradient-vibrant.animate-small {
   background-size: 200% 200%;
-  animation: gradientShift 6s ease infinite;
+  animation: gradientShift 8s ease infinite;
   will-change: background-position;
   backface-visibility: hidden;
   transform: translateZ(0);
@@ -283,8 +280,12 @@
     #45b7d1 50%, 
     #96ceb4 75%, 
     #feca57 100%);
+}
+
+/* Animated version only for small elements */
+.gradient-cosmic-enhanced.animate-small {
   background-size: 200% 200%;
-  animation: gradientShift 8s ease infinite;
+  animation: gradientShift 10s ease infinite;
   will-change: background-position;
   backface-visibility: hidden;
   transform: translateZ(0);
@@ -343,24 +344,70 @@
   }
 }
 
-/* Reduced animations for devices with limited GPU */
-@media (max-width: 768px) and (prefers-reduced-motion: no-preference) {
-  .gradient-animation,
+/* Performance optimizations for mobile and tablets */
+@media (max-width: 1024px) {
+  /* Disable heavy gradient animations on large elements */
   .aurora-bg,
   .dark .aurora-bg {
-    animation-duration: 20s !important;
+    animation: none !important;
+    background: linear-gradient(45deg, 
+      rgba(59, 130, 246, 0.05) 0%,
+      rgba(147, 51, 234, 0.05) 25%,
+      rgba(6, 182, 212, 0.05) 50%,
+      rgba(16, 185, 129, 0.05) 75%,
+      rgba(59, 130, 246, 0.05) 100%) !important;
   }
   
-  .floating-particles,
-  .float-beautiful {
-    animation-duration: 15s !important;
+  /* Reduce large gradient elements to static */
+  .w-96.gradient-cosmic,
+  .w-80.gradient-cosmic,
+  .w-72.gradient-cosmic {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    animation: none !important;
   }
   
+  /* Minimal blur effects */
   .glass-ultra,
   .glass-card-enhanced,
   .glass-card,
   .glass-effect {
-    backdrop-filter: blur(5px) !important;
+    backdrop-filter: blur(3px) !important;
+  }
+  
+  /* Longer animation durations for remaining animations */
+  .gradient-animation {
+    animation-duration: 25s !important;
+  }
+  
+  .floating-particles,
+  .float-beautiful {
+    animation-duration: 20s !important;
+  }
+}
+
+/* Extreme performance mode for older devices */
+@media (max-width: 768px) {
+  .glass-ultra,
+  .glass-card-enhanced,
+  .glass-card,
+  .glass-effect {
+    backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+  }
+  
+  .dark .glass-ultra,
+  .dark .glass-card-enhanced,
+  .dark .glass-card,
+  .dark .glass-effect {
+    background: rgba(30, 41, 59, 0.9) !important;
+  }
+  
+  /* Disable all gradient animations on small screens */
+  .gradient-animation,
+  .text-gradient-animated,
+  .text-shimmer,
+  .dark .text-shimmer {
+    animation: none !important;
   }
 }
 
@@ -423,14 +470,23 @@
 
 /* Dark mode body background */
 .dark body {
+  background: hsl(222, 84%, 4%);
+  color: hsl(210, 40%, 98%);
+  position: relative;
+}
+
+.dark body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
   background: linear-gradient(135deg, 
     hsl(222, 84%, 4%) 0%,
     hsl(215, 35%, 8%) 25%,
     hsl(217, 40%, 6%) 50%,
     hsl(220, 30%, 9%) 75%,
     hsl(222, 84%, 4%) 100%);
-  background-attachment: fixed;
-  color: hsl(210, 40%, 98%);
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* Dark mode navbar */
@@ -656,16 +712,9 @@
   50% { transform: translateY(-10px); }
 }
 
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+/* Rimossa definizione duplicata - usando versione principale gradientShift */
 
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
+/* Rimossa definizione duplicata - usando versione principale shimmer */
 
 /* Advanced Dynamic Animations */
 @keyframes morphing {
@@ -766,8 +815,12 @@
 
 .gradient-animation {
   background: linear-gradient(-45deg, #3b82f6, #8b5cf6, #06b6d4, #10b981, #f59e0b, #ef4444);
+}
+
+/* Animated version only for small elements */
+.gradient-animation.animate-small {
   background-size: 200% 200%;
-  animation: gradientShift 12s ease infinite;
+  animation: gradientShift 15s ease infinite;
   will-change: background-position;
   backface-visibility: hidden;
   transform: translateZ(0);
@@ -1052,11 +1105,7 @@
   animation: bounceIn 1s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards;
 }
 
-/* Fade in per badge */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+/* Rimossa definizione duplicata fadeIn - usando versione principale */
 
 .skill-badge {
   position: relative;
