@@ -317,7 +317,7 @@ function ProjectCard({ project, delay, isFeature = false }) {
             </div>
           </div>
         </DialogTrigger>
-        <DialogContent className="max-w-6xl w-[95vw] max-h-[95vh] overflow-hidden p-0 border-0 bg-transparent shadow-none">
+        <DialogContent className="max-w-6xl w-[95vw] max-h-[95vh] overflow-hidden p-0 border-0 bg-transparent shadow-none [&>button]:hidden">
           <DialogTitle className="sr-only">{project.title} - Project Details</DialogTitle>
           <DialogDescription className="sr-only">Detailed information about the {project.title} project including features, technologies, and implementation details.</DialogDescription>
           <ProjectModal project={project} onClose={() => setIsModalOpen(false)} />
