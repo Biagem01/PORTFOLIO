@@ -117,10 +117,18 @@ export default function LoadingScreen() {
 
         {/* Rotating social icons */}
         <div className="absolute -bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-8 animate-pulse">
-          <div className="text-3xl animate-spin" style={{ animationDuration: '3s' }}>📷</div>
-          <div className="text-3xl animate-spin" style={{ animationDuration: '4s', animationDirection: 'reverse' }}>📚</div>
-          <div className="text-3xl animate-spin" style={{ animationDuration: '5s' }}>💼</div>
-          <div className="text-3xl animate-spin" style={{ animationDuration: '3.5s', animationDirection: 'reverse' }}>🌐</div>
+          <div className="w-12 h-12 bg-white/10 backdrop-blur-lg rounded-full flex items-center justify-center animate-spin" style={{ animationDuration: '3s' }}>
+            <i className="fab fa-instagram text-2xl text-pink-400"></i>
+          </div>
+          <div className="w-12 h-12 bg-white/10 backdrop-blur-lg rounded-full flex items-center justify-center animate-spin" style={{ animationDuration: '4s', animationDirection: 'reverse' }}>
+            <i className="fab fa-github text-2xl text-slate-300"></i>
+          </div>
+          <div className="w-12 h-12 bg-white/10 backdrop-blur-lg rounded-full flex items-center justify-center animate-spin" style={{ animationDuration: '5s' }}>
+            <i className="fab fa-linkedin-in text-2xl text-blue-400"></i>
+          </div>
+          <div className="w-12 h-12 bg-white/10 backdrop-blur-lg rounded-full flex items-center justify-center animate-spin" style={{ animationDuration: '3.5s', animationDirection: 'reverse' }}>
+            <i className="fas fa-envelope text-2xl text-purple-400"></i>
+          </div>
         </div>
       </div>
     </div>
