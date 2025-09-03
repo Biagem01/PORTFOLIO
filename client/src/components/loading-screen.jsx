@@ -20,12 +20,12 @@ export default function LoadingScreen() {
     const timer = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
-          setTimeout(() => setIsVisible(false), 500);
+          setTimeout(() => setIsVisible(false), 2500); // Aumentato da 500ms a 2500ms
           return 100;
         }
-        return prev + Math.random() * 15 + 5;
+        return prev + Math.random() * 8 + 2; // Rallentato il progresso
       });
-    }, 200);
+    }, 300); // Aumentato l'intervallo da 200ms a 300ms
 
     return () => {
       clearInterval(timer);

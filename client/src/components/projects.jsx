@@ -52,10 +52,10 @@ function ProjectModal({ project, onClose }) {
 
   return (
     <div className="relative bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-2xl border border-purple-200/30 dark:border-purple-400/20 backdrop-blur-xl">
-      {/* Close Button */}
+      {/* Fixed Close Button */}
       <button
         onClick={onClose}
-        className="absolute top-6 right-6 z-50 w-12 h-12 bg-white/20 dark:bg-black/30 backdrop-blur-xl border border-white/30 dark:border-white/20 rounded-full flex items-center justify-center text-slate-700 dark:text-white hover:bg-white/30 dark:hover:bg-black/40 transition-all duration-300 hover:scale-110 hover:rotate-90 shadow-lg group"
+        className="fixed top-6 right-6 z-[60] w-12 h-12 bg-white/90 dark:bg-black/80 backdrop-blur-xl border border-white/50 dark:border-white/30 rounded-full flex items-center justify-center text-slate-700 dark:text-white hover:bg-white dark:hover:bg-black/90 transition-all duration-300 hover:scale-110 hover:rotate-90 shadow-2xl group"
       >
         <svg className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -317,7 +317,7 @@ function ProjectCard({ project, delay, isFeature = false }) {
             </div>
           </div>
         </DialogTrigger>
-        <DialogContent className="max-w-6xl w-[95vw] max-h-[95vh] overflow-y-auto p-0 border-0 bg-transparent shadow-none [&>button]:hidden">
+        <DialogContent className="max-w-6xl w-[95vw] max-h-[95vh] overflow-y-auto p-0 border-0 bg-transparent shadow-none [&>button]:hidden scrollbar-thin scrollbar-track-transparent scrollbar-thumb-purple-500/30 hover:scrollbar-thumb-purple-500/50">
           <DialogTitle className="sr-only">{project.title} - Project Details</DialogTitle>
           <DialogDescription className="sr-only">Detailed information about the {project.title} project including features, technologies, and implementation details.</DialogDescription>
           <ProjectModal project={project} onClose={() => setIsModalOpen(false)} />

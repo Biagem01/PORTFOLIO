@@ -171,6 +171,38 @@
   50% { transform: translate3d(0, -20px, 0) rotate(180deg); }
 }
 
+/* Custom scrollbar for modal */
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-track-transparent {
+  scrollbar-color: rgba(139, 92, 246, 0.3) transparent;
+}
+
+/* WebKit scrollbar for modal */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, rgba(139, 92, 246, 0.4), rgba(219, 39, 119, 0.4));
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: all 0.3s ease;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, rgba(139, 92, 246, 0.7), rgba(219, 39, 119, 0.7));
+  background-clip: content-box;
+}
+
 /* Enhanced gradients - optimized for performance */
 .gradient-vibrant {
   background: linear-gradient(135deg, 
