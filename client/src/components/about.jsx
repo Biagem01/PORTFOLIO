@@ -52,7 +52,7 @@ function SkillCard({ category, items, delay }) {
               key={skill}
               className="tech-badge text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold cursor-default transition-all duration-300 hover:scale-105"
               style={{
-                animationDelay: `${i * 0.1}s`,
+                animationDelay: `${i * 1.5}s`,
                 opacity: visible ? 1 : 0,
               }}
             >
@@ -78,6 +78,19 @@ export default function About() {
   // Stato e ref per animazione avatar
   const [avatarVisible, setAvatarVisible] = useState(false);
   const avatarRef = useRef(null);
+
+  const bioRef = useRef(null);
+const [bioVisible, setBioVisible] = useState(false);
+
+useEffect(() => {
+  const observer = new IntersectionObserver(
+    ([entry]) => setBioVisible(entry.isIntersecting),
+    { threshold: 0.2 }
+  );
+  if (bioRef.current) observer.observe(bioRef.current);
+  return () => observer.disconnect();
+}, []);
+ 
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -114,8 +127,13 @@ export default function About() {
 
         {/* Bio + Avatar */}
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6 animate-slide-in-left">
-            <div className="p-font prose prose-lg text-slate-600 dark:text-slate-300">
+          <div className="animate-fade-in-left-bio space-y-6 ">
+            <div
+            ref={bioRef}
+            className={`p-font prose prose-lg text-slate-600 dark:text-slate-300 ${
+              bioVisible ? "animate-fade-in-left-bio opacity-100" : "opacity-0"
+            }`}
+          >
               <p>
                I'm a computer science student and growing web developer, with a strong passion for programming and creating modern, intuitive applications.
               </p>
@@ -130,7 +148,7 @@ export default function About() {
 
           <div
             ref={avatarRef}
-            className={`relative ${avatarVisible ? "animate-fade-in-right opacity-100" : "opacity-0"}`}
+            className={`relative ${avatarVisible ? "animate-fade-in-right-photo opacity-100" : "opacity-0"}`}
           >
             <img
               src={Avatar}
