@@ -51,51 +51,38 @@ function ProjectModal({ project, onClose }) {
   };
 
   return (
-    <div className="relative bg-gradient-to-br from-white/98 via-purple-50/90 to-indigo-50/95 
-                    dark:from-gray-900/98 dark:via-purple-950/90 dark:to-indigo-950/95 
-                    backdrop-blur-2xl rounded-[2rem] overflow-hidden shadow-2xl 
+    <div className="relative bg-gradient-to-br from-white/95 via-purple-50/80 to-indigo-50/90 
+                    dark:from-gray-900/95 dark:via-purple-950/80 dark:to-indigo-950/90 
+                    rounded-[2rem] overflow-hidden shadow-2xl 
                     border-2 border-gradient-to-br from-purple-200/60 via-indigo-200/60 to-pink-200/60 
-                    dark:border-purple-500/40 mx-4 my-6 
-                    hover:shadow-purple-500/20 transition-all duration-500
-                    before:absolute before:inset-0 before:bg-gradient-to-br 
-                    before:from-purple-500/5 before:via-transparent before:to-indigo-500/5 
-                    before:rounded-[2rem] before:pointer-events-none">
+                    dark:border-purple-500/40 mx-4 my-6">
       {/* Enhanced Header with Image */}
       <div className="relative h-80 md:h-[28rem] overflow-hidden rounded-t-[2rem]">
         <img 
           src={project.image} 
           alt={project.title}
-          className="w-full h-full object-cover transition-all duration-1000 hover:scale-110 hover:brightness-110"
+          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
         <div className="absolute inset-0 bg-gradient-to-br from-purple-600/50 via-indigo-600/30 to-pink-600/40"></div>
         
-        {/* Enhanced floating decorative elements */}
-        <div className="absolute top-10 left-10 w-24 h-24 bg-gradient-to-br from-purple-400/40 to-pink-400/40 rounded-full blur-3xl animate-pulse shadow-2xl"></div>
-        <div className="absolute top-20 right-16 w-20 h-20 bg-gradient-to-br from-cyan-400/40 to-blue-400/40 rounded-full blur-2xl animate-bounce shadow-xl"></div>
-        <div className="absolute bottom-20 right-10 w-16 h-16 bg-gradient-to-br from-yellow-400/30 to-orange-400/30 rounded-full blur-xl animate-pulse shadow-lg"></div>
-        
-        {/* Sparkle effects */}
-        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-white rounded-full animate-ping"></div>
-        <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-purple-300 rounded-full animate-pulse"></div>
-        <div className="absolute bottom-1/3 left-1/2 w-1.5 h-1.5 bg-cyan-300 rounded-full animate-ping" style={{animationDelay: '0.5s'}}></div>
+        {/* Simplified decorative elements - no animations */}
+        <div className="absolute top-10 left-10 w-16 h-16 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-lg opacity-50"></div>
+        <div className="absolute bottom-20 right-10 w-12 h-12 bg-gradient-to-br from-cyan-400/20 to-blue-400/20 rounded-full blur-md opacity-40"></div>
         
         <div className="absolute bottom-8 left-8 right-8">
-          <h2 className="title text-3xl md:text-4xl font-bold text-white mb-6 drop-shadow-xl 
-                         animate-fade-in">
+          <h2 className="title text-3xl md:text-4xl font-bold text-white mb-6 drop-shadow-xl">
             {project.title}
           </h2>
           <div className="flex flex-wrap items-center gap-4 text-white">
             <span className="bg-gradient-to-r from-purple-500/40 to-indigo-500/40 backdrop-blur-xl 
                            px-5 py-2 rounded-xl text-sm font-semibold border border-white/30 
-                           shadow-lg hover:scale-105 transition-all duration-300 
-                           hover:shadow-purple-500/30">
+                           shadow-lg hover:scale-102 transition-transform duration-200">
               {details.role}
             </span>
             <span className="bg-gradient-to-r from-blue-500/40 to-cyan-500/40 backdrop-blur-xl 
                            px-5 py-2 rounded-xl text-sm font-semibold border border-white/30 
-                           shadow-lg hover:scale-105 transition-all duration-300 
-                           hover:shadow-blue-500/30">
+                           shadow-lg hover:scale-102 transition-transform duration-200">
               {details.duration}
             </span>
           </div>
@@ -105,33 +92,26 @@ function ProjectModal({ project, onClose }) {
       {/* Enhanced Content */}
       <div className="relative p-10 md:p-16 bg-gradient-to-br from-white/95 via-purple-50/90 to-indigo-50/95 
                      dark:from-gray-900/95 dark:via-purple-950/90 dark:to-indigo-950/95 
-                     backdrop-blur-xl overflow-hidden
-                     before:absolute before:inset-0 before:bg-gradient-to-br 
-                     before:from-purple-500/3 before:via-transparent before:to-indigo-500/3 
-                     before:pointer-events-none">
+                     overflow-hidden">
         {/* Description */}
         <div className="mb-12">
           <div className="flex items-center gap-4 mb-6">
             <div className="relative w-12 h-12 bg-gradient-to-br from-purple-500 via-indigo-600 to-purple-700 
                            rounded-2xl flex items-center justify-center shadow-xl 
-                           hover:shadow-purple-500/30 transition-all duration-300 hover:scale-110 
-                           hover:rotate-3 group animate-float">
-              <span className="text-xl group-hover:scale-110 transition-transform duration-300">📖</span>
+                           transition-transform duration-200 hover:scale-105 group">
+              <span className="text-xl">📖</span>
               <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl"></div>
-              <div className="absolute -inset-1 bg-gradient-to-br from-purple-500/30 to-indigo-500/30 rounded-2xl blur opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
             <h3 className="title text-2xl md:text-3xl font-bold bg-gradient-to-r from-slate-800 via-purple-700 to-indigo-700 
                          dark:from-white dark:via-purple-300 dark:to-indigo-300 bg-clip-text text-transparent">
               Descrizione del Progetto
             </h3>
           </div>
-          <div className="relative bg-gradient-to-br from-white/80 via-purple-50/60 to-indigo-50/80 
-                         dark:from-gray-800/80 dark:via-purple-900/60 dark:to-indigo-900/80 
-                         backdrop-blur-xl p-8 rounded-2xl border border-purple-200/50 
-                         dark:border-purple-500/30 shadow-xl hover:shadow-purple-500/10 
-                         transition-all duration-300 hover:scale-[1.01] group overflow-hidden">
+          <div className="relative bg-gradient-to-br from-white/90 via-purple-50/70 to-indigo-50/90 
+                         dark:from-gray-800/90 dark:via-purple-900/70 dark:to-indigo-900/90 
+                         p-8 rounded-2xl border border-purple-200/50 
+                         dark:border-purple-500/30 shadow-xl group overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 via-indigo-500 to-pink-500 rounded-t-2xl"></div>
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/3 via-transparent to-indigo-500/3 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <p className="relative z-10 p-font text-slate-700 dark:text-slate-200 leading-relaxed text-lg">
               {project.description}
             </p>
@@ -143,37 +123,30 @@ function ProjectModal({ project, onClose }) {
           <div className="flex items-center gap-4 mb-6">
             <div className="relative w-12 h-12 bg-gradient-to-br from-indigo-500 via-blue-600 to-cyan-600 
                            rounded-2xl flex items-center justify-center shadow-xl 
-                           hover:shadow-blue-500/30 transition-all duration-300 hover:scale-110 
-                           hover:rotate-3 group animate-float" 
-                 style={{animationDelay: '0.5s'}}>
-              <span className="text-xl group-hover:scale-110 transition-transform duration-300">🛠️</span>
+                           transition-transform duration-200 hover:scale-105 group">
+              <span className="text-xl">🛠️</span>
               <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl"></div>
-              <div className="absolute -inset-1 bg-gradient-to-br from-blue-500/30 to-cyan-500/30 rounded-2xl blur opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
             <h3 className="title text-2xl md:text-3xl font-bold bg-gradient-to-r from-slate-800 via-blue-700 to-cyan-700 
                          dark:from-white dark:via-blue-300 dark:to-cyan-300 bg-clip-text text-transparent">
               Tecnologie Utilizzate
             </h3>
           </div>
-          <div className="relative bg-gradient-to-br from-white/80 via-blue-50/60 to-cyan-50/80 
-                         dark:from-gray-800/80 dark:via-blue-900/60 dark:to-cyan-900/80 
-                         backdrop-blur-xl p-8 rounded-2xl border border-blue-200/50 
-                         dark:border-blue-500/30 shadow-xl hover:shadow-blue-500/10 
-                         transition-all duration-300 hover:scale-[1.01] group overflow-hidden">
+          <div className="relative bg-gradient-to-br from-white/90 via-blue-50/70 to-cyan-50/90 
+                         dark:from-gray-800/90 dark:via-blue-900/70 dark:to-cyan-900/90 
+                         p-8 rounded-2xl border border-blue-200/50 
+                         dark:border-blue-500/30 shadow-xl group overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-cyan-500 to-indigo-500 rounded-t-2xl"></div>
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/3 via-transparent to-cyan-500/3 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="relative z-10 flex flex-wrap gap-3">
               {project.technologies.map((tech, index) => (
                 <div
                   key={tech}
                   className="group/tech relative bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-600 
                            text-white px-4 py-2 rounded-xl text-sm font-semibold 
-                           hover:scale-105 hover:shadow-lg hover:shadow-purple-500/30 
-                           transition-all duration-300 shadow-md border border-white/20 
-                           backdrop-blur-sm animate-fade-in overflow-hidden cursor-default"
+                           hover:scale-102 transition-transform duration-200 
+                           shadow-md border border-white/20 cursor-default"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover/tech:opacity-100 transition-all duration-500 transform translate-x-[-100%] group-hover/tech:translate-x-[100%]"></div>
                   <span className="relative z-10">{tech}</span>
                 </div>
               ))}
@@ -186,10 +159,8 @@ function ProjectModal({ project, onClose }) {
           <div className="flex items-center gap-4 mb-6">
             <div className="relative w-12 h-12 bg-gradient-to-br from-emerald-500 via-teal-600 to-green-600 
                            rounded-2xl flex items-center justify-center shadow-xl 
-                           hover:shadow-emerald-500/30 transition-all duration-300 hover:scale-110 
-                           hover:rotate-3 group animate-float" 
-                 style={{animationDelay: '1s'}}>
-              <span className="text-xl group-hover:scale-110 transition-transform duration-300">✨</span>
+                           transition-transform duration-200 hover:scale-105 group">
+              <span className="text-xl">✨</span>
               <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl"></div>
               <div className="absolute -inset-1 bg-gradient-to-br from-emerald-500/30 to-teal-500/30 rounded-2xl blur opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
@@ -211,14 +182,11 @@ function ProjectModal({ project, onClose }) {
                                           bg-gradient-to-br from-emerald-50/70 via-teal-50/70 to-green-50/70 
                                           dark:from-emerald-900/30 dark:via-teal-900/30 dark:to-green-900/30 
                                           p-4 rounded-xl border border-emerald-200/60 
-                                          dark:border-emerald-600/40 hover:scale-[1.02] 
-                                          transition-all duration-300 shadow-md 
-                                          hover:shadow-emerald-500/20 backdrop-blur-sm overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/5 via-transparent to-teal-400/5 opacity-0 group-hover/feature:opacity-100 transition-opacity duration-300"></div>
+                                          dark:border-emerald-600/40 hover:scale-[1.01] 
+                                          transition-transform duration-200 shadow-md overflow-hidden">
                   <div className="relative w-3 h-3 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full 
-                                 flex-shrink-0 animate-pulse shadow-md group-hover/feature:scale-110 
-                                 transition-transform duration-300"></div>
-                  <span className="relative text-slate-700 dark:text-slate-200 text-sm font-semibold group-hover/feature:text-emerald-700 dark:group-hover/feature:text-emerald-300 transition-colors duration-300">{feature}</span>
+                                 flex-shrink-0 shadow-md"></div>
+                  <span className="relative text-slate-700 dark:text-slate-200 text-sm font-semibold">{feature}</span>
                 </div>
               ))}
             </div>
@@ -290,14 +258,12 @@ function ProjectModal({ project, onClose }) {
             className="group flex-1 relative bg-gradient-to-br from-purple-500 via-indigo-600 to-pink-600 
                      hover:from-indigo-600 hover:via-purple-600 hover:to-pink-700 
                      text-white px-6 py-4 rounded-xl font-bold text-center 
-                     transition-all duration-500 flex items-center justify-center gap-3 
-                     shadow-xl hover:shadow-purple-500/30 hover:scale-105 transform overflow-hidden 
-                     border border-white/30 hover:border-white/50 backdrop-blur-sm animate-pulse-glow"
+                     transition-all duration-300 flex items-center justify-center gap-3 
+                     shadow-xl hover:scale-102 transform overflow-hidden 
+                     border border-white/30"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-x-[-100%] group-hover:translate-x-[100%]"></div>
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-400/10 via-transparent to-pink-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <span className="text-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 relative z-10">🌐</span>
-            <span className="text-lg relative z-10 group-hover:tracking-wide transition-all duration-300">Demo Live</span>
+            <span className="text-2xl relative z-10">🌐</span>
+            <span className="text-lg relative z-10">Demo Live</span>
           </a>
           <a
             href={project.githubLink}
@@ -306,14 +272,12 @@ function ProjectModal({ project, onClose }) {
             className="group flex-1 relative bg-gradient-to-br from-slate-700 via-gray-800 to-black 
                      hover:from-gray-800 hover:via-slate-900 hover:to-gray-900 
                      text-white px-6 py-4 rounded-xl font-bold text-center 
-                     transition-all duration-500 flex items-center justify-center gap-3 
-                     shadow-xl hover:shadow-gray-500/30 hover:scale-105 transform overflow-hidden 
-                     border border-white/20 hover:border-white/40 backdrop-blur-sm"
+                     transition-all duration-300 flex items-center justify-center gap-3 
+                     shadow-xl hover:scale-102 transform overflow-hidden 
+                     border border-white/20"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-x-[-100%] group-hover:translate-x-[100%]"></div>
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-600/10 via-transparent to-slate-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <span className="text-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 relative z-10">📚</span>
-            <span className="text-lg relative z-10 group-hover:tracking-wide transition-all duration-300">Codice Sorgente</span>
+            <span className="text-2xl relative z-10">📚</span>
+            <span className="text-lg relative z-10">Codice Sorgente</span>
           </a>
         </div>
       </div>
@@ -368,11 +332,10 @@ function ProjectCard({ project, delay, isFeature = false }) {
               <img
                 src={project.image}
                 alt={project.title}
-                className={`w-full object-cover transition-transform duration-300 group-hover:scale-105 ${isFeature ? 'h-80 lg:h-full' : 'h-56'}`}
+                className={`w-full object-cover transition-transform duration-200 group-hover:scale-102 ${isFeature ? 'h-80 lg:h-full' : 'h-56'}`}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-purple-900/60 via-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              {/* Effetto brillantezza */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 transform translate-x-[-100%] group-hover:translate-x-[100%]"></div>
+              {/* Simplified overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
               {isFeature && (
                 <div className="absolute top-6 left-6 bg-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
                   ⭐ Progetto in Evidenza
@@ -382,10 +345,10 @@ function ProjectCard({ project, delay, isFeature = false }) {
 
             <div className={`p-8 flex-grow flex flex-col ${isFeature ? 'lg:w-3/5' : ''}`}>
               <div className="flex flex-col h-full">
-                <h3 className={`title font-bold text-slate-800 dark:text-slate-100 mb-4 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300 ${isFeature ? 'text-3xl lg:text-4xl' : 'text-xl'}`}>
+                <h3 className={`title font-bold text-slate-800 dark:text-slate-100 mb-4 ${isFeature ? 'text-3xl lg:text-4xl' : 'text-xl'}`}>
                   {project.title}
                 </h3>
-                <p className={`p-font text-slate-600 dark:text-slate-300 mb-6 leading-relaxed flex-grow group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors duration-300 ${isFeature ? 'text-lg' : 'text-base'}`}>
+                <p className={`p-font text-slate-600 dark:text-slate-300 mb-6 leading-relaxed flex-grow ${isFeature ? 'text-lg' : 'text-base'}`}>
                   {project.description}
                 </p>
 
@@ -393,7 +356,7 @@ function ProjectCard({ project, delay, isFeature = false }) {
                   {project.technologies.map((tech, index) => (
                     <span
                       key={tech}
-                      className="bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-600 group-hover:from-purple-100 group-hover:to-purple-200 dark:group-hover:from-purple-900/30 dark:group-hover:to-purple-800/30 group-hover:border-purple-300 dark:group-hover:border-purple-600 group-hover:text-purple-700 dark:group-hover:text-purple-300 transition-all duration-300 hover:scale-110 cursor-default shadow-sm hover:shadow-md"
+                      className="bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-600 hover:scale-102 transition-transform duration-200 cursor-default shadow-sm"
                     >
                       {tech}
                     </span>
@@ -403,9 +366,9 @@ function ProjectCard({ project, delay, isFeature = false }) {
                 <div className="flex gap-4 mt-auto">
                   <button 
                     onClick={(e) => { e.stopPropagation(); setIsModalOpen(true); }}
-                    className="title group/link flex-1 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white px-6 py-3 rounded-xl font-bold text-center transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl hover:scale-110 transform border border-white/20 hover:border-white/40 backdrop-blur-sm"
+                    className="title group/link flex-1 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white px-6 py-3 rounded-xl font-bold text-center transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:scale-102 transform border border-white/20"
                   >
-                    <span className="group-hover/link:rotate-45 group-hover/link:scale-125 transition-all duration-500">👁️</span>
+                    <span>👁️</span>
                     View Details
                   </button>
                   <a
@@ -413,9 +376,9 @@ function ProjectCard({ project, delay, isFeature = false }) {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="title group/link flex-1 bg-gradient-to-r from-slate-600 via-slate-700 to-slate-800 hover:from-slate-700 hover:via-slate-800 hover:to-slate-900 dark:from-slate-600 dark:via-slate-700 dark:to-slate-800 dark:hover:from-slate-500 dark:hover:via-slate-600 dark:hover:to-slate-700 text-white px-6 py-3 rounded-xl font-bold text-center transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl hover:scale-110 transform border border-white/20 hover:border-white/40 backdrop-blur-sm"
+                    className="title group/link flex-1 bg-gradient-to-r from-slate-600 via-slate-700 to-slate-800 hover:from-slate-700 hover:via-slate-800 hover:to-slate-900 dark:from-slate-600 dark:via-slate-700 dark:to-slate-800 dark:hover:from-slate-500 dark:hover:via-slate-600 dark:hover:to-slate-700 text-white px-6 py-3 rounded-xl font-bold text-center transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:scale-102 transform border border-white/20"
                   >
-                    <span className="group-hover/link:rotate-45 group-hover/link:scale-125 transition-all duration-500">📚</span>
+                    <span>📚</span>
                     GitHub
                   </a>
                 </div>
