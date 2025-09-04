@@ -52,7 +52,7 @@ function SkillCard({ category, items, delay }) {
               key={skill}
               className="tech-badge text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold cursor-default transition-all duration-300 hover:scale-105"
               style={{
-                animationDelay: `${i * 1.5}s`,
+                
                 opacity: visible ? 1 : 0,
               }}
             >
