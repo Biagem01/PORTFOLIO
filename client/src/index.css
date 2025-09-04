@@ -1374,6 +1374,69 @@
 }
 
 
+/* ============================
+   Ridurre/Disabilitare Animazioni
+   Portfolio Responsive
+============================ */
+
+/* 1️⃣ Rispetta le preferenze dell’utente */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* 2️⃣ Animazioni più leggere su dispositivi mobili */
+@media (max-width: 768px) {
+  /* Card hover */
+  .card {
+    animation: none;
+    transition: none;
+  }
+
+  
+
+  /* Fade-in generico */
+  .fade-in {
+    opacity: 1 !important; /* evita il fade */
+  }
+
+  /* Navbar/Elementi dinamici */
+  .nav-item, .section-title, .work-item {
+    transition: none;
+  }
+}
+
+/* 3️⃣ Schermi ad alta densità (Retina, ProMotion) */
+@media 
+(-webkit-min-device-pixel-ratio: 2), 
+(min-resolution: 192dpi) {
+  /* Ridurre durata animazioni intensive */
+  .animated-background {
+    animation-duration: 2s;
+  }
+
+  .hover-effect, .interactive-card {
+    transition-duration: 0.2s; /* più veloce per non appesantire */
+  }
+}
+
+/* 4️⃣ Ottimizzazione generale per performance */
+@media (max-width: 480px) {
+  .interactive-card {
+    transform: none; /* rimuove parallax/tilt */
+    animation: none;
+  }
+
+  .hero-text, .intro-section {
+    animation: none;
+    transition: none;
+  }
+}
+
+
+
 
 
 
