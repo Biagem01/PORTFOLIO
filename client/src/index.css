@@ -56,29 +56,39 @@
 
 /* Essential animations only */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+  0%, 100% { 
+    transform: translate3d(0, 0px, 0);
+    will-change: transform;
+  }
+  50% { 
+    transform: translate3d(0, -8px, 0);
+    will-change: transform;
+  }
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translate3d(0, 20px, 0);
+    will-change: transform, opacity;
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
+    will-change: auto;
   }
 }
 
 @keyframes fadeInRight {
   from {
     opacity: 0;
-    transform: translateX(30px);
+    transform: translate3d(30px, 0, 0);
+    will-change: transform, opacity;
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
+    will-change: auto;
   }
 }
 
@@ -89,11 +99,11 @@
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.7s ease-out;
+  animation: fadeIn 0.5s ease-out;
 }
 
 .animate-fade-in-right {
-  animation: fadeInRight 0.7s ease-out;
+  animation: fadeInRight 0.6s ease-out;
 }
 
 .scrollbar-hide {
@@ -298,11 +308,13 @@
 @keyframes gradientShift {
   0%, 100% { 
     background-position: 0% 50%;
-    transform: translateZ(0);
+    transform: translate3d(0, 0, 0);
+    will-change: background-position;
   }
   50% { 
     background-position: 100% 50%;
-    transform: translateZ(0);
+    transform: translate3d(0, 0, 0);
+    will-change: background-position;
   }
 }
 
@@ -319,6 +331,76 @@
   
   .float-beautiful {
     animation: none !important;
+  }
+}
+
+/* Performance optimizations for high refresh rate displays (120Hz+) and Retina displays */
+@media (min-width: 1024px) and (min-resolution: 120dpi), 
+       (min-width: 1024px) and (-webkit-min-device-pixel-ratio: 1.25),
+       (min-width: 1024px) and (-webkit-min-device-pixel-ratio: 2),
+       (min-width: 1024px) and (min-resolution: 192dpi) {
+  /* Reduce animation frequency for 120Hz+ displays */
+  .animate-float {
+    animation-duration: 12s !important;
+  }
+  
+  .glow-pulse {
+    animation-duration: 12s !important;
+  }
+  
+  .gradient-animation.animate-small {
+    animation-duration: 30s !important;
+  }
+  
+  .text-gradient-animated {
+    animation-duration: 12s !important;
+  }
+  
+  .text-shimmer {
+    animation-duration: 20s !important;
+  }
+  
+  /* Use transform3d and will-change for better performance */
+  .hover-lift:hover {
+    transform: translate3d(0, -5px, 0) scale3d(1.01, 1.01, 1) !important;
+    will-change: transform;
+  }
+  
+  .animate-bounce-slow {
+    animation-duration: 4s !important;
+  }
+  
+  .animate-pulse-slow {
+    animation-duration: 6s !important;
+  }
+  
+  /* Optimize hover scale effects to reduce lag */
+  .group:hover .group-hover\\:scale-105 {
+    transform: translate3d(0, 0, 0) scale3d(1.03, 1.03, 1) !important;
+    transition-duration: 600ms !important;
+  }
+  
+  .hover\\:scale-110:hover {
+    transform: translate3d(0, 0, 0) scale3d(1.05, 1.05, 1) !important;
+    transition-duration: 700ms !important;
+  }
+  
+  .hover\\:scale-125:hover {
+    transform: translate3d(0, 0, 0) scale3d(1.08, 1.08, 1) !important;
+    transition-duration: 700ms !important;
+  }
+  
+  /* Riduce drasticamente le ombre per MacBook Pro */
+  .hover\\:shadow-xl:hover,
+  .hover\\:shadow-3xl:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+    transition-duration: 600ms !important;
+  }
+  
+  /* Disabilita gli effetti glow pesanti su Retina */
+  .glow-pulse {
+    animation-duration: 15s !important;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.2) !important;
   }
 }
 
@@ -359,6 +441,61 @@
   
   .float-beautiful {
     animation-duration: 20s !important;
+  }
+}
+
+/* Ottimizzazioni specifiche per MacBook Pro con ProMotion (120Hz) e display Retina ad alta densità */
+@media (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) and (min-width: 1024px) {
+  /* Disabilita completamente le animazioni più pesanti sui MacBook Pro */
+  .animate-float,
+  .glow-pulse,
+  .animate-pulse,
+  .animate-bounce-slow {
+    animation: none !important;
+  }
+  
+  /* Riduce drasticamente gli effetti gradient sui display Retina */
+  .gradient-animation.animate-small,
+  .text-gradient-animated,
+  .text-shimmer {
+    animation: none !important;
+    background-size: 100% 100% !important;
+  }
+  
+  /* Ottimizza i glass effects per dispositivi potenti ma con display demanding */
+  .glass-ultra,
+  .glass-card-enhanced {
+    backdrop-filter: blur(2px) !important;
+  }
+  
+  /* Hover effects più leggeri specificamente per MacBook Pro */
+  .hover\\:scale-110:hover {
+    transform: translate3d(0, 0, 0) scale3d(1.02, 1.02, 1) !important;
+    transition-duration: 400ms !important;
+  }
+  
+  .hover\\:scale-125:hover {
+    transform: translate3d(0, 0, 0) scale3d(1.03, 1.03, 1) !important;
+    transition-duration: 400ms !important;
+  }
+  
+  .group:hover .group-hover\\:scale-105 {
+    transform: translate3d(0, 0, 0) scale3d(1.01, 1.01, 1) !important;
+    transition-duration: 400ms !important;
+  }
+  
+  /* Elimina le ombre complesse */
+  .hover\\:shadow-xl:hover,
+  .hover\\:shadow-3xl:hover,
+  .shadow-cosmic {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+  }
+  
+  /* Disabilita completamente i floating elements sui MacBook Pro */
+  .floating-elements::before,
+  .floating-elements::after {
+    animation: none !important;
+    opacity: 0.5 !important;
   }
 }
 
@@ -553,6 +690,24 @@
   html {
     scroll-behavior: smooth;
   }
+  
+  /* Ottimizzazione per ridurre il repainting sui display ad alta densità */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Forza l'accelerazione hardware su tutti gli elementi animati */
+  .animate-float,
+  .glow-pulse,
+  .animate-bounce-slow,
+  .hover\\:scale-110,
+  .hover\\:scale-125,
+  .group-hover\\:scale-105 {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
 }
 
 @layer utilities {
@@ -631,8 +786,9 @@
   }
 
   .hover-lift:hover {
-    transform: translateY(-5px) scale(1.01);
+    transform: translate3d(0, -5px, 0) scale3d(1.01, 1.01, 1);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    will-change: transform;
   }
 
   .parallax {
@@ -712,11 +868,13 @@
     box-shadow: 0 0 20px rgba(59, 130, 246, 0.4),
                 0 0 40px rgba(147, 51, 234, 0.2),
                 0 0 60px rgba(6, 182, 212, 0.1);
+    will-change: box-shadow;
   }
   50% { 
     box-shadow: 0 0 40px rgba(59, 130, 246, 0.6),
                 0 0 80px rgba(147, 51, 234, 0.4),
                 0 0 120px rgba(6, 182, 212, 0.2);
+    will-change: box-shadow;
   }
 }
 
@@ -1214,8 +1372,6 @@
     0 10px 30px rgba(147, 51, 234, 0.2),
     0 5px 15px rgba(6, 182, 212, 0.1);
 }
-
-
 
 
 

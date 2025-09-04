@@ -28,7 +28,7 @@ export default function Hero() {
       <div className="container mx-auto px-6 text-center relative z-10">
         <div className="animate-fade-in">
           <h1 className="text-6xl md:text-8xl font-bold mb-6 text-shadow animate-fade-in">
-            <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent hover:scale-110 transition-transform duration-500 drop-shadow-2xl">
+            <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent hover:scale-110 transition-transform duration-700 drop-shadow-2xl will-change-transform">
               Biagio
             </span>{" "}
             <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent glow-pulse animate-bounce-slow drop-shadow-2xl">Cubisino</span>
@@ -41,7 +41,7 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8 animate-slide-in-right">
             <button
               onClick={() => scrollToSection("projects")}
-              className="group relative gradient-vibrant animate-small text-white px-12 py-6 rounded-3xl font-bold text-lg overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 animate-float hover:scale-105"
+              className="group relative gradient-vibrant animate-small text-white px-12 py-6 rounded-3xl font-bold text-lg overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 animate-float hover:scale-105 will-change-transform"
             >
               <span className="relative z-10 drop-shadow-md">✨ View My Work</span>
               <div className="absolute inset-0 gradient-sunset opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -64,13 +64,13 @@ export default function Hero() {
           <div className="flex justify-center space-x-6 mb-12 animate-fade-in">
             <a
               href="https://github.com/Biagem01?tab=repositories"
-              className="w-14 h-14 glass-ultra backdrop-blur-sm border border-white/30 dark:border-slate-700 rounded-xl flex items-center justify-center transition-all duration-300 shadow-cosmic hover:gradient-cosmic hover:text-white hover:scale-125 hover:shadow-xl hover:border-blue-600 animate-float glow-pulse"
+              className="w-14 h-14 glass-ultra backdrop-blur-sm border border-white/30 dark:border-slate-700 rounded-xl flex items-center justify-center transition-all duration-500 shadow-cosmic hover:gradient-cosmic hover:text-white hover:scale-110 hover:shadow-xl hover:border-blue-600 animate-float glow-pulse will-change-transform"
             >
               <i className="fab fa-github text-xl text-slate-800 dark:text-slate-200 drop-shadow-md"></i>
             </a>
             <a
               href="https://www.linkedin.com/in/biagio-cubisino-40a6ab252/"
-              className="w-14 h-14 glass-ultra backdrop-blur-sm border border-white/30 dark:border-slate-700 rounded-xl flex items-center justify-center transition-all duration-300 shadow-cosmic hover:gradient-cosmic hover:text-white hover:scale-125 hover:shadow-xl hover:border-blue-600 animate-float glow-pulse"
+              className="w-14 h-14 glass-ultra backdrop-blur-sm border border-white/30 dark:border-slate-700 rounded-xl flex items-center justify-center transition-all duration-500 shadow-cosmic hover:gradient-cosmic hover:text-white hover:scale-110 hover:shadow-xl hover:border-blue-600 animate-float glow-pulse will-change-transform"
               style={{ animationDelay: "0.2s" }}
             >
               <i className="fab fa-linkedin-in text-xl text-slate-800 dark:text-slate-200 drop-shadow-md"></i>
