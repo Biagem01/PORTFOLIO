@@ -1375,60 +1375,69 @@
 
 
 /* ============================
-   Ridurre/Disabilitare Animazioni
+   Ottimizzazione Animazioni
    Portfolio Responsive e Alta Densità
 ============================ */
 
 /* 1️⃣ Rispetta le preferenze dell’utente */
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *, *::before, *::after {
     animation: none !important;
     transition: none !important;
+    scroll-behavior: auto !important; /* evita scroll smooth pesante */
   }
 }
 
 /* 2️⃣ Animazioni più leggere su dispositivi mobili */
 @media (max-width: 768px) {
-  .card, .work-item, .fade-in, .nav-item, .section-title {
+  .card,
+  .work-item,
+  .fade-in,
+  .nav-item,
+  .section-title,
+  .interactive-card {
     animation: none !important;
     transition: none !important;
+    transform: none !important; /* disabilita tilt/parallax */
   }
 
   .fade-in {
-    opacity: 1 !important; /* evita il fade */
-  }
-
-  .interactive-card {
-    transform: none !important; /* rimuove tilt/parallax */
+    opacity: 1 !important; /* evita fade */
   }
 }
 
 /* 3️⃣ Schermi ad alta densità (Retina, ProMotion) */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .animated-background {
-    animation-duration: 2s !important; /* più lenta o leggera */
+    animation-duration: 2s !important; /* più lenta e leggera */
   }
 
-  .hover-effect, .interactive-card {
-    transition-duration: 0.2s !important; /* più veloce e meno pesante */
-    transform: none !important; /* evita calcoli GPU pesanti */
+  .hover-effect,
+  .interactive-card,
+  .fade-in,
+  .slide-up,
+  .slide-left,
+  .slide-right {
+    transition-duration: 0.2s !important; /* transizioni più veloci */
+    transform: none !important;            /* evita calcoli GPU pesanti */
+    opacity: 1 !important;
   }
+}
 
-  .fade-in, .slide-up, .slide-left, .slide-right {
-    transition-duration: 0.2s !important;
+/* 4️⃣ Ottimizzazione estrema per piccoli schermi */
+@media (max-width: 480px) {
+  .interactive-card,
+  .hero-text,
+  .intro-section,
+  .card,
+  .work-item {
+    animation: none !important;
+    transition: none !important;
     transform: none !important;
     opacity: 1 !important;
   }
 }
 
-/* 4️⃣ Ottimizzazione generale per performance estrema */
-@media (max-width: 480px) {
-  .interactive-card, .hero-text, .intro-section {
-    animation: none !important;
-    transition: none !important;
-    transform: none !important;
-  }
-}
 
 
 
