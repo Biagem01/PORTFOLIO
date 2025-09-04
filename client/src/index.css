@@ -1215,50 +1215,6 @@
     0 5px 15px rgba(6, 182, 212, 0.1);
 }
 
-/* 🚀 Ottimizzazioni per display Retina / 120Hz (es. MacBook Pro M2) */
-
-/* Forza la GPU a gestire trasformazioni e opacità */
-* {
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  will-change: transform, opacity;
-}
-
-/* Scroll più fluido su Safari/Chrome */
-html, body {
-  -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
-}
-
-/* Animazioni leggermente più lente (meno scattose su 120Hz) */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out; /* 0.3s → 0.6s */
-}
-
-/* Su display Retina ad alta densità allungo gradienti & blur */
-@media (min-resolution: 2dppx) {
-  .aurora-bg,
-  .gradient-animation {
-    animation-duration: 20s !important; /* meno stress per la GPU */
-  }
-
-  /* Ombre e blur alleggeriti */
-  .shadow-heavy {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
-    filter: none !important;
-  }
-}
-
-/* Lazy-load friendly: nasconde elementi fuori schermo fino a quando non servono */
-.lazy-img {
-  content-visibility: auto;
-  contain-intrinsic-size: 200px; /* dimensione fittizia per non shiftare layout */
-}
 
 
 
