@@ -432,52 +432,66 @@ export default function Projects() {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const containerRef = useRef(null);
   const cardRefs = useRef([]);
+  const sectionRef = useRef(null); // <--- ref sezione
 
   // reset refs length al numero di card
-  cardRefs.current = useMemo(
-    () => Array(PROJECTS.length).fill(null),
-    [/* deps vuoti: dimensione fissa */]
-  );
+  cardRefs.current = useMemo(() => Array(PROJECTS.length).fill(null), []);
+
+  // Intersection Observer per attivare autoplay solo se visibile
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsAutoPlaying(entry.isIntersecting),
+      { threshold: 0.5 }
+    );
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   // Pause autoplay quando tab non visibile
   useEffect(() => {
-    const onVisibility = () => {
-      setIsAutoPlaying(!document.hidden);
-    };
+    const onVisibility = () => setIsAutoPlaying(!document.hidden);
     document.addEventListener("visibilitychange", onVisibility);
     return () => document.removeEventListener("visibilitychange", onVisibility);
   }, []);
 
-  // Autoplay con riduzione movimento se richiesto dal sistema
+  // Autoplay
   useEffect(() => {
     if (!isAutoPlaying || prefersReducedMotion()) return;
     const id = setTimeout(() => {
       setCurrentIndex((prev) => (prev + 1) % PROJECTS.length);
-    }, 4000);
+    }, 2000);
     return () => clearTimeout(id);
   }, [isAutoPlaying, currentIndex]);
 
-  // Scroll alla card attiva (usa scrollIntoView per evitare calcoli)
+  // Scroll alla card attiva
   useEffect(() => {
-    const el = cardRefs.current[currentIndex];
-    if (!el) return;
-    const smooth = prefersReducedMotion() ? "auto" : "smooth";
-    el.scrollIntoView({ behavior: smooth, inline: "center", block: "nearest" });
-  }, [currentIndex]);
+  const container = containerRef.current;
+  const card = cardRefs.current[currentIndex];
+  if (!container || !card) return;
+
+  const cardRect = card.getBoundingClientRect();
+  const containerRect = container.getBoundingClientRect();
+
+  // Calcola lo scrollLeft necessario per centrare la card
+  const offset = card.offsetLeft - container.offsetLeft - (container.clientWidth - card.offsetWidth) / 2;
+
+  const smooth = prefersReducedMotion() ? "auto" : "smooth";
+  container.scrollTo({ left: offset, behavior: smooth });
+}, [currentIndex]);
 
   const select = (idx) => {
     setIsAutoPlaying(false);
     setCurrentIndex(idx);
-    // riattiva dopo un po’ per non “combattere” con l’utente
-    const id = setTimeout(() => setIsAutoPlaying(true), 4000);
-    return () => clearTimeout(id);
+    setTimeout(() => setIsAutoPlaying(true), 2000);
   };
-
   const prev = () => select((currentIndex - 1 + PROJECTS.length) % PROJECTS.length);
   const next = () => select((currentIndex + 1) % PROJECTS.length);
 
+
   return (
-    <section
+     <section
+      ref={sectionRef} // <--- aggiunto ref qui
       id="projects"
       className="relative py-20 md:py-32 bg-gradient-to-br from-slate-50 to-purple-50/30 dark:from-slate-900 dark:to-indigo-950/20 overflow-hidden"
     >
