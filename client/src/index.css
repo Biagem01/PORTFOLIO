@@ -1376,7 +1376,7 @@
 
 /* ============================
    Ridurre/Disabilitare Animazioni
-   Portfolio Responsive
+   Portfolio Responsive e Alta Densità
 ============================ */
 
 /* 1️⃣ Rispetta le preferenze dell’utente */
@@ -1389,52 +1389,46 @@
 
 /* 2️⃣ Animazioni più leggere su dispositivi mobili */
 @media (max-width: 768px) {
-  /* Card hover */
-  .card {
-    animation: none;
-    transition: none;
+  .card, .work-item, .fade-in, .nav-item, .section-title {
+    animation: none !important;
+    transition: none !important;
   }
 
-  
-
-  /* Fade-in generico */
   .fade-in {
     opacity: 1 !important; /* evita il fade */
   }
 
-  /* Navbar/Elementi dinamici */
-  .nav-item, .section-title, .work-item {
-    transition: none;
+  .interactive-card {
+    transform: none !important; /* rimuove tilt/parallax */
   }
 }
 
 /* 3️⃣ Schermi ad alta densità (Retina, ProMotion) */
-@media 
-(-webkit-min-device-pixel-ratio: 2), 
-(min-resolution: 192dpi) {
-  /* Ridurre durata animazioni intensive */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .animated-background {
-    animation-duration: 2s;
+    animation-duration: 2s !important; /* più lenta o leggera */
   }
 
   .hover-effect, .interactive-card {
-    transition-duration: 0.2s; /* più veloce per non appesantire */
+    transition-duration: 0.2s !important; /* più veloce e meno pesante */
+    transform: none !important; /* evita calcoli GPU pesanti */
+  }
+
+  .fade-in, .slide-up, .slide-left, .slide-right {
+    transition-duration: 0.2s !important;
+    transform: none !important;
+    opacity: 1 !important;
   }
 }
 
-/* 4️⃣ Ottimizzazione generale per performance */
+/* 4️⃣ Ottimizzazione generale per performance estrema */
 @media (max-width: 480px) {
-  .interactive-card {
-    transform: none; /* rimuove parallax/tilt */
-    animation: none;
-  }
-
-  .hero-text, .intro-section {
-    animation: none;
-    transition: none;
+  .interactive-card, .hero-text, .intro-section {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
   }
 }
-
 
 
 
