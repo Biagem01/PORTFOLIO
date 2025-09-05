@@ -8,76 +8,44 @@ import emailjs from "@emailjs/browser";
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: ""
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [errors, setErrors] = useState({});
-  const [successMessage, setSuccessMessage] = useState(""); // messaggio sotto form
+  const [successMessage, setSuccessMessage] = useState("");
   const { toast } = useToast();
   const form = useRef();
 
   const validateForm = () => {
     const newErrors = {};
-
-    if (!formData.name || formData.name.length < 2) {
-      newErrors.name = "Name must be at least 2 characters long";
-    }
-
-    if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
-    }
-
-    if (!formData.message || formData.message.length < 10) {
-      newErrors.message = "Message must be at least 10 characters long";
-    }
-
+    if (!formData.name || formData.name.length < 2) newErrors.name = "Name must be at least 2 characters long";
+    if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Please enter a valid email address";
+    if (!formData.message || formData.message.length < 10) newErrors.message = "Message must be at least 10 characters long";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ""
-      }));
-    }
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!validateForm()) return;
-
     setIsSubmitting(true);
-    setSuccessMessage(""); // reset messaggio precedente
+    setSuccessMessage("");
 
     try {
-      await emailjs.sendForm(
-        "service_29nvbfg",
-        "template_nghzm6h",
-        form.current,
-        "y05Tay6-nzRQeU80B"
-      );
+      await emailjs.sendForm("service_29nvbfg", "template_nghzm6h", form.current, "y05Tay6-nzRQeU80B");
 
       toast({
         title: "Message sent successfully!",
         description: "Thank you for your message. I'll get back to you soon.",
-        duration: 5000
+        duration: 5000,
       });
 
       setFormData({ name: "", email: "", message: "" });
       setSuccessMessage("🚀 Message sent successfully! Thank you, I'll get back to you soon.");
-
-      // auto-sparizione dopo 5 secondi
       setTimeout(() => setSuccessMessage(""), 5000);
     } catch (error) {
       console.error(error);
@@ -94,19 +62,20 @@ export default function Contact() {
   return (
     <section id="contact" className="py-20 relative">
       <div className="container mx-auto px-6 relative z-10">
+        {/* Titolo */}
         <div className="text-center mb-16">
-          <h2 className="title text-4xl md:text-5xl font-bold mb-4 drop-shadow-lg animate-bounce-slow">
+          <h2 className="title text-4xl md:text-5xl font-bold mb-4 drop-shadow-md animate-bounce-slow will-change-transform">
             <span className="bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-600 bg-clip-text text-transparent">
               🚀 Get In Touch
             </span>
           </h2>
-          <p className="p-font text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto animate-fade-in drop-shadow-md">
+          <p className="p-font text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto animate-fade-in will-change-transform">
             Let's discuss your next project or potential collaboration opportunities ✨
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-          {/* Contact Info */}
+          {/* Info */}
           <div className="space-y-8">
             <div>
               <h3 className="title text-2xl font-semibold text-slate-800 dark:text-slate-100 mb-6">Let's Connect</h3>
@@ -124,7 +93,7 @@ export default function Contact() {
                 { icon: "fas fa-map-marker-alt", label: "Location", value: "Comiso, RG" },
               ].map(({ icon, label, value }) => (
                 <div key={label} className="flex items-center space-x-4">
-                  <div className="w-12 h-12 glass-morphism rounded-lg flex items-center justify-center shadow-cosmic animate-float glow-pulse">
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center shadow-md animate-float glow-pulse will-change-transform">
                     <i className={`${icon} text-primary dark:text-primary-light`}></i>
                   </div>
                   <div>
@@ -135,7 +104,7 @@ export default function Contact() {
               ))}
             </div>
 
-            {/* Social Links */}
+            {/* Social */}
             <div>
               <p className="title text-slate-800 dark:text-slate-100 mb-4">Follow me on social media</p>
               <div className="flex space-x-4">
@@ -148,7 +117,7 @@ export default function Contact() {
                   <a
                     key={i}
                     href={href}
-                    className="w-10 h-10 glass-morphism hover:gradient-cosmic hover:text-white rounded-lg flex items-center justify-center transition-all duration-300 shadow-cosmic animate-float"
+                    className="w-10 h-10 rounded-lg flex items-center justify-center shadow-md animate-float will-change-transform hover:gradient-cosmic hover:text-white transition-all duration-300"
                     style={{ animationDelay: `${i * 0.2}s` }}
                   >
                     <i className={`${icon} text-slate-800 dark:text-slate-200`}></i>
@@ -158,76 +127,42 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Contact Form */}
-          <div className="glass-ultra rounded-3xl p-10 shadow-cosmic hover-cosmic">
+          {/* Form */}
+          <div className="rounded-3xl p-10 shadow-md glass-ultra will-change-transform">
             <form ref={form} onSubmit={handleSubmit} className="space-y-6">
               <div className="title">
                 <Label htmlFor="name">Full Name</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder="Your full name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className={errors.name ? "border-red-500" : ""}
-                />
-                {errors.name && (
-                  <p className="p-font text-red-500 text-sm mt-1">{errors.name}</p>
-                )}
+                <Input id="name" name="name" type="text" placeholder="Your full name"
+                  value={formData.name} onChange={handleInputChange}
+                  className={errors.name ? "border-red-500" : ""} />
+                {errors.name && <p className="p-font text-red-500 text-sm mt-1">{errors.name}</p>}
               </div>
 
               <div className="title">
                 <Label htmlFor="email">Email Address</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="your.email@example.com"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className={errors.email ? "border-red-500" : ""}
-                />
-                {errors.email && (
-                  <p className="p-font text-red-500 text-sm mt-1">{errors.email}</p>
-                )}
+                <Input id="email" name="email" type="email" placeholder="your.email@example.com"
+                  value={formData.email} onChange={handleInputChange}
+                  className={errors.email ? "border-red-500" : ""} />
+                {errors.email && <p className="p-font text-red-500 text-sm mt-1">{errors.email}</p>}
               </div>
 
               <div className="title">
                 <Label htmlFor="message">Message</Label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  rows={5}
+                <Textarea id="message" name="message" rows={5}
                   placeholder="Tell me about your project or just say hello..."
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  className={errors.message ? "border-red-500" : ""}
-                />
-                {errors.message && (
-                  <p className="p-font text-red-500 text-sm mt-1">{errors.message}</p>
-                )}
+                  value={formData.message} onChange={handleInputChange}
+                  className={errors.message ? "border-red-500" : ""} />
+                {errors.message && <p className="p-font text-red-500 text-sm mt-1">{errors.message}</p>}
               </div>
 
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="title w-full gradient-cosmic text-white py-5 px-8 rounded-2xl hover-cosmic font-bold text-lg disabled:opacity-50 disabled:cursor-not-allowed shadow-cosmic animate-float"
+              <Button type="submit" disabled={isSubmitting}
+                className="title w-full gradient-cosmic text-white py-5 px-8 rounded-2xl font-bold text-lg disabled:opacity-50 disabled:cursor-not-allowed shadow-md animate-float will-change-transform"
                 style={{ animationDelay: "0.8s" }}
               >
-                {isSubmitting ? (
-                  <>
-                    <i className="fas fa-spinner fa-spin mr-2"></i>
-                    Sending...
-                  </>
-                ) : (
-                  "Send Message"
-                )}
+                {isSubmitting ? <><i className="fas fa-spinner fa-spin mr-2"></i>Sending...</> : "Send Message"}
               </Button>
 
-              {successMessage && (
-                <p className="text-green-500 font-medium mt-4">{successMessage}</p>
-              )}
+              {successMessage && <p className="text-green-500 font-medium mt-4">{successMessage}</p>}
             </form>
           </div>
         </div>
@@ -235,8 +170,3 @@ export default function Contact() {
     </section>
   );
 }
-
-/* service: service_29nvbfg
-   template: template_nghzm6h
-   public key: y05Tay6-nzRQeU80B
-*/
