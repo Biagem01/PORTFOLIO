@@ -82,16 +82,31 @@ export default function About() {
         <div ref={containerRef} className="grid md:grid-cols-2 gap-12 items-center">
           <div className={`transform transition-all duration-700 ${visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"} space-y-6`}>
             <div className="p-font prose prose-lg text-slate-600 dark:text-slate-300">
-              <p>
-                I'm a computer science student and growing web developer, with a strong passion for programming and creating modern, intuitive applications.
-              </p>
-              <p>
-                I focus mainly on technologies like <strong>React</strong> <strong>Node.js</strong>  and databases, always striving to write clean and maintainable code.
-              </p>
-              <p>
-                Outside of studying and coding, I love exploring new technologies, experimenting with side projects, and keeping up to date with industry trends.
-              </p>
-            </div>
+            <p>
+              I'm a computer science student and full-stack web developer, passionate about
+              building modern, intuitive, and scalable applications. I enjoy working on both 
+              frontend interfaces and backend logic, giving me a complete perspective on how 
+              digital products are created.
+            </p>
+            <p>
+              I focus mainly on technologies like <strong className="text-black">React</strong>, 
+              <strong className="text-black"> Node.js</strong>, and databases such as MySQL, but 
+              I also explore PHP and frameworks like Laravel. I constantly strive to write clean, 
+              maintainable, and well-structured code, following best practices such as MVC 
+              architecture and state management with Redux.
+            </p>
+            <p>
+              Over time, I’ve worked on projects ranging from a New York Times clone built in React,
+              to a travel agency management system in PHP MVC, and even an API platform in Node.js.
+              Each project has helped me refine both my technical expertise and my problem-solving skills.
+            </p>
+            <p>
+              Outside of coding, I love experimenting with side projects, staying updated on industry
+              trends, and creating tools that can be useful in real contexts—like a football tournament
+              manager for my local community. Curiosity, continuous learning, and attention to user
+              experience are the values that drive me every day as a developer.
+            </p>
+          </div>
           </div>
 
           <div className={`transform transition-all duration-700 ${visible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"} relative`}>

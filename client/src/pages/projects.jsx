@@ -11,22 +11,24 @@ function ProjectShowcaseCard({ project, index }) {
   const innerRef = useRef(null);
   const [visible, setVisible] = useState(false);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          // Immediate animation for better performance
-          setVisible(true);
-        } else {
-          setVisible(false); // Reset animation when leaving viewport
-        }
-      },
-      { threshold: 0.1 }
-    );
+   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-    if (wrapperRef.current) observer.observe(wrapperRef.current);
-    return () => observer.disconnect();
-  }, [index]);
+ useEffect(() => {
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        setVisible(true); // mostra animazione
+        observer.disconnect(); // opzionale: smetti di osservare dopo la prima volta
+      }
+    },
+    { threshold: 0.1 }
+  );
+
+  if (wrapperRef.current) observer.observe(wrapperRef.current);
+  return () => observer.disconnect();
+}, []);
 
   // Mouse effects disabled for maximum performance
 
@@ -37,8 +39,8 @@ function ProjectShowcaseCard({ project, index }) {
   return (
     <div
       ref={wrapperRef}
-      className={`${visible ? "animate-fade-in-right opacity-100" : "opacity-0"}`}
-      style={{ animationDelay: `${index * 0.1}s` }}
+      className={`${visible ? "animate-fade-in-right-projects opacity-100" : "opacity-0"}`}
+      style={{ animationDelay: `${index * 0.2}s` }}
     >
       <div
         ref={innerRef}

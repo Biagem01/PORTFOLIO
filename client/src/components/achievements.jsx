@@ -57,7 +57,7 @@ export default function Achievements() {
       title: "Full-Stack Development",
       description:
         "Successfully developed multiple end-to-end web applications using modern technologies like React, Node.js, and databases.",
-      year: "2024",
+      year: "2025",
     },
     {
       icon: "🎓",
@@ -71,7 +71,7 @@ export default function Achievements() {
       title: "10+ Projects Completed",
       description:
         "Built diverse portfolio including e-commerce platforms, movie review systems, and travel agency management tools.",
-      year: "2023-2024",
+      year: "2024-2025",
     },
     {
       icon: "💡",
