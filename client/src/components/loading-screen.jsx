@@ -28,7 +28,7 @@ export default function LoadingScreen() {
     const handleLoad = () => {
       clearInterval(fakeTimer);
       setProgress(100);
-      setTimeout(() => setIsVisible(false), 1200);
+      setTimeout(() => setIsVisible(false), 2500);
     };
 
     if (document.readyState === "complete") {

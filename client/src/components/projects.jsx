@@ -382,7 +382,7 @@ const HorizontalProjectCard = memo(function HorizontalProjectCard({ project, ind
             ? "w-[85vw] sm:w-[420px] md:w-[480px] lg:w-[520px] scale-105 z-20" 
             : "w-[70vw] sm:w-[300px] md:w-[360px] lg:w-[400px] opacity-85"}
         `}
-        style={{ height: isActive ? "auto" : "auto", minHeight: "420px" }}
+        style={{ minHeight: "420px" }}
         onClick={() => onSelect(index)}
         aria-label={`Apri dettagli ${project.title}`}
       >
@@ -410,21 +410,33 @@ const HorizontalProjectCard = memo(function HorizontalProjectCard({ project, ind
         </div>
 
         {/* Content */}
-        <div className="relative z-10 h-full flex flex-col justify-end p-4 sm:p-6">
+        <div className="relative z-10 h-full flex flex-col p-4 sm:p-6">
+          {/* Badge Featured */}
           {index === 0 && (
             <div className="absolute top-3 left-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-bold shadow">
               ⭐ Featured
             </div>
           )}
+
+          {/* Index */}
           <div className="absolute top-3 right-3 w-9 h-9 sm:w-10 sm:h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30 text-white font-bold text-xs sm:text-sm">
             {(index + 1).toString().padStart(2, "0")}
           </div>
-          <h3 className="title text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2 drop-shadow">
-            {project.title}
-          </h3>
+
+          {/* Titolo */}
+          <h3
+          className={`
+            title text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white drop-shadow
+            ${index === 0 ? "mt-8" : "mt-0"}
+          `}
+        >
+          {project.title}
+        </h3>
+
+          {/* Descrizione */}
           <p
             className={`
-              p-font text-white/90 mb-3 leading-relaxed
+              p-font text-white/90 leading-relaxed
               ${isActive ? "text-sm sm:text-base" : "text-xs sm:text-sm"}
             `}
           >
@@ -432,7 +444,9 @@ const HorizontalProjectCard = memo(function HorizontalProjectCard({ project, ind
               ? `${project.description.slice(0, 110)}...`
               : project.description}
           </p>
-          <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4">
+
+          {/* Tecnologie */}
+          <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-3">
             {project.technologies
               .slice(0, isActive ? 4 : 3)
               .map((tech) => (
@@ -449,7 +463,9 @@ const HorizontalProjectCard = memo(function HorizontalProjectCard({ project, ind
               </span>
             )}
           </div>
-          <div className="flex gap-2 sm:gap-3">
+
+          {/* Bottoni → fissati in basso */}
+          <div className="flex gap-2 sm:gap-3 mt-auto pt-4">
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -472,7 +488,7 @@ const HorizontalProjectCard = memo(function HorizontalProjectCard({ project, ind
         </div>
       </div>
 
-      {/* Modal rimane uguale */}
+      {/* Modal */}
       {isModalOpen && (
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
           <DialogContent
@@ -519,6 +535,7 @@ const HorizontalProjectCard = memo(function HorizontalProjectCard({ project, ind
     </>
   );
 });
+
 
 
 /* =========================
