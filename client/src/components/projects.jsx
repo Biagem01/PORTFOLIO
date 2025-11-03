@@ -24,7 +24,7 @@ const PROJECTS = [
   description: "LookBook is a backend RESTful API platform for selling and exchanging secondhand clothing. Built with Node.js and Express, it enables users to manage products, users, and swap orders efficiently, with features like image uploads and filtering options.",
   image: "https://images.unsplash.com/photo-1743877428895-fd3aabd06528?q=80&w=1400&auto=format&fit=crop",
   technologies: ["Node.js", "Express", "MySQL", "Multer", "Sinon", "JavaScript"],
-  demoLink: "#", // puoi lasciare "#" se non c'è un front-end live
+  demoLink: "#",
   githubLink: "https://github.com/Biagem01/LookBook"
 },
 

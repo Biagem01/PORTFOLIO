@@ -45,7 +45,7 @@ export default function Contact() {
       });
 
       setFormData({ name: "", email: "", message: "" });
-      setSuccessMessage("🚀 Message sent successfully! Thank you, I'll get back to you soon.");
+      setSuccessMessage("Message sent successfully! Thank you, I'll get back to you soon.");
       setTimeout(() => setSuccessMessage(""), 5000);
     } catch (error) {
       console.error(error);
@@ -60,109 +60,139 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 relative">
+    <section id="contact" className="p-font py-20 bg-slate-50 dark:bg-slate-800/50 relative overflow-hidden">
+      {/* Subtle background decoration */}
+      <div className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-20 right-20 w-40 h-40 bg-gradient-to-br from-purple-500/5 to-pink-500/5 rounded-full blur-3xl"></div>
+
       <div className="container mx-auto px-6 relative z-10">
-        {/* Titolo */}
-        <div className="text-center mb-16">
-          <h2 className="title text-4xl md:text-5xl font-bold mb-4 drop-shadow-md animate-bounce-slow will-change-transform">
-            <span className="bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-600 bg-clip-text text-transparent">
-              🚀 Get In Touch
-            </span>
+        <div className="text-center mb-16 animate-fade-in">
+          <h2 className="title text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+            Get In <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Touch</span>
           </h2>
-          <p className="p-font text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto animate-fade-in will-change-transform">
-            Let's discuss your next project or potential collaboration opportunities ✨
+          <p className="p-font text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            Let's discuss your next project or potential collaboration opportunities
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-          {/* Info */}
-          <div className="space-y-8">
+        <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+          <div className="space-y-8 animate-fade-in">
             <div>
-              <h3 className="title text-2xl font-semibold text-slate-800 dark:text-slate-100 mb-6">Let's Connect</h3>
-              <p className="p-font text-slate-600 dark:text-slate-300 mb-8">
+              <h3 className="title text-2xl font-semibold text-slate-900 dark:text-white mb-4">Let's Connect</h3>
+              <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
                 I'm always interested in hearing about new opportunities and exciting projects. 
                 Whether you're a company looking to hire, or you're a fellow developer wanting to collaborate, 
                 feel free to reach out!
               </p>
             </div>
 
-            <div className="project-description space-y-4">
+            <div className="space-y-4">
               {[
                 { icon: "fas fa-envelope", label: "Email", value: "biagio.99cubisino@gmail.com" },
                 { icon: "fas fa-phone", label: "Phone", value: "+39 3425180540" },
                 { icon: "fas fa-map-marker-alt", label: "Location", value: "Comiso, RG" },
               ].map(({ icon, label, value }) => (
                 <div key={label} className="flex items-center space-x-4">
-                  <div className="w-12 h-12 rounded-lg flex items-center justify-center shadow-md animate-float glow-pulse will-change-transform">
-                    <i className={`${icon} text-primary dark:text-primary-light`}></i>
+                  <div className="w-12 h-12 rounded-lg bg-blue-600 text-white flex items-center justify-center">
+                    <i className={icon}></i>
                   </div>
                   <div>
-                    <p className="font-medium text-slate-800 dark:text-slate-100">{label}</p>
-                    <p className="text-slate-600 dark:text-slate-300">{value}</p>
+                    <p className="font-medium text-slate-900 dark:text-white">{label}</p>
+                    <p className="text-slate-600 dark:text-slate-400">{value}</p>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Social */}
             <div>
-              <p className="title text-slate-800 dark:text-slate-100 mb-4">Follow me on social media</p>
+              <p className="text-slate-900 dark:text-white font-medium mb-4">Connect with me</p>
               <div className="flex space-x-4">
-                {[
-                  { href: "#", icon: "fab fa-linkedin-in" },
-                  { href: "#", icon: "fab fa-github" },
-                  { href: "#", icon: "fab fa-twitter" },
-                  { href: "#", icon: "fas fa-globe" },
-                ].map(({ href, icon }, i) => (
-                  <a
-                    key={i}
-                    href={href}
-                    className="w-10 h-10 rounded-lg flex items-center justify-center shadow-md animate-float will-change-transform hover:gradient-cosmic hover:text-white transition-all duration-300"
-                    style={{ animationDelay: `${i * 0.2}s` }}
-                  >
-                    <i className={`${icon} text-slate-800 dark:text-slate-200`}></i>
-                  </a>
-                ))}
+                <a
+                  href="https://www.linkedin.com/in/biagio-cubisino-40a6ab252/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-lg border border-slate-300 dark:border-slate-600 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:border-blue-600 hover:text-blue-600 dark:hover:border-blue-500 dark:hover:text-blue-500 transition-all"
+                >
+                  <i className="fab fa-linkedin-in"></i>
+                </a>
+                <a
+                  href="https://github.com/Biagem01?tab=repositories"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-lg border border-slate-300 dark:border-slate-600 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:border-blue-600 hover:text-blue-600 dark:hover:border-blue-500 dark:hover:text-blue-500 transition-all"
+                >
+                  <i className="fab fa-github"></i>
+                </a>
+                <a
+                  href="mailto:biagio.99cubisino@gmail.com"
+                  className="w-10 h-10 rounded-lg border border-slate-300 dark:border-slate-600 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:border-blue-600 hover:text-blue-600 dark:hover:border-blue-500 dark:hover:text-blue-500 transition-all"
+                >
+                  <i className="fas fa-envelope"></i>
+                </a>
               </div>
             </div>
           </div>
 
-          {/* Form */}
-          <div className="rounded-3xl p-10 shadow-md glass-ultra will-change-transform">
+          <div className="bg-white dark:bg-slate-800 rounded-xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 animate-fade-in">
             <form ref={form} onSubmit={handleSubmit} className="space-y-6">
-              <div className="title">
+              <div>
                 <Label htmlFor="name">Full Name</Label>
-                <Input id="name" name="name" type="text" placeholder="Your full name"
-                  value={formData.name} onChange={handleInputChange}
-                  className={errors.name ? "border-red-500" : ""} />
-                {errors.name && <p className="p-font text-red-500 text-sm mt-1">{errors.name}</p>}
+                <Input 
+                  id="name" 
+                  name="name" 
+                  type="text" 
+                  placeholder="Your full name"
+                  value={formData.name} 
+                  onChange={handleInputChange}
+                  className={errors.name ? "border-red-500" : ""} 
+                />
+                {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
               </div>
 
-              <div className="title">
+              <div>
                 <Label htmlFor="email">Email Address</Label>
-                <Input id="email" name="email" type="email" placeholder="your.email@example.com"
-                  value={formData.email} onChange={handleInputChange}
-                  className={errors.email ? "border-red-500" : ""} />
-                {errors.email && <p className="p-font text-red-500 text-sm mt-1">{errors.email}</p>}
+                <Input 
+                  id="email" 
+                  name="email" 
+                  type="email" 
+                  placeholder="your.email@example.com"
+                  value={formData.email} 
+                  onChange={handleInputChange}
+                  className={errors.email ? "border-red-500" : ""} 
+                />
+                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
               </div>
 
-              <div className="title">
+              <div>
                 <Label htmlFor="message">Message</Label>
-                <Textarea id="message" name="message" rows={5}
+                <Textarea 
+                  id="message" 
+                  name="message" 
+                  rows={5}
                   placeholder="Tell me about your project or just say hello..."
-                  value={formData.message} onChange={handleInputChange}
-                  className={errors.message ? "border-red-500" : ""} />
-                {errors.message && <p className="p-font text-red-500 text-sm mt-1">{errors.message}</p>}
+                  value={formData.message} 
+                  onChange={handleInputChange}
+                  className={errors.message ? "border-red-500" : ""} 
+                />
+                {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
               </div>
 
-              <Button type="submit" disabled={isSubmitting}
-                className="title w-full gradient-cosmic text-white py-5 px-8 rounded-2xl font-bold text-lg disabled:opacity-50 disabled:cursor-not-allowed shadow-md animate-float will-change-transform"
-                style={{ animationDelay: "0.8s" }}
+              <Button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               >
-                {isSubmitting ? <><i className="fas fa-spinner fa-spin mr-2"></i>Sending...</> : "Send Message"}
+                {isSubmitting ? (
+                  <>
+                    <i className="fas fa-spinner fa-spin mr-2"></i>
+                    Sending...
+                  </>
+                ) : (
+                  "Send Message"
+                )}
               </Button>
 
-              {successMessage && <p className="text-green-500 font-medium mt-4">{successMessage}</p>}
+              {successMessage && <p className="text-green-600 dark:text-green-400 font-medium text-center">{successMessage}</p>}
             </form>
           </div>
         </div>

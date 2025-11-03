@@ -64,7 +64,7 @@ export default function Achievements() {
       title: "Computer Science Student",
       description:
         "Currently pursuing Computer Science degree, maintaining excellent academic performance while working on practical projects.",
-      year: "2023-Present",
+      year: "2020-Present",
     },
     {
       icon: "🚀",
