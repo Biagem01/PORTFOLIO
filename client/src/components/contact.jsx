@@ -60,17 +60,17 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="p-font py-20 bg-slate-50 dark:bg-slate-800/50 relative overflow-hidden">
-      {/* Subtle background decoration */}
-      <div className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-20 right-20 w-40 h-40 bg-gradient-to-br from-purple-500/5 to-pink-500/5 rounded-full blur-3xl"></div>
+    <section id="contact" className="p-font py-16 bg-slate-50 dark:bg-slate-800/50 relative overflow-hidden">
+      {/* Subtle corner accents */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-500/5 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-purple-500/5 to-transparent rounded-full blur-3xl pointer-events-none"></div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="title text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+      <div className="container mx-auto px-6 relative z-10 max-w-6xl">
+        <div className="text-center mb-12 animate-fade-in">
+          <h2 className="title text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-3">
             Get In <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Touch</span>
           </h2>
-          <p className="p-font text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+          <p className="p-font text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
             Let's discuss your next project or potential collaboration opportunities
           </p>
         </div>

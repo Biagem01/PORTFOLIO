@@ -473,19 +473,28 @@
 
 /* Ottimizzazioni specifiche per MacBook Pro con ProMotion (120Hz) e display Retina ad alta densità */
 @media (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) and (min-width: 1024px) {
-  /* Disabilita completamente le animazioni più pesanti sui MacBook Pro */
-  .animate-float,
-  .glow-pulse,
-  .animate-pulse,
+  /* Rallenta le animazioni invece di disabilitarle per mantenere dinamicità */
+  .animate-float {
+    animation-duration: 12s !important;
+  }
+  
+  .glow-pulse {
+    animation-duration: 8s !important;
+  }
+  
+  .animate-pulse {
+    animation-duration: 6s !important;
+  }
+  
   .animate-bounce-slow {
-    animation: none !important;
+    animation-duration: 4s !important;
   }
   
   /* Riduce drasticamente gli effetti gradient sui display Retina */
   .gradient-animation.animate-small,
   .text-gradient-animated,
   .text-shimmer {
-    animation: none !important;
+    animation-duration: 20s !important;
     background-size: 100% 100% !important;
   }
   

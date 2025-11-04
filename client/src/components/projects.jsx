@@ -365,124 +365,80 @@ function ProjectDetails({ project }) {
 
 
 /* =========================
-   CARD ORIZZONTALE
+   PROJECT CARD GRIGLIA
    ========================= */
-const HorizontalProjectCard = memo(function HorizontalProjectCard({ project, index, isActive, onSelect }) {
+const ProjectCard = memo(function ProjectCard({ project, index }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   useBodyScrollLock(isModalOpen);
 
   return (
     <>
       <div
-        ref={(el) => { if (el) el.dataset.cardIndex = String(index); }}
-        data-card
-        className={`
-          flex-shrink-0 relative overflow-hidden rounded-[1.75rem] cursor-pointer group transition-transform
-          ${isActive 
-            ? "w-[85vw] sm:w-[420px] md:w-[480px] lg:w-[520px] scale-105 z-20" 
-            : "w-[70vw] sm:w-[300px] md:w-[360px] lg:w-[400px] opacity-85"}
-        `}
-        style={{ minHeight: "420px" }}
-        onClick={() => onSelect(index)}
-        aria-label={`Apri dettagli ${project.title}`}
+        className="group relative overflow-hidden rounded-2xl bg-white dark:bg-slate-800 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Cover */}
-        <div className="absolute inset-0">
+        {/* Image */}
+        <div className="relative h-56 overflow-hidden">
           <img
             src={project.image}
             alt={project.title}
-            loading={isActive ? "eager" : "lazy"}
-            decoding="async"
-            fetchPriority={isActive ? "high" : "auto"}
-            className={`
-              w-full h-full object-cover transition-transform duration-500
-              ${isActive ? "scale-110" : "scale-100 group-hover:scale-105"}
-            `}
+            loading="lazy"
+            className={`w-full h-full object-cover transition-transform duration-500 ${isHovered ? 'scale-110' : 'scale-100'}`}
           />
-          <div
-            className={`
-              absolute inset-0 transition-opacity duration-500
-              ${isActive
-                ? "bg-gradient-to-t from-black/90 via-black/50 to-transparent"
-                : "bg-gradient-to-t from-black/70 via-black/40 to-transparent"}
-            `}
-          />
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10 h-full flex flex-col p-4 sm:p-6">
-          {/* Badge Featured */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+          
+          {/* Featured badge */}
           {index === 0 && (
-            <div className="absolute top-3 left-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-bold shadow">
+            <div className="absolute top-3 left-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg">
               ⭐ Featured
             </div>
           )}
+        </div>
 
-          {/* Index */}
-          <div className="absolute top-3 right-3 w-9 h-9 sm:w-10 sm:h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30 text-white font-bold text-xs sm:text-sm">
-            {(index + 1).toString().padStart(2, "0")}
-          </div>
-
-          {/* Titolo */}
-          <h3
-          className={`
-            title text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white drop-shadow
-            ${index === 0 ? "mt-8" : "mt-0"}
-          `}
-        >
-          {project.title}
-        </h3>
-
-          {/* Descrizione */}
-          <p
-            className={`
-              p-font text-white/90 leading-relaxed
-              ${isActive ? "text-sm sm:text-base" : "text-xs sm:text-sm"}
-            `}
-          >
-            {project.description.length > 110
-              ? `${project.description.slice(0, 110)}...`
-              : project.description}
+        {/* Content */}
+        <div className="p-5">
+          <h3 className="title text-xl font-bold text-slate-900 dark:text-white mb-2 line-clamp-1">
+            {project.title}
+          </h3>
+          
+          <p className="p-font text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-2 leading-relaxed">
+            {project.description}
           </p>
 
-          {/* Tecnologie */}
-          <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-3">
-            {project.technologies
-              .slice(0, isActive ? 4 : 3)
-              .map((tech) => (
-                <span
-                  key={tech}
-                  className="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-lg text-[10px] sm:text-xs font-medium border border-white/30"
-                >
-                  {tech}
-                </span>
-              ))}
-            {project.technologies.length > (isActive ? 4 : 3) && (
-              <span className="bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded-lg text-[10px] sm:text-xs font-medium border border-white/30">
-                +{project.technologies.length - (isActive ? 4 : 3)}
+          {/* Technologies */}
+          <div className="flex flex-wrap gap-2 mb-4">
+            {project.technologies.slice(0, 3).map((tech) => (
+              <span
+                key={tech}
+                className="text-xs px-2.5 py-1 rounded-md bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-medium"
+              >
+                {tech}
+              </span>
+            ))}
+            {project.technologies.length > 3 && (
+              <span className="text-xs px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 font-medium">
+                +{project.technologies.length - 3}
               </span>
             )}
           </div>
 
-          {/* Bottoni → fissati in basso */}
-          <div className="flex gap-2 sm:gap-3 mt-auto pt-4">
+          {/* Actions */}
+          <div className="flex gap-2">
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsModalOpen(true);
-              }}
-              className="title flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-indigo-600 hover:to-purple-700 text-white px-3 sm:px-4 py-2 rounded-xl font-semibold text-xs sm:text-sm shadow"
+              onClick={() => setIsModalOpen(true)}
+              className="title flex-1 px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all"
             >
-              👁️ View Details
+              View Details
             </button>
             <a
               href={project.githubLink}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="title flex-1 bg-slate-800 hover:bg-black text-white px-3 sm:px-4 py-2 rounded-xl font-semibold text-xs sm:text-sm shadow"
+              className="title px-4 py-2 border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold hover:border-purple-600 hover:text-purple-600 dark:hover:border-purple-500 dark:hover:text-purple-500 transition-all"
             >
-              📚 GitHub
+              <i className="fab fa-github"></i>
             </a>
           </div>
         </div>
@@ -545,105 +501,146 @@ export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const containerRef = useRef(null);
-  const cardRefs = useRef([]);
   const sectionRef = useRef(null);
 
-  cardRefs.current = useMemo(() => Array(PROJECTS.length).fill(null), []);
-
-  // Intersection Observer
+  // Intersection Observer per autoplay
   useEffect(() => {
     if (!sectionRef.current) return;
-    const obs = new IntersectionObserver(([entry]) => setIsAutoPlaying(entry.isIntersecting), { threshold: 0.5 });
+    const obs = new IntersectionObserver(([entry]) => setIsAutoPlaying(entry.isIntersecting), { threshold: 0.3 });
     obs.observe(sectionRef.current);
     return () => obs.disconnect();
-  }, []);
-
-  // Visibility tab
-  useEffect(() => {
-    const handle = () => setIsAutoPlaying(!document.hidden);
-    document.addEventListener("visibilitychange", handle);
-    return () => document.removeEventListener("visibilitychange", handle);
   }, []);
 
   // Autoplay
   useEffect(() => {
     if (!isAutoPlaying || prefersReducedMotion()) return;
-    const id = setTimeout(() => setCurrentIndex((prev) => (prev + 1) % PROJECTS.length), 2000);
+    const id = setTimeout(() => setCurrentIndex((prev) => (prev + 1) % PROJECTS.length), 4000);
     return () => clearTimeout(id);
   }, [isAutoPlaying, currentIndex]);
 
-  // Scroll card attiva
+  // Scroll automatico alla card attiva
   useEffect(() => {
-    const container = containerRef.current;
-    const card = cardRefs.current[currentIndex];
-    if (!container || !card) return;
-    const offset = card.offsetLeft - container.offsetLeft - (container.clientWidth - card.offsetWidth)/2;
-    container.scrollTo({ left: offset, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+    if (!containerRef.current) return;
+    const cardWidth = 380;
+    const gap = 24;
+    const scrollPosition = currentIndex * (cardWidth + gap);
+    containerRef.current.scrollTo({ 
+      left: scrollPosition, 
+      behavior: prefersReducedMotion() ? "auto" : "smooth" 
+    });
   }, [currentIndex]);
 
-  const select = (idx) => {
+  const prev = () => {
     setIsAutoPlaying(false);
-    setCurrentIndex(idx);
-    setTimeout(() => setIsAutoPlaying(true), 2000);
+    setCurrentIndex((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length);
+    setTimeout(() => setIsAutoPlaying(true), 5000);
   };
-  const prev = () => select((currentIndex - 1 + PROJECTS.length) % PROJECTS.length);
-  const next = () => select((currentIndex + 1) % PROJECTS.length);
+
+  const next = () => {
+    setIsAutoPlaying(false);
+    setCurrentIndex((prev) => (prev + 1) % PROJECTS.length);
+    setTimeout(() => setIsAutoPlaying(true), 5000);
+  };
 
   return (
-    <section ref={sectionRef} id="projects" className="relative py-20 md:py-32  from-slate-50 to-purple-50/30 dark:from-slate-900 dark:to-indigo-950/20 overflow-hidden">
-      {/* Background leggero */}
-       <div className="absolute top-16 right-16 w-24 h-24 bg-gradient-to-br from-purple-400/10 to-indigo-400/10 rounded-full blur-md will-change-transform"></div>
-      <div className="absolute bottom-16 left-16 w-28 h-28 bg-gradient-to-br from-pink-400/10 to-red-400/10 rounded-full blur-lg will-change-transform"></div>
-      <div className="absolute top-1/3 left-1/4 w-20 h-20 bg-gradient-to-br from-yellow-400/10 to-orange-400/10 rounded-full blur-md will-change-transform"></div>
-      <div className="absolute bottom-1/4 right-1/3 w-32 h-32 bg-gradient-to-br from-cyan-400/10 to-teal-400/10 rounded-full blur-xl will-change-transform"></div>
+    <section ref={sectionRef} id="projects" className="relative py-16 bg-slate-50 dark:bg-slate-900/50 overflow-hidden">
+      {/* Animated corner accents */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-purple-500/5 to-transparent rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-blue-500/5 to-transparent rounded-full blur-3xl pointer-events-none animate-pulse" style={{animationDelay: '2s'}}></div>
 
       <div className="container mx-auto px-6 relative z-10">
-        {/* Titolo */}
-        <div className="text-center mb-14">
-          <h2 className="title text-5xl md:text-7xl font-bold mb-5  bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-600">My Projects</h2>
-          <p className="title text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">Explore my latest work in modern web development.</p>
+        {/* Header */}
+        <div className="text-center mb-12 animate-fade-in">
+          <h2 className="title text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-3">
+            Featured <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">Projects</span>
+          </h2>
+          <p className="p-font text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            Explore my latest work in modern web development
+          </p>
         </div>
 
-        {/* Carousel */}
-        <div className="relative">
-          {/* Frecce */}
-          <button onClick={prev} aria-label="Progetto precedente" className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 z-30 w-11 h-11 bg-white/90 dark:bg-black/80 border border-slate-300/50 dark:border-white/20 rounded-full flex items-center justify-center text-slate-700 dark:text-white shadow">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+        {/* Carousel Container */}
+        <div className="relative max-w-7xl mx-auto">
+          {/* Navigation Arrows */}
+          <button 
+            onClick={prev}
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-white/95 dark:bg-slate-800/95 border border-slate-300 dark:border-slate-600 rounded-full flex items-center justify-center text-slate-700 dark:text-white shadow-lg hover:scale-110 transition-all duration-300"
+            aria-label="Previous project"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
           </button>
-          <button onClick={next} aria-label="Prossimo progetto" className="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 z-30 w-11 h-11 bg-white/90 dark:bg-black/80 border border-slate-300/50 dark:border-white/20 rounded-full flex items-center justify-center text-slate-700 dark:text-white shadow">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+          
+          <button 
+            onClick={next}
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-white/95 dark:bg-slate-800/95 border border-slate-300 dark:border-slate-600 rounded-full flex items-center justify-center text-slate-700 dark:text-white shadow-lg hover:scale-110 transition-all duration-300"
+            aria-label="Next project"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
           </button>
 
-          {/* Lista card */}
-          <div ref={containerRef} className="title p-font flex gap-6 overflow-x-auto scrollbar-hide py-6 px-12 md:px-16" style={{ scrollSnapType: "x mandatory" }} onMouseEnter={() => setIsAutoPlaying(false)} onMouseLeave={() => setIsAutoPlaying(true)}>
-            {PROJECTS.map((project, i) => (
-              <div key={project.title} ref={(el) => (cardRefs.current[i] = el)} className="scroll-ml-16">
-                <HorizontalProjectCard project={project} index={i} isActive={i===currentIndex} onSelect={select} />
+          {/* Projects Carousel */}
+          <div 
+            ref={containerRef}
+            className="flex gap-6 overflow-x-auto scrollbar-hide py-4 px-12 snap-x snap-mandatory scroll-smooth"
+            onMouseEnter={() => setIsAutoPlaying(false)}
+            onMouseLeave={() => setIsAutoPlaying(true)}
+          >
+            {PROJECTS.map((project, index) => (
+              <div 
+                key={project.title} 
+                className="flex-shrink-0 w-[340px] sm:w-[380px] snap-center"
+              >
+                <ProjectCard project={project} index={index} />
               </div>
             ))}
           </div>
         </div>
 
-        {/* Dots */}
-        <div className="flex justify-center gap-3 mt-6">
-          {PROJECTS.map((_, i) => (
-            <button key={i} onClick={() => select(i)} aria-label={`Vai al progetto ${i+1}`} className={`w-3 h-3 rounded-full transition-transform ${i===currentIndex ? "bg-gradient-to-r from-purple-500 to-pink-500 scale-125" : "bg-slate-300 dark:bg-white/30 hover:scale-110"}`} />
+        {/* Dots Navigation */}
+        <div className="flex justify-center gap-2 mt-8">
+          {PROJECTS.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setIsAutoPlaying(false);
+                setCurrentIndex(index);
+                setTimeout(() => setIsAutoPlaying(true), 5000);
+              }}
+              className={`transition-all duration-300 rounded-full ${
+                index === currentIndex 
+                  ? 'w-8 h-3 bg-gradient-to-r from-purple-600 to-pink-600' 
+                  : 'w-3 h-3 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400'
+              }`}
+              aria-label={`Go to project ${index + 1}`}
+            />
           ))}
         </div>
 
-        {/* Counter + CTA */}
-        <div className="text-center mt-8">
-          <div className="inline-flex items-center gap-4 bg-white/80 dark:bg-black/60 backdrop-blur-sm border border-slate-200/50 dark:border-white/20 rounded-full px-6 py-3 shadow">
-            <span className="text-slate-700 dark:text-white font-bold">{currentIndex+1} / {PROJECTS.length}</span>
-            <div className="w-px h-6 bg-slate-300 dark:bg-white/20" />
-            <span className=" title text-slate-500 dark:text-white/70 text-sm max-w-48 truncate">{PROJECTS[currentIndex].title}</span>
+        {/* Counter + View All CTA */}
+        <div className="text-center mt-8 space-y-6">
+          <div className="inline-flex items-center gap-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-full px-6 py-3 shadow-lg">
+            <span className="title text-slate-700 dark:text-white font-bold text-sm">
+              {currentIndex + 1} / {PROJECTS.length}
+            </span>
+            <div className="w-px h-6 bg-slate-300 dark:bg-slate-600" />
+            <span className="title text-slate-600 dark:text-slate-300 text-sm font-medium max-w-xs truncate">
+              {PROJECTS[currentIndex].title}
+            </span>
           </div>
 
-          <div className="mt-14">
-            <Link href="/projects" className="title inline-flex items-center bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white px-7 py-4 rounded-2xl font-bold gap-3 shadow hover:shadow-lg transition-transform hover:scale-105">
-               🚀 View All Projects →
-            </Link>
-          </div>
+          <Link 
+            href="/projects" 
+            className="title inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-semibold hover:shadow-xl hover:shadow-purple-500/25 transition-all duration-300 group"
+          >
+            <span>View All Projects</span>
+            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
         </div>
       </div>
     </section>

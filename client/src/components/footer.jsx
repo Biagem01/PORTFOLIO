@@ -8,8 +8,8 @@ export default function Footer() {
   };
 
   return (
-    <footer className="p-font bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 py-12">
-      <div className="container mx-auto px-6">
+    <footer className="p-font bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 py-10">
+      <div className="container mx-auto px-6 max-w-6xl">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div>
             <h3 className="title text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
