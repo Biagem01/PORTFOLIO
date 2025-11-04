@@ -1,34 +1,63 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 export default function LoadingScreen() {
   const [isVisible, setIsVisible] = useState(true);
   const [progress, setProgress] = useState(0);
-  const [loadingText, setLoadingText] = useState("Initializing...");
+  const [loadingPhase, setLoadingPhase] = useState(0);
+
+  const loadingPhrases = [
+    "Initializing Experience...",
+    "Loading Components...",
+    "Preparing Portfolio...",
+    "Almost Ready...",
+    "Welcome!"
+  ];
+
+  // Memoize particle configurations to prevent re-renders from causing flicker
+  const particles = useMemo(() => 
+    [...Array(30)].map(() => ({
+      left: `${Math.random() * 100}%`,
+      width: `${Math.random() * 4 + 2}px`,
+      height: `${Math.random() * 4 + 2}px`,
+      opacity: Math.random() * 0.5 + 0.3,
+      delay: `${Math.random() * 5}s`,
+      duration: `${Math.random() * 8 + 6}s`,
+      floatX: `${(Math.random() - 0.5) * 100}px`
+    }))
+  , []);
+
+  // Memoize sparkle positions
+  const sparkles = useMemo(() =>
+    [...Array(6)].map((_, i) => ({
+      top: `${Math.sin(i * Math.PI / 3) * 80 + 50}%`,
+      left: `${Math.cos(i * Math.PI / 3) * 80 + 50}%`,
+      delay: `${i * 0.3}s`
+    }))
+  , []);
 
   useEffect(() => {
-    const textStates = [
-      "Initializing...",
-      "Loading components...",
-      "Setting up portfolio...",
-      "Almost ready..."
-    ];
+    // Progress animation
+    const progressInterval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(progressInterval);
+          return 100;
+        }
+        return Math.min(prev + 2, 100);
+      });
+    }, 50);
 
-    const textTimer = setInterval(() => {
-      setLoadingText(
-        textStates[Math.floor(Math.random() * textStates.length)]
-      );
+    // Phase rotation
+    const phaseInterval = setInterval(() => {
+      setLoadingPhase((prev) => (prev + 1) % loadingPhrases.length);
     }, 800);
 
-    // Avanza la progress bar finta fino al 90%
-    const fakeTimer = setInterval(() => {
-      setProgress((prev) => Math.min(prev + 2, 90));
-    }, 200);
-
-    // Quando tutte le risorse sono caricate → 100%
+    // Page load handler
     const handleLoad = () => {
-      clearInterval(fakeTimer);
       setProgress(100);
-      setTimeout(() => setIsVisible(false), 2500);
+      setTimeout(() => {
+        setIsVisible(false);
+      }, 1000);
     };
 
     if (document.readyState === "complete") {
@@ -38,8 +67,8 @@ export default function LoadingScreen() {
     }
 
     return () => {
-      clearInterval(textTimer);
-      clearInterval(fakeTimer);
+      clearInterval(progressInterval);
+      clearInterval(phaseInterval);
       window.removeEventListener("load", handleLoad);
     };
   }, []);
@@ -47,125 +76,199 @@ export default function LoadingScreen() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-slate-950 via-purple-950 to-indigo-950 z-[9999] flex items-center justify-center overflow-hidden">
-      {/* Background particles */}
-      <div className="absolute inset-0">
-        {[...Array(40)].map((_, i) => (
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-purple-950 to-blue-950">
+      {/* Animated Background Grid */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `
+            linear-gradient(rgba(147, 51, 234, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(147, 51, 234, 0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: '50px 50px',
+          animation: 'gridSlide 20s linear infinite'
+        }} />
+      </div>
+
+      {/* Floating Particles */}
+      <div className="absolute inset-0 overflow-hidden">
+        {particles.map((particle, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-purple-400/30 rounded-full animate-pulse"
+            className="absolute rounded-full"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`
+              left: particle.left,
+              bottom: '0',
+              width: particle.width,
+              height: particle.height,
+              background: `linear-gradient(135deg, 
+                rgba(147, 51, 234, ${particle.opacity}), 
+                rgba(59, 130, 246, ${particle.opacity}))`,
+              animation: `particleFloat ${particle.duration} linear infinite`,
+              animationDelay: particle.delay,
+              '--float-x': particle.floatX
             }}
           />
         ))}
       </div>
 
-      {/* Floating orbs */}
-      <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl animate-pulse"></div>
-      <div
-        className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-gradient-to-r from-indigo-500/20 to-cyan-500/20 rounded-full blur-3xl animate-pulse"
-        style={{ animationDelay: "1s" }}
-      ></div>
-      <div
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-xl"
-        style={{ animationDelay: "2s" }}
-      ></div>
+      {/* Radial Gradient Orbs */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-pink-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
 
-      <div className="text-center space-y-12 relative z-10">
-        {/* Logo */}
-        <div className="relative group">
-          <div className="title text-8xl md:text-9xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 bg-clip-text text-transparent animate-pulse group-hover:scale-110 transition-transform duration-500">
-            BC
-          </div>
-          <div
-            className="absolute -inset-8 border-2 border-purple-500/30 rounded-full animate-spin"
-            style={{ animationDuration: "8s" }}
-          ></div>
-          <div
-            className="absolute -inset-12 border border-pink-500/20 rounded-full animate-spin"
-            style={{ animationDuration: "12s", animationDirection: "reverse" }}
-          ></div>
-          <div
-            className="absolute -inset-16 border border-indigo-500/10 rounded-full animate-spin"
-            style={{ animationDuration: "16s" }}
-          ></div>
-
-          {/* Sparkles */}
-          <div
-            className="absolute top-0 right-0 w-4 h-4 bg-yellow-400 rounded-full animate-ping"
-            style={{ animationDelay: "0.5s" }}
-          ></div>
-          <div
-            className="absolute bottom-0 left-0 w-3 h-3 bg-cyan-400 rounded-full animate-ping"
-            style={{ animationDelay: "1.5s" }}
-          ></div>
-          <div
-            className="absolute top-1/2 left-0 w-2 h-2 bg-pink-400 rounded-full animate-ping"
-            style={{ animationDelay: "2.5s" }}
-          ></div>
-        </div>
-
-        {/* Text + progress */}
-        <div className="space-y-8">
-          <div className="space-y-4">
-            <h1 className="title text-2xl md:text-3xl font-bold bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent">
-              Biagio Cubisino
-            </h1>
-            <p className="title text-slate-300 text-lg md:text-xl font-medium animate-pulse">
-              {loadingText}
-            </p>
-          </div>
-
-          {/* Progress bar */}
-          <div className="relative">
-            <div className="w-80 h-3 bg-slate-800/50 rounded-full overflow-hidden border border-slate-700/50">
-              <div
-                className="h-full bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 rounded-full transition-all duration-300 relative overflow-hidden"
-                style={{ width: `${progress}%` }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse"></div>
-              </div>
+      {/* Main Content */}
+      <div className="relative z-10 flex flex-col items-center space-y-12">
+        {/* 3D Rotating Logo */}
+        <div className="relative" style={{ perspective: '1000px' }}>
+          {/* Central Logo */}
+          <div 
+            className="relative flex items-center justify-center w-48 h-48"
+            style={{
+              animation: 'logoReveal 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards'
+            }}
+          >
+            <div
+              className="w-32 h-32 rounded-2xl flex items-center justify-center text-6xl font-bold bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500 text-white shadow-2xl"
+              style={{
+                animation: 'rotate3D 4s linear infinite, pulseGlow 2s ease-in-out infinite',
+                transformStyle: 'preserve-3d'
+              }}
+            >
+              <span className="title" style={{ textShadow: '0 0 20px rgba(255,255,255,0.5)' }}>
+                BC
+              </span>
             </div>
-            <p className="text-slate-400 text-base mt-3 font-semibold">
-              {Math.round(progress)}%
-            </p>
           </div>
-        </div>
 
-        {/* Dots */}
-        <div className="flex justify-center items-center space-x-3">
-          {[...Array(5)].map((_, i) => (
+          {/* Orbital Rings */}
+          {[0, 1, 2].map((ring) => (
+            <div
+              key={ring}
+              className="absolute top-1/2 left-1/2 rounded-full border-2"
+              style={{
+                width: `${160 + ring * 40}px`,
+                height: `${160 + ring * 40}px`,
+                marginLeft: `${-(80 + ring * 20)}px`,
+                marginTop: `${-(80 + ring * 20)}px`,
+                borderColor: ring === 0 ? 'rgba(147, 51, 234, 0.3)' : 
+                           ring === 1 ? 'rgba(59, 130, 246, 0.3)' : 
+                           'rgba(236, 72, 153, 0.3)',
+                animation: `orbitalRing ${8 + ring * 2}s linear infinite`,
+                animationDirection: ring % 2 === 0 ? 'normal' : 'reverse'
+              }}
+            />
+          ))}
+
+          {/* Floating Sparkles */}
+          {sparkles.map((sparkle, i) => (
             <div
               key={i}
-              className="w-4 h-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 animate-bounce shadow-lg"
+              className="absolute w-2 h-2 rounded-full bg-white animate-ping"
               style={{
-                animationDelay: `${i * 0.15}s`,
-                animationDuration: "1s"
+                top: sparkle.top,
+                left: sparkle.left,
+                animationDelay: sparkle.delay,
+                animationDuration: '2s'
               }}
             />
           ))}
         </div>
 
-        {/* Social icons */}
-        <div className="absolute -bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-8 animate-pulse">
-          <div className="w-12 h-12 bg-white/10 backdrop-blur-lg rounded-full flex items-center justify-center animate-spin" style={{ animationDuration: "3s" }}>
-            <i className="fab fa-instagram text-2xl text-pink-400"></i>
+        {/* Loading Text */}
+        <div className="text-center space-y-6">
+          <h1 className="title text-4xl md:text-5xl font-bold">
+            <span 
+              className="inline-block bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent"
+              style={{
+                backgroundSize: '200% 200%',
+                animation: 'shimmer 3s linear infinite'
+              }}
+            >
+              Biagio Cubisino
+            </span>
+          </h1>
+          
+          <p 
+            className="title text-lg md:text-xl text-purple-300 font-medium transition-all duration-300"
+            style={{
+              animation: 'fadeIn 0.5s ease-out'
+            }}
+          >
+            {loadingPhrases[loadingPhase]}
+          </p>
+        </div>
+
+        {/* Modern Progress Bar */}
+        <div className="w-96 max-w-[90vw] space-y-4">
+          <div className="relative h-2 bg-slate-800/50 rounded-full overflow-hidden border border-slate-700/50">
+            <div
+              className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 transition-all duration-300 ease-out"
+              style={{ 
+                width: `${progress}%`,
+                boxShadow: '0 0 20px rgba(147, 51, 234, 0.5)'
+              }}
+            >
+              {/* Shimmer Effect */}
+              <div 
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                style={{
+                  animation: 'shimmer 2s linear infinite',
+                  backgroundSize: '200% 100%'
+                }}
+              />
+            </div>
           </div>
-          <div className="w-12 h-12 bg-white/10 backdrop-blur-lg rounded-full flex items-center justify-center animate-spin" style={{ animationDuration: "4s", animationDirection: "reverse" }}>
-            <i className="fab fa-github text-2xl text-slate-300"></i>
-          </div>
-          <div className="w-12 h-12 bg-white/10 backdrop-blur-lg rounded-full flex items-center justify-center animate-spin" style={{ animationDuration: "5s" }}>
-            <i className="fab fa-linkedin-in text-2xl text-blue-400"></i>
-          </div>
-          <div className="w-12 h-12 bg-white/10 backdrop-blur-lg rounded-full flex items-center justify-center animate-spin" style={{ animationDuration: "3.5s", animationDirection: "reverse" }}>
-            <i className="fas fa-envelope text-2xl text-purple-400"></i>
+          
+          <div className="flex justify-between items-center text-sm">
+            <span className="text-purple-400 font-semibold">{Math.round(progress)}%</span>
+            <span className="text-slate-400">Loading Assets...</span>
           </div>
         </div>
+
+        {/* Loading Dots */}
+        <div className="flex space-x-3">
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={i}
+              className="w-3 h-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"
+              style={{
+                animation: 'bounce 1.4s ease-in-out infinite',
+                animationDelay: `${i * 0.15}s`
+              }}
+            />
+          ))}
+        </div>
       </div>
+
+      {/* Exit Animation */}
+      {progress === 100 && (
+        <div 
+          className="absolute inset-0 bg-gradient-to-br from-slate-950 via-purple-950 to-blue-950"
+          style={{
+            animation: 'fadeOut 1s ease-out forwards'
+          }}
+        />
+      )}
+
+      <style jsx>{`
+        @keyframes gridSlide {
+          0% {
+            transform: translate(0, 0);
+          }
+          100% {
+            transform: translate(50px, 50px);
+          }
+        }
+
+        @keyframes fadeOut {
+          0% {
+            opacity: 1;
+          }
+          100% {
+            opacity: 0;
+          }
+        }
+      `}</style>
     </div>
   );
 }
