@@ -32,7 +32,7 @@ export default function About() {
   return (
     <section 
       id="about" 
-      className="relative py-20 md:py-32 bg-white dark:bg-slate-900 overflow-hidden"
+      className="relative py-12 md:py-16 bg-white dark:bg-slate-900 overflow-hidden"
       style={{
         paddingLeft: 'var(--section-padding-x)',
         paddingRight: 'var(--section-padding-x)',
@@ -74,28 +74,28 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
-          <h2 className="title text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-4">
+          <h2 className="title text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-3">
             About{" "}
             <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
               Me
             </span>
           </h2>
-          <p className="p-font text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+          <p className="p-font text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
             Passionate about technology and continuous learning
           </p>
         </motion.div>
 
         {/* Main Content - Full Width Split Layout */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 mb-20">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 mb-12">
           {/* Left Column - Avatar & Stats */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="space-y-8"
+            className="space-y-6"
           >
             {/* Avatar with Glass Effect */}
             <motion.div
@@ -103,7 +103,7 @@ export default function About() {
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="relative overflow-hidden rounded-3xl shadow-2xl">
+              <div className="relative overflow-hidden rounded-2xl shadow-xl">
                 <img
                   src={Avatar}
                   alt="Biagio Cubisino"
@@ -118,10 +118,10 @@ export default function About() {
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3, type: "spring", bounce: 0.5 }}
-                className="absolute -bottom-6 -right-6 bg-gradient-to-br from-purple-600 to-pink-600 text-white px-6 py-3 rounded-2xl shadow-2xl border-4 border-white dark:border-slate-900"
+                className="absolute -bottom-4 -right-4 bg-gradient-to-br from-purple-600 to-pink-600 text-white px-4 py-2 rounded-xl shadow-xl border-3 border-white dark:border-slate-900"
               >
                 <div className="title text-center">
-                  <div className="text-2xl font-bold">Available</div>
+                  <div className="text-lg font-bold">Available</div>
                   <div className="text-xs opacity-90">For Work</div>
                 </div>
               </motion.div>
@@ -137,17 +137,17 @@ export default function About() {
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 }}
                   whileHover={{ y: -5, boxShadow: "0 20px 40px rgba(147, 51, 234, 0.2)" }}
-                  className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-lg"
+                  className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-lg"
                 >
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className={`w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white`}>
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className={`w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-sm`}>
                       <i className={stat.icon}></i>
                     </div>
                   </div>
-                  <div className="title text-3xl font-bold text-slate-900 dark:text-white">
+                  <div className="title text-2xl font-bold text-slate-900 dark:text-white">
                     {stat.value}
                   </div>
-                  <div className="p-font text-sm text-slate-600 dark:text-slate-400">
+                  <div className="p-font text-xs text-slate-600 dark:text-slate-400">
                     {stat.label}
                   </div>
                 </motion.div>
@@ -242,7 +242,7 @@ export default function About() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h3 className="title text-3xl md:text-4xl font-bold text-center text-slate-900 dark:text-white mb-12">
+          <h3 className="title text-2xl md:text-3xl font-bold text-center text-slate-900 dark:text-white mb-8">
             Technical{" "}
             <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
               Skills
@@ -250,7 +250,7 @@ export default function About() {
           </h3>
           
           {/* Skills Grid with 3D Cards */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 md:gap-4">
             {skills.map((skill, idx) => (
               <motion.div
                 key={skill.name}
@@ -265,29 +265,29 @@ export default function About() {
                 }}
                 onHoverStart={() => setHoveredSkill(skill.name)}
                 onHoverEnd={() => setHoveredSkill(null)}
-                className="relative group bg-white dark:bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-lg cursor-pointer"
+                className="relative group bg-white dark:bg-slate-800/50 backdrop-blur-sm rounded-xl p-4 border border-slate-200 dark:border-slate-700 shadow-lg cursor-pointer"
                 style={{ transformStyle: 'preserve-3d' }}
               >
                 {/* Skill Icon */}
-                <div className="flex flex-col items-center gap-4">
+                <div className="flex flex-col items-center gap-2">
                   <motion.div 
-                    className={`w-16 h-16 rounded-xl bg-gradient-to-br ${skill.color} flex items-center justify-center text-white shadow-xl`}
+                    className={`w-12 h-12 rounded-lg bg-gradient-to-br ${skill.color} flex items-center justify-center text-white shadow-lg`}
                     animate={{
                       scale: hoveredSkill === skill.name ? 1.1 : 1,
                       rotate: hoveredSkill === skill.name ? 360 : 0,
                     }}
                     transition={{ duration: 0.3 }}
                   >
-                    <i className={`${skill.icon} text-2xl`}></i>
+                    <i className={`${skill.icon} text-lg`}></i>
                   </motion.div>
                   
                   <div className="text-center w-full">
-                    <span className="title text-sm font-bold text-slate-900 dark:text-white block mb-2">
+                    <span className="title text-xs font-bold text-slate-900 dark:text-white block mb-1">
                       {skill.name}
                     </span>
                     
                     {/* Skill Level Progress */}
-                    <div className="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                    <div className="w-full h-1 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}
                         whileInView={{ width: `${skill.level}%` }}

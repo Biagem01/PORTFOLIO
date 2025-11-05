@@ -36,28 +36,28 @@ export default function LoadingScreen() {
   , []);
 
   useEffect(() => {
-    // Progress animation
+    // Progress animation - slower for longer display
     const progressInterval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(progressInterval);
           return 100;
         }
-        return Math.min(prev + 2, 100);
+        return Math.min(prev + 1, 100);
       });
-    }, 50);
+    }, 80);
 
-    // Phase rotation
+    // Phase rotation - slower for better readability
     const phaseInterval = setInterval(() => {
       setLoadingPhase((prev) => (prev + 1) % loadingPhrases.length);
-    }, 800);
+    }, 1200);
 
-    // Page load handler
+    // Page load handler - longer delay before hiding
     const handleLoad = () => {
       setProgress(100);
       setTimeout(() => {
         setIsVisible(false);
-      }, 1000);
+      }, 1800);
     };
 
     if (document.readyState === "complete") {
@@ -250,7 +250,7 @@ export default function LoadingScreen() {
         />
       )}
 
-      <style jsx>{`
+      <style>{`
         @keyframes gridSlide {
           0% {
             transform: translate(0, 0);

@@ -39,110 +39,97 @@ function ProjectShowcaseCard({ project, index }) {
   return (
     <div
       ref={wrapperRef}
-      className={`${visible ? "animate-fade-in-right-projects opacity-100" : "opacity-0"}`}
-      style={{ animationDelay: `${index * 0.2}s` }}
+      className={`group ${visible ? "animate-fade-in-right-projects opacity-100" : "opacity-0"}`}
+      style={{ animationDelay: `${index * 0.15}s` }}
     >
       <div
         ref={innerRef}
-        className="relative card-modern rounded-3xl overflow-hidden h-full flex flex-col transition-transform duration-300 hover:scale-[1.02]"
+        className="relative bg-white dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl overflow-hidden h-full flex flex-col shadow-xl hover:shadow-2xl border border-slate-200/50 dark:border-slate-700/50 transition-all duration-500 hover:-translate-y-2"
       >
-        <div className="relative overflow-hidden">
+        {/* Image Container */}
+        <div className="relative overflow-hidden h-72">
           <img
             src={project.image}
             alt={project.title}
-            className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-purple-900/60 via-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          {/* Effetto brillantezza */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 transform translate-x-[-100%] group-hover:translate-x-[100%]"></div>
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-purple-900/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+          
+          {/* Shine Effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
+          
+          {/* Featured Badge */}
           {project.featured && (
-            <div className="absolute top-6 left-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg animate-pulse">
-              ⭐ Featured
+            <div className="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-2xl flex items-center gap-2 animate-pulse">
+              <span className="text-lg">⭐</span>
+              Featured
             </div>
           )}
-        </div>
-
-        <div className="p-8 flex-grow flex flex-col">
-          <div className="flex flex-col h-full">
-            <h3 className="title text-2xl font-bold text-slate-800 dark:text-slate-100 mb-4 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">
+          
+          {/* Title Overlay */}
+          <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-0 group-hover:translate-y-0 transition-transform duration-500">
+            <h3 className="title text-2xl md:text-3xl font-bold text-white mb-2 drop-shadow-lg">
               {project.title}
             </h3>
-            <p className="p-font text-slate-600 dark:text-slate-300 mb-6 leading-relaxed flex-grow group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors duration-300">
-              {project.description}
-            </p>
-
-            <div className="flex flex-wrap gap-2 mb-8">
-              {project.technologies.map((tech, i) => (
-                <span
-                  key={tech}
-                  className="bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-600 group-hover:from-purple-100 group-hover:to-purple-200 dark:group-hover:from-purple-900/30 dark:group-hover:to-purple-800/30 group-hover:border-purple-300 dark:group-hover:border-purple-600 group-hover:text-purple-700 dark:group-hover:text-purple-300 transition-all duration-300 hover:scale-110 cursor-default shadow-sm hover:shadow-md"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-
-            <div className="flex gap-4 mt-auto">
-              <a
-                href={project.demoLink}
-                className="title group/link flex-1 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white px-6 py-3 rounded-xl font-bold text-center transition-all duration-500 flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl hover:scale-110 transform border border-white/20 hover:border-white/40 backdrop-blur-sm animate-float"
-                style={{ animationDelay: `${index * 0.2 + 0.3}s` }}
-              >
-                <span className="group-hover/link:rotate-45 group-hover/link:scale-125 transition-all duration-500">🌐</span>
-                Live Demo
-              </a>
-              <a
-                href={project.githubLink}
-                className="title group/link flex-1 bg-gradient-to-r from-slate-600 via-slate-700 to-slate-800 hover:from-slate-700 hover:via-slate-800 hover:to-slate-900 dark:from-slate-600 dark:via-slate-700 dark:to-slate-800 dark:hover:from-slate-500 dark:hover:via-slate-600 dark:hover:to-slate-700 text-white px-6 py-3 rounded-xl font-bold text-center transition-all duration-500 flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl hover:scale-110 transform border border-white/20 hover:border-white/40 backdrop-blur-sm animate-float"
-                style={{ animationDelay: `${index * 0.2 + 0.5}s` }}
-              >
-                <span className="group-hover/link:rotate-45 group-hover/link:scale-125 transition-all duration-500">📚</span>
-                GitHub
-              </a>
-            </div>
           </div>
         </div>
+
+        {/* Content */}
+        <div className="p-6 flex-grow flex flex-col">
+          <p className="p-font text-slate-700 dark:text-slate-300 mb-6 leading-relaxed flex-grow line-clamp-3">
+            {project.description}
+          </p>
+
+          {/* Technologies */}
+          <div className="flex flex-wrap gap-2 mb-6">
+            {project.technologies.map((tech, i) => (
+              <span
+                key={tech}
+                className="px-3 py-1.5 rounded-full text-xs font-semibold bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/40 dark:to-pink-900/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-700 hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          {/* Actions */}
+          <div className="flex gap-3">
+            <a
+              href={project.demoLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="title group/btn flex-1 relative overflow-hidden bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-5 py-3 rounded-xl font-bold text-center transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl hover:scale-105"
+            >
+              <span className="relative z-10 group-hover/btn:scale-110 transition-transform">🚀</span>
+              <span className="relative z-10">Demo</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+            </a>
+            <a
+              href={project.githubLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="title group/btn flex-1 relative overflow-hidden bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-600 hover:to-slate-800 dark:from-slate-600 dark:to-slate-800 dark:hover:from-slate-500 dark:hover:to-slate-700 text-white px-5 py-3 rounded-xl font-bold text-center transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-2xl hover:scale-105"
+            >
+              <span className="relative z-10 group-hover/btn:scale-110 transition-transform">💻</span>
+              <span className="relative z-10">Code</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+            </a>
+          </div>
+        </div>
+
+        {/* Hover Border Glow */}
+        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{
+          background: 'linear-gradient(90deg, transparent, rgba(147, 51, 234, 0.3), transparent)',
+          backgroundSize: '200% 100%',
+          animation: 'shimmer 3s infinite'
+        }}></div>
       </div>
     </div>
   );
 }
 
 export default function ProjectsPage() {
-  const [location, navigate] = useLocation();
-  
-  const scrollToContact = () => {
-    // Naviga alla home page
-    navigate("/");
-    
-    // Aspetta un momento per permettere alla home page di caricarsi, poi scrolla
-    setTimeout(() => {
-      // Prova a scrollare all'elemento contact
-      const element = document.getElementById("contact");
-      if (element) {
-        const offsetTop = element.offsetTop - 80;
-        window.scrollTo({
-          top: offsetTop,
-          behavior: "smooth",
-        });
-      } else {
-        // Se non trova l'elemento, aspetta un po' di più
-        setTimeout(() => {
-          const contactElement = document.getElementById("contact");
-          if (contactElement) {
-            const offsetTop = contactElement.offsetTop - 80;
-            window.scrollTo({
-              top: offsetTop,
-              behavior: "smooth",
-            });
-          } else {
-            // Fallback: vai direttamente alla URL con l'anchor
-            window.location.href = "/#contact";
-          }
-        }, 1000);
-      }
-    }, 500);
-  };
-
   const allProjects = [
     {
       title: "MovieReview",
@@ -228,31 +215,10 @@ export default function ProjectsPage() {
         </div>
 
         {/* Griglia progetti pulita e ordinata */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {allProjects.map((project, index) => (
             <ProjectShowcaseCard key={index} project={project} index={index} />
           ))}
-        </div>
-
-        {/* Footer della pagina */}
-        <div className="text-center">
-          <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 rounded-2xl p-8 shadow-lg">
-            <h3 className="title text-2xl font-bold text-slate-800 dark:text-slate-100 mb-4">
-              Interested in Collaborating?
-            </h3>
-            <p className="p-font text-slate-600 dark:text-slate-400 mb-6 max-w-2xl mx-auto">
-              I'm always open to discussing new opportunities and exciting projects. Let's create something amazing together!
-            </p>
-            <button 
-              onClick={scrollToContact}
-              className="title group inline-flex items-center bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white px-8 py-4 rounded-xl font-bold transition-all duration-500 gap-3 shadow-lg hover:shadow-2xl hover:scale-105 transform animate-float"
-              style={{ animationDelay: "0.8s" }}
-            >
-              <span className="group-hover:rotate-45 group-hover:scale-125 transition-all duration-500">💬</span>
-              Get In Touch
-              <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-            </button>
-          </div>
         </div>
       </div>
     </div>

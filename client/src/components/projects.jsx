@@ -1,5 +1,6 @@
-import { useRef, useEffect, useState, useMemo, memo } from "react";
+import { useState, useEffect, useMemo, memo, useRef } from "react";
 import { Link } from "wouter";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Dialog,
   DialogContent,
@@ -495,63 +496,74 @@ const ProjectCard = memo(function ProjectCard({ project, index }) {
 
 
 /* =========================
-   SEZIONE PROGETTI
+   SEZIONE PROGETTI - CAROUSEL
    ========================= */
 export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const containerRef = useRef(null);
-  const sectionRef = useRef(null);
 
-  // Intersection Observer per autoplay
+  // Auto-rotate carousel
   useEffect(() => {
-    if (!sectionRef.current) return;
-    const obs = new IntersectionObserver(([entry]) => setIsAutoPlaying(entry.isIntersecting), { threshold: 0.3 });
-    obs.observe(sectionRef.current);
-    return () => obs.disconnect();
-  }, []);
-
-  // Autoplay
-  useEffect(() => {
-    if (!isAutoPlaying || prefersReducedMotion()) return;
-    const id = setTimeout(() => setCurrentIndex((prev) => (prev + 1) % PROJECTS.length), 4000);
-    return () => clearTimeout(id);
+    if (!isAutoPlaying) return;
+    const interval = setInterval(() => {
+      setDirection(1);
+      setCurrentIndex((prev) => (prev + 1) % PROJECTS.length);
+    }, 5000);
+    return () => clearInterval(interval);
   }, [isAutoPlaying, currentIndex]);
 
-  // Scroll automatico alla card attiva
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const cardWidth = 380;
-    const gap = 24;
-    const scrollPosition = currentIndex * (cardWidth + gap);
-    containerRef.current.scrollTo({ 
-      left: scrollPosition, 
-      behavior: prefersReducedMotion() ? "auto" : "smooth" 
-    });
-  }, [currentIndex]);
-
-  const prev = () => {
+  const goToNext = () => {
+    setDirection(1);
+    setCurrentIndex((prev) => (prev + 1) % PROJECTS.length);
     setIsAutoPlaying(false);
-    setCurrentIndex((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length);
-    setTimeout(() => setIsAutoPlaying(true), 5000);
+    setTimeout(() => setIsAutoPlaying(true), 10000);
   };
 
-  const next = () => {
+  const goToPrev = () => {
+    setDirection(-1);
+    setCurrentIndex((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length);
     setIsAutoPlaying(false);
-    setCurrentIndex((prev) => (prev + 1) % PROJECTS.length);
-    setTimeout(() => setIsAutoPlaying(true), 5000);
+    setTimeout(() => setIsAutoPlaying(true), 10000);
+  };
+
+  const goToSlide = (index) => {
+    setDirection(index > currentIndex ? 1 : -1);
+    setCurrentIndex(index);
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 10000);
+  };
+
+  const variants = {
+    enter: (direction) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+      scale: 0.8,
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+      scale: 1,
+    },
+    exit: (direction) => ({
+      zIndex: 0,
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+      scale: 0.8,
+    }),
   };
 
   return (
-    <section ref={sectionRef} id="projects" className="relative py-16 bg-slate-50 dark:bg-slate-900/50 overflow-hidden">
+    <section id="projects" className="relative py-24 bg-slate-50 dark:bg-slate-900/50 overflow-hidden">
       {/* Animated corner accents */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-purple-500/5 to-transparent rounded-full blur-3xl pointer-events-none animate-pulse"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-blue-500/5 to-transparent rounded-full blur-3xl pointer-events-none animate-pulse" style={{animationDelay: '2s'}}></div>
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
-        <div className="text-center mb-12 animate-fade-in">
-          <h2 className="title text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-3">
+        <div className="text-center mb-16">
+          <h2 className="title text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
             Featured <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">Projects</span>
           </h2>
           <p className="p-font text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
@@ -560,86 +572,89 @@ export default function Projects() {
         </div>
 
         {/* Carousel Container */}
-        <div className="relative max-w-7xl mx-auto">
+        <div className="relative max-w-6xl mx-auto">
           {/* Navigation Arrows */}
-          <button 
-            onClick={prev}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-white/95 dark:bg-slate-800/95 border border-slate-300 dark:border-slate-600 rounded-full flex items-center justify-center text-slate-700 dark:text-white shadow-lg hover:scale-110 transition-all duration-300"
+          <button
+            onClick={goToPrev}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-14 h-14 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border-2 border-purple-600/20 dark:border-purple-500/30 rounded-full flex items-center justify-center text-purple-600 dark:text-purple-400 shadow-xl hover:scale-110 hover:bg-purple-50 dark:hover:bg-purple-900/50 transition-all duration-300 group"
             aria-label="Previous project"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <svg className="w-7 h-7 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          
-          <button 
-            onClick={next}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-white/95 dark:bg-slate-800/95 border border-slate-300 dark:border-slate-600 rounded-full flex items-center justify-center text-slate-700 dark:text-white shadow-lg hover:scale-110 transition-all duration-300"
+
+          <button
+            onClick={goToNext}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-14 h-14 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border-2 border-purple-600/20 dark:border-purple-500/30 rounded-full flex items-center justify-center text-purple-600 dark:text-purple-400 shadow-xl hover:scale-110 hover:bg-purple-50 dark:hover:bg-purple-900/50 transition-all duration-300 group"
             aria-label="Next project"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <svg className="w-7 h-7 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
             </svg>
           </button>
 
-          {/* Projects Carousel */}
-          <div 
-            ref={containerRef}
-            className="flex gap-6 overflow-x-auto scrollbar-hide py-4 px-12 snap-x snap-mandatory scroll-smooth"
-            onMouseEnter={() => setIsAutoPlaying(false)}
-            onMouseLeave={() => setIsAutoPlaying(true)}
-          >
-            {PROJECTS.map((project, index) => (
-              <div 
-                key={project.title} 
-                className="flex-shrink-0 w-[340px] sm:w-[380px] snap-center"
+          {/* Carousel Slides */}
+          <div className="relative h-[600px] md:h-[550px] flex items-center justify-center overflow-hidden px-16 md:px-20">
+            <AnimatePresence initial={false} custom={direction}>
+              <motion.div
+                key={currentIndex}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: "spring", stiffness: 300, damping: 30 },
+                  opacity: { duration: 0.3 },
+                  scale: { duration: 0.3 },
+                }}
+                className="absolute w-full max-w-4xl"
               >
-                <ProjectCard project={project} index={index} />
-              </div>
+                <ProjectCard project={PROJECTS[currentIndex]} index={currentIndex} />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Dots Indicator */}
+          <div className="flex justify-center gap-3 mt-8">
+            {PROJECTS.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`transition-all duration-300 ${
+                  index === currentIndex
+                    ? 'w-12 h-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full shadow-lg'
+                    : 'w-3 h-3 bg-slate-300 dark:bg-slate-600 rounded-full hover:bg-purple-400 dark:hover:bg-purple-500 hover:scale-125'
+                }`}
+                aria-label={`Go to project ${index + 1}`}
+              />
             ))}
           </div>
-        </div>
 
-        {/* Dots Navigation */}
-        <div className="flex justify-center gap-2 mt-8">
-          {PROJECTS.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                setIsAutoPlaying(false);
-                setCurrentIndex(index);
-                setTimeout(() => setIsAutoPlaying(true), 5000);
-              }}
-              className={`transition-all duration-300 rounded-full ${
-                index === currentIndex 
-                  ? 'w-8 h-3 bg-gradient-to-r from-purple-600 to-pink-600' 
-                  : 'w-3 h-3 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400'
-              }`}
-              aria-label={`Go to project ${index + 1}`}
-            />
-          ))}
-        </div>
-
-        {/* Counter + View All CTA */}
-        <div className="text-center mt-8 space-y-6">
-          <div className="inline-flex items-center gap-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-full px-6 py-3 shadow-lg">
-            <span className="title text-slate-700 dark:text-white font-bold text-sm">
-              {currentIndex + 1} / {PROJECTS.length}
-            </span>
-            <div className="w-px h-6 bg-slate-300 dark:bg-slate-600" />
-            <span className="title text-slate-600 dark:text-slate-300 text-sm font-medium max-w-xs truncate">
-              {PROJECTS[currentIndex].title}
-            </span>
+          {/* Counter */}
+          <div className="flex justify-center mt-6">
+            <div className="inline-flex items-center gap-3 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-full px-5 py-2.5 shadow-lg">
+              <span className="title text-purple-600 dark:text-purple-400 font-bold">
+                {currentIndex + 1}
+              </span>
+              <div className="w-px h-5 bg-slate-300 dark:bg-slate-600"></div>
+              <span className="title text-slate-600 dark:text-slate-300 text-sm">
+                of {PROJECTS.length}
+              </span>
+            </div>
           </div>
+        </div>
 
-          <Link 
-            href="/projects" 
-            className="title inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-semibold hover:shadow-xl hover:shadow-purple-500/25 transition-all duration-300 group"
-          >
-            <span>View All Projects</span>
-            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
+        {/* View All Projects Link */}
+        <div className="text-center mt-12">
+          <Link href="/projects">
+            <button className="title inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105 group">
+              <span>View All Projects</span>
+              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </button>
           </Link>
         </div>
       </div>
