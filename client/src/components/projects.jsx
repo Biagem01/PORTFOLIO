@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
+
 /* =========================
    DATI PROGETTI
    ========================= */
@@ -191,6 +192,7 @@ const prefersReducedMotion = () =>
 function DemoButton({ demoLink }) {
   const [showToast, setShowToast] = useState(false);
   const [toastPos, setToastPos] = useState({ top: 0, left: 0 });
+
   const buttonRef = useRef(null);
   const toastWidth = 300; // larghezza stimata del toast
 
@@ -246,6 +248,8 @@ function DemoButton({ demoLink }) {
    MODAL DETTAGLI - LAYOUT COMPLETAMENTE RIDISEGNATO
    ========================= */
 function ProjectDetails({ project }) {
+  const [selectedProject, setSelectedProject] = useState(null);
+const isModalOpen = !!selectedProject;
   const details = EXTRA[project.title] || {
     features: [],
     challenges: "Sfide tecniche varie.",
@@ -549,7 +553,9 @@ function ProjectDetails({ project }) {
    PROJECT CARD GRIGLIA
    ========================= */
 const ProjectCard = memo(function ProjectCard({ project, index }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+const isModalOpen = !!selectedProject;
+
   const [isHovered, setIsHovered] = useState(false);
   useBodyScrollLock(isModalOpen);
 
@@ -627,9 +633,7 @@ const ProjectCard = memo(function ProjectCard({ project, index }) {
 
       {/* Modal */}
       {isModalOpen && (
-        <Dialog open={isModalOpen} onOpenChange={(open) => {
-          if (!open) setIsModalOpen(false);
-        }}>
+        <Dialog open={!!selectedProject} onOpenChange={(open) => !open && setSelectedProject(null)}>
           <DialogContent
             onPointerDownOutside={(e) => e.preventDefault()}
             onInteractOutside={(e) => e.preventDefault()}
@@ -686,6 +690,8 @@ export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Auto-rotate carousel
   useEffect(() => {
