@@ -243,10 +243,7 @@ function DemoButton({ demoLink }) {
 
 
 /* =========================
-   MODAL DETTAGLI
-   ========================= */
-/* =========================
-   MODAL DETTAGLI
+   MODAL DETTAGLI - LAYOUT COMPLETAMENTE RIDISEGNATO
    ========================= */
 function ProjectDetails({ project }) {
   const details = EXTRA[project.title] || {
@@ -262,105 +259,288 @@ function ProjectDetails({ project }) {
     : [details.learnings];
 
   return (
-    <div className="rounded-2xl overflow-hidden shadow-2xl bg-white dark:bg-slate-900">
-      {/* Cover */}
-      <div className="relative h-64 md:h-80">
-        <img
-          src={project.image}
-          alt={project.title}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-        <div className="absolute bottom-4 left-4 right-4">
-          <h2 className="title text-2xl md:text-3xl font-bold text-white drop-shadow">
-            {project.title}
-          </h2>
-          <div className="mt-3 flex flex-wrap gap-2 text-xs">
-            <span className="px-3 py-1 rounded-full bg-white/20 text-white border border-white/30">
-              {details.role}
-            </span>
-            <span className="px-3 py-1 rounded-full bg-white/20 text-white border border-white/30">
-              {details.duration}
-            </span>
-          </div>
-        </div>
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="relative bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-hidden"
+    >
+      {/* Bordo sottile e elegante */}
+      <div className="absolute inset-0 rounded-3xl pointer-events-none z-10 border border-purple-200/30 dark:border-purple-500/20" />
+
+      {/* Particelle decorative ridotte */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-3xl">
+        {[...Array(3)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-purple-400/10 dark:bg-purple-500/10 rounded-full blur-[1px]"
+            initial={{ 
+              x: Math.random() * 100 + "%", 
+              y: Math.random() * 100 + "%",
+              scale: 0
+            }}
+            animate={{ 
+              y: [null, (Math.random() - 0.5) * 150 + "%"],
+              x: [null, (Math.random() - 0.5) * 80 + "%"],
+              scale: [0, 1, 0],
+              opacity: [0, 0.3, 0]
+            }}
+            transition={{ 
+              duration: 4 + Math.random() * 2,
+              repeat: Infinity,
+              delay: i * 1.5,
+              ease: "easeInOut"
+            }}
+          />
+        ))}
       </div>
-
-      {/* Body */}
-      <div className="p-6 md:p-8 space-y-6">
-        <p className="p-font text-slate-700 dark:text-slate-200 leading-relaxed">
-          {project.description}
-        </p>
-
-        {/* Features */}
-        {details.features.length > 0 && (
-          <div>
-            <h3 className="title mb-2 font-semibold text-slate-900 dark:text-white">
-              Features
-            </h3>
-            <ul className="p-font grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-700 dark:text-slate-300">
-              {details.features.map((f) => (
-                <li key={f} className="flex items-center gap-2">✨ {f}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Technologies */}
-        {project.technologies?.length > 0 && (
-          <div>
-            <h3 className="title mb-2 font-semibold text-slate-900 dark:text-white">
-              Technologies
-            </h3>
-            <div className="p-font flex flex-wrap gap-2">
-              {project.technologies.map((tech) => (
-                <span
-                  key={tech}
-                  className="px-3 py-1 rounded-lg bg-gradient-to-r from-purple-500/20 to-indigo-500/20 text-purple-700 dark:text-purple-300 border border-purple-400/40 text-sm font-medium"
+      {/* Layout a due colonne per desktop */}
+      <div className="grid lg:grid-cols-5 gap-0">
+        {/* Colonna sinistra - Immagine e Info Base con Glassmorphism */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="lg:col-span-2 relative bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900"
+        >
+          {/* Immagine con parallax effect */}
+          <div className="relative h-64 lg:h-full min-h-[400px] overflow-hidden group">
+            <motion.img
+              initial={{ scale: 1.2, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.8 }}
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover"
+            />
+            
+            {/* Glassmorphism overlay ottimizzato */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+            
+            {/* Info sovrapposte all'immagine */}
+            <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+                className="space-y-4"
+              >
+                <motion.h2 
+                  className="title text-2xl lg:text-3xl font-extrabold text-white leading-tight drop-shadow-2xl"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 >
-                  {tech}
-                </span>
-              ))}
+                  {project.title}
+                </motion.h2>
+                
+                <div className="flex flex-wrap gap-2">
+                  <motion.span 
+                    className="px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-sm text-purple-700 font-bold text-xs shadow-md"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    {details.role}
+                  </motion.span>
+                  <motion.span 
+                    className="px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-sm text-indigo-700 font-bold text-xs shadow-md"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    {details.duration}
+                  </motion.span>
+                </div>
+
+                {/* Tech Stack nella sidebar */}
+                {project.technologies?.length > 0 && (
+                  <div className="pt-2">
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech, idx) => (
+                        <motion.span
+                          key={tech}
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          whileHover={{ scale: 1.08 }}
+                          transition={{ 
+                            initial: { delay: 0.5 + idx * 0.05, duration: 0.3 },
+                            hover: { type: "spring", stiffness: 300, damping: 20 }
+                          }}
+                          className="px-2.5 py-1 rounded-lg bg-black/40 backdrop-blur-sm text-white text-xs font-semibold border border-white/30 shadow-md"
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </motion.div>
             </div>
           </div>
-        )}
+        </motion.div>
 
-        {/* Challenges & Learnings */}
-        <div className="grid gap-6 md:grid-cols-2">
-          <div>
-            <h4 className="title font-semibold text-slate-900 dark:text-white">
-              Sfide affrontate
-            </h4>
-            <p className="p-font text-sm text-slate-700 dark:text-slate-300">
-              {details.challenges}
-            </p>
-          </div>
-          <div>
-            <h4 className="title font-semibold text-slate-900 dark:text-white">
-              Competenze acquisite
-            </h4>
-            <ul className="p-font list-disc pl-5 text-sm text-slate-700 dark:text-slate-300 space-y-1">
-              {learningsArray.map((l) => (
-                <li key={l}>{l}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* CTA */}
-        <div className="flex flex-col sm:flex-row gap-3">
-          <DemoButton demoLink={project.demoLink} />
-          <a
-            href={project.githubLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="title flex-1 text-center px-4 py-2.5 rounded-xl font-semibold bg-slate-800 text-white shadow hover:scale-105 transition-transform"
+        {/* Colonna destra - Contenuto principale */}
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="lg:col-span-3 p-6 lg:p-10 space-y-8 overflow-y-auto max-h-[600px] scrollbar-thin scrollbar-thumb-purple-500/30 scrollbar-track-transparent"
+        >
+          {/* Descrizione principale */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
           >
-            📚 View Code
-          </a>
-        </div>
+            <div className="flex items-center gap-3 mb-4">
+              <motion.div 
+                className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center text-white text-lg shadow-lg"
+                whileHover={{ scale: 1.1, rotate: 3 }}
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+              >
+                📝
+              </motion.div>
+              <h3 className="title text-xl font-bold text-slate-900 dark:text-white">
+                Descrizione
+              </h3>
+            </div>
+            <p className="p-font text-slate-700 dark:text-slate-300 leading-relaxed pl-2">
+              {project.description}
+            </p>
+          </motion.div>
+
+          {/* Divider */}
+          <div className="border-t border-slate-200 dark:border-slate-700"></div>
+
+          {/* Features */}
+          {details.features.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <motion.div 
+                  className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center text-white text-lg shadow-lg"
+                  whileHover={{ scale: 1.1, rotate: -3 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                >
+                  ✨
+                </motion.div>
+                <h3 className="title text-xl font-bold text-slate-900 dark:text-white">
+                  Funzionalità Principali
+                </h3>
+              </div>
+              <div className="grid gap-3 pl-2">
+                {details.features.map((feature, idx) => (
+                  <motion.div
+                    key={feature}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.6 + idx * 0.04, duration: 0.3 }}
+                    className="flex items-start gap-3 p-3 rounded-xl bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-700 border border-slate-200 dark:border-slate-600 hover:border-purple-400 dark:hover:border-purple-500 hover:shadow-md transition-all group"
+                  >
+                    <div className="w-5 h-5 rounded-full bg-purple-600 dark:bg-purple-500 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform">
+                      <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="p-font text-sm text-slate-700 dark:text-slate-300 flex-1">
+                      {feature}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {/* Divider */}
+          <div className="border-t border-slate-200 dark:border-slate-700"></div>
+
+          {/* Sfide e Competenze - Inline compatto */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
+            className="space-y-6"
+          >
+            {/* Sfide */}
+            <div>
+              <div className="flex items-center gap-3 mb-3">
+                <motion.div 
+                  className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center text-white text-lg shadow-lg"
+                  whileHover={{ scale: 1.1, rotate: 3 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                >
+                  🎯
+                </motion.div>
+                <h3 className="title text-xl font-bold text-slate-900 dark:text-white">
+                  Sfide Affrontate
+                </h3>
+              </div>
+              <p className="p-font text-sm text-slate-700 dark:text-slate-300 leading-relaxed pl-2 pr-4">
+                {details.challenges}
+              </p>
+            </div>
+
+            {/* Competenze */}
+            <div>
+              <div className="flex items-center gap-3 mb-3">
+                <motion.div 
+                  className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-600 to-emerald-600 flex items-center justify-center text-white text-lg shadow-lg"
+                  whileHover={{ scale: 1.1, rotate: -3 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                >
+                  🚀
+                </motion.div>
+                <h3 className="title text-xl font-bold text-slate-900 dark:text-white">
+                  Competenze Acquisite
+                </h3>
+              </div>
+              <ul className="p-font space-y-2 pl-2">
+                {learningsArray.map((learning, idx) => (
+                  <motion.li
+                    key={idx}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.7 + idx * 0.05, duration: 0.3 }}
+                    className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300"
+                  >
+                    <span className="text-green-600 dark:text-green-400 font-bold mt-0.5">▸</span>
+                    <span className="flex-1">{learning}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+
+          {/* Divider */}
+          <div className="border-t border-slate-200 dark:border-slate-700"></div>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.5 }}
+            className="flex flex-col sm:flex-row gap-3"
+          >
+            <DemoButton demoLink={project.demoLink} />
+            <a
+              href={project.githubLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="title flex-1 text-center px-6 py-3 rounded-xl font-bold bg-gradient-to-r from-slate-800 via-slate-900 to-black dark:from-slate-700 dark:via-slate-800 dark:to-slate-900 text-white shadow-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 border border-slate-700 dark:border-slate-600"
+            >
+              <span className="flex items-center justify-center gap-2">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path fillRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z" clipRule="evenodd" />
+                </svg>
+                View Code
+              </span>
+            </a>
+          </motion.div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -447,8 +627,12 @@ const ProjectCard = memo(function ProjectCard({ project, index }) {
 
       {/* Modal */}
       {isModalOpen && (
-        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <Dialog open={isModalOpen} onOpenChange={(open) => {
+          if (!open) setIsModalOpen(false);
+        }}>
           <DialogContent
+            onPointerDownOutside={(e) => e.preventDefault()}
+            onInteractOutside={(e) => e.preventDefault()}
             className="
               max-w-5xl w-[95vw] max-h-[95vh] 
               overflow-y-auto p-0 border-0 bg-transparent shadow-none
