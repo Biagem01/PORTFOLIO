@@ -248,8 +248,6 @@ function DemoButton({ demoLink }) {
    MODAL DETTAGLI - LAYOUT COMPLETAMENTE RIDISEGNATO
    ========================= */
 function ProjectDetails({ project }) {
-  const [selectedProject, setSelectedProject] = useState(null);
-const isModalOpen = !!selectedProject;
   const details = EXTRA[project.title] || {
     features: [],
     challenges: "Sfide tecniche varie.",
@@ -552,9 +550,8 @@ const isModalOpen = !!selectedProject;
 /* =========================
    PROJECT CARD GRIGLIA
    ========================= */
-const ProjectCard = memo(function ProjectCard({ project, index }) {
-  const [selectedProject, setSelectedProject] = useState(null);
-const isModalOpen = !!selectedProject;
+const ProjectCard = memo(function ProjectCard({ project, index, selectedProject, setSelectedProject }) {
+  const isModalOpen = !!selectedProject;
 
   const [isHovered, setIsHovered] = useState(false);
   useBodyScrollLock(isModalOpen);
@@ -562,70 +559,97 @@ const isModalOpen = !!selectedProject;
   return (
     <>
       <div
-        className="group relative overflow-hidden rounded-2xl bg-white dark:bg-slate-800 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+        className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-white via-purple-50/30 to-white dark:from-slate-800 dark:via-purple-900/20 dark:to-slate-800 shadow-2xl shadow-purple-500/10 hover:shadow-purple-500/25 dark:shadow-purple-900/30 transition-all duration-500 hover:-translate-y-2 border border-purple-200/50 dark:border-purple-700/30"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Image */}
-        <div className="relative h-56 overflow-hidden">
+        {/* Glow effect on hover */}
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 rounded-3xl opacity-0 group-hover:opacity-20 blur transition-opacity duration-500"></div>
+        
+        {/* Image con effetti migliorati */}
+        <div className="relative h-64 overflow-hidden rounded-t-3xl">
           <img
             src={project.image}
             alt={project.title}
             loading="lazy"
-            className={`w-full h-full object-cover transition-transform duration-500 ${isHovered ? 'scale-110' : 'scale-100'}`}
+            className={`w-full h-full object-cover transition-all duration-700 ${isHovered ? 'scale-110 brightness-110' : 'scale-100'}`}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+          {/* Overlay gradient più drammatico */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
           
-          {/* Featured badge */}
+          {/* Effetto luce animato */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/20 via-transparent to-pink-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          
+          {/* Featured badge con glow */}
           {index === 0 && (
-            <div className="absolute top-3 left-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg">
-              ⭐ Featured
+            <div className="absolute top-4 left-4 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 text-white px-4 py-2 rounded-full text-xs font-bold shadow-xl shadow-purple-500/50 animate-pulse backdrop-blur-sm">
+              <span className="flex items-center gap-1.5">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+                Featured
+              </span>
             </div>
           )}
         </div>
 
-        {/* Content */}
-        <div className="p-5">
-          <h3 className="title text-xl font-bold text-slate-900 dark:text-white mb-2 line-clamp-1">
+        {/* Content con padding migliorato */}
+        <div className="relative p-6">
+          <h3 className="title text-2xl font-extrabold text-slate-900 dark:text-white mb-3 line-clamp-1 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-pink-600 group-hover:bg-clip-text transition-all duration-300">
             {project.title}
           </h3>
           
-          <p className="p-font text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-2 leading-relaxed">
+          <p className="p-font text-base text-slate-600 dark:text-slate-300 mb-5 line-clamp-2 leading-relaxed">
             {project.description}
           </p>
 
-          {/* Technologies */}
-          <div className="flex flex-wrap gap-2 mb-4">
+          {/* Technologies con stile migliorato */}
+          <div className="flex flex-wrap gap-2 mb-6">
             {project.technologies.slice(0, 3).map((tech) => (
               <span
                 key={tech}
-                className="text-xs px-2.5 py-1 rounded-md bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-medium"
+                className="text-xs px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/40 dark:to-pink-900/40 text-purple-700 dark:text-purple-300 font-semibold border border-purple-200/50 dark:border-purple-700/30 shadow-sm"
               >
                 {tech}
               </span>
             ))}
             {project.technologies.length > 3 && (
-              <span className="text-xs px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 font-medium">
-                +{project.technologies.length - 3}
+              <span className="text-xs px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-700/50 text-slate-600 dark:text-slate-400 font-semibold border border-slate-200 dark:border-slate-600">
+                +{project.technologies.length - 3} more
               </span>
             )}
           </div>
 
-          {/* Actions */}
-          <div className="flex gap-2">
+          {/* Actions con stile premium */}
+          <div className="flex gap-3">
             <button
-              onClick={() => setIsModalOpen(true)}
-              className="title flex-1 px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all"
+              onClick={() => setSelectedProject(project)}
+              data-testid="button-view-details"
+              className="title flex-1 px-5 py-3 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 text-white rounded-xl text-sm font-bold shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/50 hover:scale-105 transition-all duration-300 relative overflow-hidden group/btn"
             >
-              View Details
+              <span className="relative z-10 flex items-center justify-center gap-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                View Details
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 group-hover/btn:opacity-100 transition-opacity"></div>
             </button>
             <a
               href={project.githubLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="title px-4 py-2 border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold hover:border-purple-600 hover:text-purple-600 dark:hover:border-purple-500 dark:hover:text-purple-500 transition-all"
+              data-testid="link-github-code"
+              className="title px-5 py-3 bg-gradient-to-r from-slate-800 to-slate-900 dark:from-slate-700 dark:to-slate-800 text-white rounded-xl text-sm font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 border border-slate-700 dark:border-slate-600 relative overflow-hidden group/gh"
             >
-              <i className="fab fa-github"></i>
+              <span className="relative z-10 flex items-center gap-2">
+                <svg className="w-5 h-5 group-hover/gh:rotate-12 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                  <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+                </svg>
+                Code
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-700 to-slate-600 opacity-0 group-hover/gh:opacity-100 transition-opacity"></div>
             </a>
           </div>
         </div>
@@ -633,10 +657,8 @@ const isModalOpen = !!selectedProject;
 
       {/* Modal */}
       {isModalOpen && (
-        <Dialog open={!!selectedProject} onOpenChange={(open) => !open && setSelectedProject(null)}>
+        <Dialog open={isModalOpen} onOpenChange={() => {}}>
           <DialogContent
-            onPointerDownOutside={(e) => e.preventDefault()}
-            onInteractOutside={(e) => e.preventDefault()}
             className="
               max-w-5xl w-[95vw] max-h-[95vh] 
               overflow-y-auto p-0 border-0 bg-transparent shadow-none
@@ -645,10 +667,22 @@ const isModalOpen = !!selectedProject;
               scrollbar-thin scrollbar-thumb-purple-500/50 scrollbar-track-purple-100/10
               rounded-2xl
             "
+            onPointerDownOutside={(e) => {
+              setSelectedProject(null);
+            }}
+            onEscapeKeyDown={(e) => {
+              setSelectedProject(null);
+            }}
+            onInteractOutside={(e) => {
+              e.preventDefault();
+            }}
           >
             <div className="relative p-4 sm:p-6 md:p-8 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl">
               <button
-                onClick={() => setIsModalOpen(false)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedProject(null);
+                }}
                 className="sticky top-3 right-3 ml-auto z-[200] w-9 h-9 sm:w-11 sm:h-11 bg-white/95 dark:bg-black/90 border border-white/70 dark:border-white/30 rounded-full flex items-center justify-center text-slate-700 dark:text-white shadow transition-transform hover:scale-110"
                 aria-label="Chiudi dettagli progetto"
               >
@@ -667,12 +701,12 @@ const isModalOpen = !!selectedProject;
                 </svg>
               </button>
 
-              <DialogTitle className="sr-only">{project.title} - Dettagli progetto</DialogTitle>
+              <DialogTitle className="sr-only">{selectedProject?.title} - Dettagli progetto</DialogTitle>
               <DialogDescription className="sr-only">
-                Informazioni dettagliate sul progetto {project.title}.
+                Informazioni dettagliate sul progetto {selectedProject?.title}.
               </DialogDescription>
 
-              <ProjectDetails project={project} />
+              <ProjectDetails project={selectedProject} />
             </div>
           </DialogContent>
         </Dialog>
@@ -691,17 +725,18 @@ export default function Projects() {
   const [direction, setDirection] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [selectedProject, setSelectedProject] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Auto-rotate carousel
+  const isModalOpen = !!selectedProject;
+  
+  // Auto-rotate carousel - MA SOLO SE IL MODAL è CHIUSO
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (!isAutoPlaying || isModalOpen) return;
     const interval = setInterval(() => {
       setDirection(1);
       setCurrentIndex((prev) => (prev + 1) % PROJECTS.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [isAutoPlaying, currentIndex]);
+  }, [isAutoPlaying, currentIndex, isModalOpen]);
 
   const goToNext = () => {
     setDirection(1);
@@ -745,41 +780,65 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="relative py-24 bg-slate-50 dark:bg-slate-900/50 overflow-hidden">
-      {/* Animated corner accents */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-purple-500/5 to-transparent rounded-full blur-3xl pointer-events-none animate-pulse"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-blue-500/5 to-transparent rounded-full blur-3xl pointer-events-none animate-pulse" style={{animationDelay: '2s'}}></div>
+    <section id="projects" className="relative py-32 bg-gradient-to-b from-slate-50 via-purple-50/30 to-slate-50 dark:from-slate-900 dark:via-purple-950/20 dark:to-slate-900 overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Large Gradient Orbs */}
+        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-gradient-to-bl from-purple-500/20 via-pink-500/10 to-transparent rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-[600px] h-[600px] bg-gradient-to-tr from-blue-500/20 via-indigo-500/10 to-transparent rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+        
+        {/* Floating Particles */}
+        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-purple-400 rounded-full animate-ping" style={{animationDelay: '0s', animationDuration: '3s'}}></div>
+        <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-pink-400 rounded-full animate-ping" style={{animationDelay: '1s', animationDuration: '4s'}}></div>
+        <div className="absolute bottom-1/4 right-1/4 w-2 h-2 bg-blue-400 rounded-full animate-ping" style={{animationDelay: '2s', animationDuration: '3.5s'}}></div>
+        
+        {/* Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.03)_1px,transparent_1px)] bg-[size:100px_100px] dark:bg-[linear-gradient(rgba(139,92,246,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.05)_1px,transparent_1px)]"></div>
+      </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="title text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-            Featured <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">Projects</span>
+        {/* Header con effetto premium */}
+        <div className="text-center mb-20">
+          <div className="inline-block mb-4">
+            <span className="title text-sm font-semibold tracking-wider uppercase bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Portfolio</span>
+          </div>
+          <h2 className="title text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight">
+            Featured{' '}
+            <span className="relative inline-block">
+              <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 bg-clip-text text-transparent">
+                Projects
+              </span>
+              <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 rounded-full opacity-50"></div>
+            </span>
           </h2>
-          <p className="p-font text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            Explore my latest work in modern web development
+          <p className="p-font text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
+            Explore my latest work in modern web development and creative solutions
           </p>
         </div>
 
-        {/* Carousel Container */}
-        <div className="relative max-w-6xl mx-auto">
-          {/* Navigation Arrows */}
+        {/* Carousel Container con effetto 3D */}
+        <div className="relative max-w-6xl mx-auto perspective-1000">
+          {/* Navigation Arrows con effetto glow */}
           <button
             onClick={goToPrev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-14 h-14 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border-2 border-purple-600/20 dark:border-purple-500/30 rounded-full flex items-center justify-center text-purple-600 dark:text-purple-400 shadow-xl hover:scale-110 hover:bg-purple-50 dark:hover:bg-purple-900/50 transition-all duration-300 group"
+            data-testid="button-prev-project"
+            className="absolute -left-6 md:left-0 top-1/2 -translate-y-1/2 z-20 w-16 h-16 bg-gradient-to-br from-white to-purple-50 dark:from-slate-800 dark:to-purple-900/50 backdrop-blur-xl border-2 border-purple-400/30 dark:border-purple-500/40 rounded-2xl flex items-center justify-center text-purple-600 dark:text-purple-400 shadow-2xl shadow-purple-500/25 hover:scale-110 hover:rotate-6 hover:shadow-purple-500/40 transition-all duration-300 group"
             aria-label="Previous project"
           >
-            <svg className="w-7 h-7 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity blur"></div>
+            <svg className="w-8 h-8 relative z-10 group-hover:-translate-x-1 transition-transform drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
 
           <button
             onClick={goToNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-14 h-14 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border-2 border-purple-600/20 dark:border-purple-500/30 rounded-full flex items-center justify-center text-purple-600 dark:text-purple-400 shadow-xl hover:scale-110 hover:bg-purple-50 dark:hover:bg-purple-900/50 transition-all duration-300 group"
+            data-testid="button-next-project"
+            className="absolute -right-6 md:right-0 top-1/2 -translate-y-1/2 z-20 w-16 h-16 bg-gradient-to-br from-white to-purple-50 dark:from-slate-800 dark:to-purple-900/50 backdrop-blur-xl border-2 border-purple-400/30 dark:border-purple-500/40 rounded-2xl flex items-center justify-center text-purple-600 dark:text-purple-400 shadow-2xl shadow-purple-500/25 hover:scale-110 hover:-rotate-6 hover:shadow-purple-500/40 transition-all duration-300 group"
             aria-label="Next project"
           >
-            <svg className="w-7 h-7 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity blur"></div>
+            <svg className="w-8 h-8 relative z-10 group-hover:translate-x-1 transition-transform drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
             </svg>
           </button>
@@ -801,49 +860,61 @@ export default function Projects() {
                 }}
                 className="absolute w-full max-w-4xl"
               >
-                <ProjectCard project={PROJECTS[currentIndex]} index={currentIndex} />
+                <ProjectCard 
+                  project={PROJECTS[currentIndex]} 
+                  index={currentIndex}
+                  selectedProject={selectedProject}
+                  setSelectedProject={setSelectedProject}
+                />
               </motion.div>
             </AnimatePresence>
           </div>
 
-          {/* Dots Indicator */}
-          <div className="flex justify-center gap-3 mt-8">
+          {/* Dots Indicator con effetti migliorati */}
+          <div className="flex justify-center gap-3 mt-10">
             {PROJECTS.map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`transition-all duration-300 ${
+                data-testid={`dot-indicator-${index}`}
+                className={`transition-all duration-500 ${
                   index === currentIndex
-                    ? 'w-12 h-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full shadow-lg'
-                    : 'w-3 h-3 bg-slate-300 dark:bg-slate-600 rounded-full hover:bg-purple-400 dark:hover:bg-purple-500 hover:scale-125'
+                    ? 'w-16 h-3.5 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 rounded-full shadow-xl shadow-purple-500/50'
+                    : 'w-3 h-3 bg-slate-300 dark:bg-slate-600 rounded-full hover:bg-gradient-to-r hover:from-purple-400 hover:to-pink-400 dark:hover:from-purple-500 dark:hover:to-pink-500 hover:scale-150 hover:shadow-lg'
                 }`}
                 aria-label={`Go to project ${index + 1}`}
               />
             ))}
           </div>
 
-          {/* Counter */}
-          <div className="flex justify-center mt-6">
-            <div className="inline-flex items-center gap-3 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-full px-5 py-2.5 shadow-lg">
-              <span className="title text-purple-600 dark:text-purple-400 font-bold">
+          {/* Counter con design premium */}
+          <div className="flex justify-center mt-8">
+            <div className="inline-flex items-center gap-4 bg-gradient-to-r from-white to-purple-50/50 dark:from-slate-800 dark:to-purple-900/20 backdrop-blur-xl border-2 border-purple-200/50 dark:border-purple-700/30 rounded-2xl px-6 py-3 shadow-xl shadow-purple-500/10">
+              <span className="title text-2xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                 {currentIndex + 1}
               </span>
-              <div className="w-px h-5 bg-slate-300 dark:bg-slate-600"></div>
-              <span className="title text-slate-600 dark:text-slate-300 text-sm">
-                of {PROJECTS.length}
+              <div className="w-px h-6 bg-gradient-to-b from-purple-300 to-pink-300 dark:from-purple-600 dark:to-pink-600"></div>
+              <span className="title text-slate-600 dark:text-slate-300 text-sm font-semibold">
+                of {PROJECTS.length} projects
               </span>
             </div>
           </div>
         </div>
 
-        {/* View All Projects Link */}
-        <div className="text-center mt-12">
+        {/* View All Projects Link con stile premium */}
+        <div className="text-center mt-16">
           <Link href="/projects">
-            <button className="title inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105 group">
-              <span>View All Projects</span>
-              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+            <button 
+              data-testid="button-view-all-projects"
+              className="title inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 text-white rounded-2xl font-bold text-lg hover:shadow-2xl hover:shadow-purple-500/40 transition-all duration-300 hover:scale-105 group relative overflow-hidden border border-purple-400/30"
+            >
+              <span className="relative z-10 flex items-center gap-3">
+                View All Projects
+                <svg className="w-6 h-6 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </button>
           </Link>
         </div>
