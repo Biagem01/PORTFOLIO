@@ -718,206 +718,487 @@ const ProjectCard = memo(function ProjectCard({ project, index, selectedProject,
 
 
 /* =========================
-   SEZIONE PROGETTI - CAROUSEL
+   FULL-SCREEN HORIZONTAL SLIDER - FEATURED PROJECTS
    ========================= */
-export default function Projects() {
+function FeaturedProjectsHero() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
 
+  const featuredProjects = PROJECTS.slice(0, 3);
   const isModalOpen = !!selectedProject;
   
-  // Auto-rotate carousel - MA SOLO SE IL MODAL è CHIUSO
+  useBodyScrollLock(isModalOpen);
+
   useEffect(() => {
-    if (!isAutoPlaying || isModalOpen) return;
+    if (!isAutoPlaying || isModalOpen || isDragging) return;
     const interval = setInterval(() => {
       setDirection(1);
-      setCurrentIndex((prev) => (prev + 1) % PROJECTS.length);
-    }, 5000);
+      setCurrentIndex((prev) => (prev + 1) % featuredProjects.length);
+    }, 6000);
     return () => clearInterval(interval);
-  }, [isAutoPlaying, currentIndex, isModalOpen]);
+  }, [isAutoPlaying, currentIndex, isModalOpen, isDragging, featuredProjects.length]);
 
   const goToNext = () => {
     setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % PROJECTS.length);
+    setCurrentIndex((prev) => (prev + 1) % featuredProjects.length);
     setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 10000);
+    setTimeout(() => setIsAutoPlaying(true), 12000);
   };
 
   const goToPrev = () => {
     setDirection(-1);
-    setCurrentIndex((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length);
+    setCurrentIndex((prev) => (prev - 1 + featuredProjects.length) % featuredProjects.length);
     setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 10000);
+    setTimeout(() => setIsAutoPlaying(true), 12000);
   };
 
   const goToSlide = (index) => {
     setDirection(index > currentIndex ? 1 : -1);
     setCurrentIndex(index);
     setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 10000);
+    setTimeout(() => setIsAutoPlaying(true), 12000);
   };
 
-  const variants = {
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (isModalOpen) return;
+      if (e.key === 'ArrowLeft') goToPrev();
+      if (e.key === 'ArrowRight') goToNext();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentIndex, isModalOpen]);
+
+  useEffect(() => {
+    let isScrolling = false;
+    let scrollTimeout;
+
+    const handleWheel = (e) => {
+      if (isModalOpen) return;
+      
+      const container = document.getElementById('featured-projects-slider');
+      if (!container) return;
+      
+      const rect = container.getBoundingClientRect();
+      const isInView = rect.top <= 0 && rect.bottom >= window.innerHeight;
+      
+      if (!isInView) return;
+      
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        
+        if (!isScrolling) {
+          isScrolling = true;
+          
+          if (e.deltaY > 0) {
+            goToNext();
+          } else if (e.deltaY < 0) {
+            goToPrev();
+          }
+          
+          clearTimeout(scrollTimeout);
+          scrollTimeout = setTimeout(() => {
+            isScrolling = false;
+          }, 800);
+        }
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      clearTimeout(scrollTimeout);
+    };
+  }, [currentIndex, isModalOpen]);
+
+  const slideVariants = {
     enter: (direction) => ({
-      x: direction > 0 ? 1000 : -1000,
+      x: direction > 0 ? '100%' : '-100%',
       opacity: 0,
-      scale: 0.8,
+      scale: 0.9,
     }),
     center: {
-      zIndex: 1,
       x: 0,
       opacity: 1,
       scale: 1,
+      zIndex: 1,
     },
     exit: (direction) => ({
-      zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
+      x: direction > 0 ? '-100%' : '100%',
       opacity: 0,
-      scale: 0.8,
+      scale: 0.9,
+      zIndex: 0,
     }),
   };
 
   return (
-    <section id="projects" className="relative py-32 bg-gradient-to-b from-slate-50 via-purple-50/30 to-slate-50 dark:from-slate-900 dark:via-purple-950/20 dark:to-slate-900 overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Large Gradient Orbs */}
-        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-gradient-to-bl from-purple-500/20 via-pink-500/10 to-transparent rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-[600px] h-[600px] bg-gradient-to-tr from-blue-500/20 via-indigo-500/10 to-transparent rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
-        
-        {/* Floating Particles */}
-        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-purple-400 rounded-full animate-ping" style={{animationDelay: '0s', animationDuration: '3s'}}></div>
-        <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-pink-400 rounded-full animate-ping" style={{animationDelay: '1s', animationDuration: '4s'}}></div>
-        <div className="absolute bottom-1/4 right-1/4 w-2 h-2 bg-blue-400 rounded-full animate-ping" style={{animationDelay: '2s', animationDuration: '3.5s'}}></div>
-        
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.03)_1px,transparent_1px)] bg-[size:100px_100px] dark:bg-[linear-gradient(rgba(139,92,246,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.05)_1px,transparent_1px)]"></div>
+    <>
+      <div id="featured-projects-slider" className="relative w-full h-[70vh] md:h-[80vh] overflow-hidden rounded-3xl mb-12 md:mb-16 shadow-2xl border border-purple-200/30 dark:border-purple-800/30">
+        <AnimatePresence initial={false} custom={direction} mode="popLayout">
+          <motion.div
+            key={currentIndex}
+            custom={direction}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: "spring", stiffness: 200, damping: 35 },
+              opacity: { duration: 0.5 },
+              scale: { duration: 0.5 },
+            }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragStart={() => setIsDragging(true)}
+            onDragEnd={(e, { offset, velocity }) => {
+              setIsDragging(false);
+              const swipe = Math.abs(offset.x) * velocity.x;
+              if (swipe < -10000) goToNext();
+              else if (swipe > 10000) goToPrev();
+            }}
+            className="absolute inset-0 cursor-grab active:cursor-grabbing"
+          >
+            <ProjectSlide 
+              project={featuredProjects[currentIndex]} 
+              index={currentIndex}
+              setSelectedProject={setSelectedProject}
+            />
+          </motion.div>
+        </AnimatePresence>
+
+        <button
+          onClick={goToPrev}
+          data-testid="button-prev-project"
+          className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-purple-600/90 to-pink-600/90 backdrop-blur-xl border border-white/40 rounded-full flex items-center justify-center text-white shadow-2xl hover:from-purple-500 hover:to-pink-500 hover:scale-110 transition-all duration-300 group"
+          aria-label="Previous project"
+        >
+          <svg className="w-5 h-5 lg:w-6 lg:h-6 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <button
+          onClick={goToNext}
+          data-testid="button-next-project"
+          className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-purple-600/90 to-pink-600/90 backdrop-blur-xl border border-white/40 rounded-full flex items-center justify-center text-white shadow-2xl hover:from-purple-500 hover:to-pink-500 hover:scale-110 transition-all duration-300 group"
+          aria-label="Next project"
+        >
+          <svg className="w-5 h-5 lg:w-6 lg:h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+
+        <div className="absolute bottom-8 lg:bottom-12 left-1/2 -translate-x-1/2 z-30 flex gap-3">
+          {featuredProjects.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              data-testid={`dot-indicator-${index}`}
+              className={`transition-all duration-500 ${
+                index === currentIndex
+                  ? 'w-12 lg:w-16 h-1.5 bg-white rounded-full shadow-xl shadow-white/50'
+                  : 'w-1.5 h-1.5 bg-white/50 rounded-full hover:bg-white/80 hover:scale-150'
+              }`}
+              aria-label={`Go to project ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        <div className="absolute top-4 lg:top-8 right-4 lg:right-8 z-30">
+          <div className="bg-gradient-to-br from-purple-600/90 to-pink-600/90 backdrop-blur-xl border border-white/40 rounded-2xl px-4 lg:px-6 py-2 lg:py-3 shadow-xl">
+            <span className="title text-white text-sm lg:text-base font-bold">
+              {currentIndex + 1} / {featuredProjects.length}
+            </span>
+          </div>
+        </div>
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        {/* Header con effetto premium */}
-        <div className="text-center mb-20">
-          <div className="inline-block mb-4">
-            <span className="title text-sm font-semibold tracking-wider uppercase bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Portfolio</span>
+      {isModalOpen && selectedProject && (
+        <Dialog open={isModalOpen} onOpenChange={() => {}}>
+          <DialogContent
+            className="max-w-5xl w-[95vw] max-h-[95vh] overflow-y-auto p-0 border-0 bg-transparent shadow-none [&>button]:hidden scroll-smooth scrollbar-thin scrollbar-thumb-purple-500/50 scrollbar-track-purple-100/10 rounded-2xl"
+            onPointerDownOutside={() => setSelectedProject(null)}
+            onEscapeKeyDown={() => setSelectedProject(null)}
+            onInteractOutside={(e) => e.preventDefault()}
+          >
+            <div className="relative p-4 sm:p-6 md:p-8 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl">
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="sticky top-3 right-3 ml-auto z-[200] w-9 h-9 sm:w-11 sm:h-11 bg-white/95 dark:bg-black/90 border border-white/70 dark:border-white/30 rounded-full flex items-center justify-center text-slate-700 dark:text-white shadow transition-transform hover:scale-110"
+                aria-label="Chiudi dettagli progetto"
+              >
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              <DialogTitle className="sr-only">{selectedProject?.title} - Dettagli progetto</DialogTitle>
+              <DialogDescription className="sr-only">
+                Informazioni dettagliate sul progetto {selectedProject?.title}.
+              </DialogDescription>
+              <ProjectDetails project={selectedProject} />
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
+    </>
+  );
+}
+
+function ProjectSlide({ project, index, setSelectedProject }) {
+  return (
+    <div className="relative w-full h-full group">
+      <motion.img
+        src={project.image}
+        alt={project.title}
+        className="absolute inset-0 w-full h-full object-cover"
+        initial={{ scale: 1.1 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 7, ease: "easeOut" }}
+      />
+      
+      <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-purple-900/60 to-blue-900/40 dark:from-slate-950/95 dark:via-purple-950/70 dark:to-blue-950/50" />
+      <div className="absolute inset-0 bg-gradient-to-t from-purple-900/80 via-blue-900/30 to-transparent dark:from-purple-950/90 dark:via-blue-950/40" />
+      
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(10)].map((_, i) => (
+          <motion.div
+            key={i}
+            className={`absolute w-1 h-1 rounded-full ${
+              i % 3 === 0 ? 'bg-purple-400/40' : i % 3 === 1 ? 'bg-pink-400/40' : 'bg-blue-400/40'
+            }`}
+            initial={{ 
+              x: `${Math.random() * 100}%`, 
+              y: `${Math.random() * 100}%`,
+              scale: 0
+            }}
+            animate={{ 
+              y: [`${Math.random() * 100}%`, `${Math.random() * 100}%`],
+              x: [`${Math.random() * 100}%`, `${Math.random() * 100}%`],
+              scale: [0, 1.5, 0],
+              opacity: [0, 0.8, 0]
+            }}
+            transition={{ 
+              duration: 4 + Math.random() * 3,
+              repeat: Infinity,
+              delay: i * 0.5,
+              ease: "easeInOut"
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="absolute inset-0 flex items-center">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="max-w-2xl">
+            {index === 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-xl shadow-purple-500/50 mb-6 backdrop-blur-sm"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+                Featured Project
+              </motion.div>
+            )}
+
+            <motion.h2
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4, duration: 0.7 }}
+              className="title text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white mb-4 md:mb-6 leading-tight drop-shadow-2xl"
+            >
+              {project.title}
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5, duration: 0.7 }}
+              className="p-font text-base sm:text-lg lg:text-xl text-white/90 mb-6 md:mb-8 leading-relaxed drop-shadow-lg line-clamp-3 md:line-clamp-none"
+            >
+              {project.description}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.7 }}
+              className="flex flex-wrap gap-2 mb-8"
+            >
+              {project.technologies.slice(0, 5).map((tech, idx) => (
+                <motion.span
+                  key={tech}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.7 + idx * 0.05, duration: 0.3 }}
+                  className="px-4 py-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/30 text-white text-sm font-semibold shadow-lg hover:bg-white/20 hover:scale-105 transition-all"
+                >
+                  {tech}
+                </motion.span>
+              ))}
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.7 }}
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4"
+            >
+              <button
+                onClick={() => setSelectedProject(project)}
+                className="title px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 text-white rounded-xl sm:rounded-2xl text-base sm:text-lg font-bold shadow-2xl hover:shadow-purple-500/50 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3"
+              >
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                <span className="hidden sm:inline">Scopri di più</span>
+                <span className="sm:hidden">Dettagli</span>
+              </button>
+              
+              <div className="hidden sm:block">
+                <DemoButton demoLink={project.demoLink} />
+              </div>
+              
+              <a
+                href={project.githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="title px-6 sm:px-8 py-3 sm:py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white rounded-xl sm:rounded-2xl text-base sm:text-lg font-bold shadow-xl hover:bg-white/20 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3"
+              >
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+                </svg>
+                GitHub
+              </a>
+            </motion.div>
           </div>
-          <h2 className="title text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight">
-            Featured{' '}
-            <span className="relative inline-block">
-              <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 bg-clip-text text-transparent">
-                Projects
-              </span>
-              <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 rounded-full opacity-50"></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* =========================
+   GRIGLIA PROGETTI SECONDARI
+   ========================= */
+function ProjectsGrid() {
+  const [selectedProject, setSelectedProject] = useState(null);
+  const secondaryProjects = PROJECTS.slice(3);
+
+  if (secondaryProjects.length === 0) return null;
+
+  return (
+    <div className="relative mt-8 pb-12 md:pb-16">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="text-center mb-12"
+      >
+        <h3 className="title text-2xl md:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-3">
+          More{" "}
+          <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
+            Projects
+          </span>
+        </h3>
+        <p className="p-font text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+          Discover more of my work across different technologies
+        </p>
+      </motion.div>
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {secondaryProjects.map((project, index) => (
+          <motion.div
+            key={project.title}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+          >
+            <ProjectCard
+              project={project}
+              index={index + 3}
+              selectedProject={selectedProject}
+              setSelectedProject={setSelectedProject}
+            />
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* =========================
+   COMPONENTE PRINCIPALE PROGETTI
+   ========================= */
+export default function Projects() {
+  return (
+    <section 
+      id="projects" 
+      className="relative bg-gradient-to-b from-white via-slate-50 to-white dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 overflow-hidden"
+      style={{
+        paddingLeft: 'var(--section-padding-x)',
+        paddingRight: 'var(--section-padding-x)',
+      }}
+    >
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
+        <motion.div 
+          className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-purple-500/20 to-transparent rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div 
+          className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-blue-500/20 to-transparent rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 w-full mx-auto pt-12 md:pt-16" style={{ maxWidth: 'var(--container-max-width)' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <h2 className="title text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-3">
+            Featured{" "}
+            <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
+              Projects
             </span>
           </h2>
-          <p className="p-font text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="p-font text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
             Explore my latest work in modern web development and creative solutions
           </p>
-        </div>
+        </motion.div>
 
-        {/* Carousel Container con effetto 3D */}
-        <div className="relative max-w-6xl mx-auto perspective-1000">
-          {/* Navigation Arrows con effetto glow */}
-          <button
-            onClick={goToPrev}
-            data-testid="button-prev-project"
-            className="absolute -left-6 md:left-0 top-1/2 -translate-y-1/2 z-20 w-16 h-16 bg-gradient-to-br from-white to-purple-50 dark:from-slate-800 dark:to-purple-900/50 backdrop-blur-xl border-2 border-purple-400/30 dark:border-purple-500/40 rounded-2xl flex items-center justify-center text-purple-600 dark:text-purple-400 shadow-2xl shadow-purple-500/25 hover:scale-110 hover:rotate-6 hover:shadow-purple-500/40 transition-all duration-300 group"
-            aria-label="Previous project"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity blur"></div>
-            <svg className="w-8 h-8 relative z-10 group-hover:-translate-x-1 transition-transform drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-
-          <button
-            onClick={goToNext}
-            data-testid="button-next-project"
-            className="absolute -right-6 md:right-0 top-1/2 -translate-y-1/2 z-20 w-16 h-16 bg-gradient-to-br from-white to-purple-50 dark:from-slate-800 dark:to-purple-900/50 backdrop-blur-xl border-2 border-purple-400/30 dark:border-purple-500/40 rounded-2xl flex items-center justify-center text-purple-600 dark:text-purple-400 shadow-2xl shadow-purple-500/25 hover:scale-110 hover:-rotate-6 hover:shadow-purple-500/40 transition-all duration-300 group"
-            aria-label="Next project"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity blur"></div>
-            <svg className="w-8 h-8 relative z-10 group-hover:translate-x-1 transition-transform drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-
-          {/* Carousel Slides */}
-          <div className="relative h-[600px] md:h-[550px] flex items-center justify-center overflow-hidden px-16 md:px-20">
-            <AnimatePresence initial={false} custom={direction}>
-              <motion.div
-                key={currentIndex}
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{
-                  x: { type: "spring", stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.3 },
-                  scale: { duration: 0.3 },
-                }}
-                className="absolute w-full max-w-4xl"
-              >
-                <ProjectCard 
-                  project={PROJECTS[currentIndex]} 
-                  index={currentIndex}
-                  selectedProject={selectedProject}
-                  setSelectedProject={setSelectedProject}
-                />
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Dots Indicator con effetti migliorati */}
-          <div className="flex justify-center gap-3 mt-10">
-            {PROJECTS.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                data-testid={`dot-indicator-${index}`}
-                className={`transition-all duration-500 ${
-                  index === currentIndex
-                    ? 'w-16 h-3.5 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 rounded-full shadow-xl shadow-purple-500/50'
-                    : 'w-3 h-3 bg-slate-300 dark:bg-slate-600 rounded-full hover:bg-gradient-to-r hover:from-purple-400 hover:to-pink-400 dark:hover:from-purple-500 dark:hover:to-pink-500 hover:scale-150 hover:shadow-lg'
-                }`}
-                aria-label={`Go to project ${index + 1}`}
-              />
-            ))}
-          </div>
-
-          {/* Counter con design premium */}
-          <div className="flex justify-center mt-8">
-            <div className="inline-flex items-center gap-4 bg-gradient-to-r from-white to-purple-50/50 dark:from-slate-800 dark:to-purple-900/20 backdrop-blur-xl border-2 border-purple-200/50 dark:border-purple-700/30 rounded-2xl px-6 py-3 shadow-xl shadow-purple-500/10">
-              <span className="title text-2xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                {currentIndex + 1}
-              </span>
-              <div className="w-px h-6 bg-gradient-to-b from-purple-300 to-pink-300 dark:from-purple-600 dark:to-pink-600"></div>
-              <span className="title text-slate-600 dark:text-slate-300 text-sm font-semibold">
-                of {PROJECTS.length} projects
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* View All Projects Link con stile premium */}
-        <div className="text-center mt-16">
-          <Link href="/projects">
-            <button 
-              data-testid="button-view-all-projects"
-              className="title inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 text-white rounded-2xl font-bold text-lg hover:shadow-2xl hover:shadow-purple-500/40 transition-all duration-300 hover:scale-105 group relative overflow-hidden border border-purple-400/30"
-            >
-              <span className="relative z-10 flex items-center gap-3">
-                View All Projects
-                <svg className="w-6 h-6 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            </button>
-          </Link>
-        </div>
+        <FeaturedProjectsHero />
+        <ProjectsGrid />
       </div>
     </section>
   );
