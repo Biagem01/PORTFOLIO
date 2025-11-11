@@ -1,10 +1,19 @@
 import express, { type Request, Response, NextFunction } from "express";
+import path from "path";
+import { fileURLToPath } from "url";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
-
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// 🔹 Calcolo percorso assoluto della root del progetto
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const rootDir = path.resolve(__dirname, "..");
+
+// ✅ Serve il CV e altri file statici presenti nella root
+app.use(express.static(rootDir));
 
 app.use((req, res, next) => {
   const start = Date.now();
@@ -35,6 +44,7 @@ app.use((req, res, next) => {
 
   next();
 });
+
 
 (async () => {
   const server = await registerRoutes(app);

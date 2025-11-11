@@ -223,7 +223,7 @@ export default function About() {
               </motion.a>
               
               <motion.a
-                href="/resume.pdf"
+                href="/CV.pdf"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="title inline-flex items-center gap-2 px-6 py-3 border-2 border-purple-600 text-purple-700 dark:text-purple-400 rounded-xl font-semibold hover:bg-purple-50 dark:hover:bg-purple-950/30 transition-colors"
