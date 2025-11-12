@@ -1,6 +1,33 @@
-import { motion } from "framer-motion";
+import { motion, useAnimationControls } from "framer-motion";
 import { useState } from "react";
 import Avatar from "../image/Avatar.png";
+
+function SkillIcon({ skill, isHovered }) {
+  const controls = useAnimationControls();
+
+  const handleHoverStart = async () => {
+    await controls.start({
+      scale: 1.1,
+      rotate: 5,
+      transition: { duration: 0.2, type: "spring", stiffness: 300 }
+    });
+    controls.start({
+      scale: 1,
+      rotate: 0,
+      transition: { duration: 0.2, type: "spring", stiffness: 300 }
+    });
+  };
+
+  return (
+    <motion.div 
+      className={`w-12 h-12 rounded-lg bg-gradient-to-br ${skill.color} flex items-center justify-center text-white shadow-lg`}
+      animate={controls}
+      onMouseEnter={handleHoverStart}
+    >
+      <i className={`${skill.icon} text-lg`}></i>
+    </motion.div>
+  );
+}
 
 export default function About() {
   const [hoveredSkill, setHoveredSkill] = useState(null);
@@ -270,16 +297,7 @@ export default function About() {
               >
                 {/* Skill Icon */}
                 <div className="flex flex-col items-center gap-2">
-                  <motion.div 
-                    className={`w-12 h-12 rounded-lg bg-gradient-to-br ${skill.color} flex items-center justify-center text-white shadow-lg`}
-                    animate={{
-                      scale: hoveredSkill === skill.name ? 1.1 : 1,
-                      rotate: hoveredSkill === skill.name ? 360 : 0,
-                    }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <i className={`${skill.icon} text-lg`}></i>
-                  </motion.div>
+                  <SkillIcon skill={skill} isHovered={hoveredSkill === skill.name} />
                   
                   <div className="text-center w-full">
                     <span className="title text-xs font-bold text-slate-900 dark:text-white block mb-1">
@@ -308,15 +326,6 @@ export default function About() {
                     )}
                   </div>
                 </div>
-
-                {/* Shine Effect */}
-                <motion.div
-                  className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100"
-                  animate={{
-                    x: hoveredSkill === skill.name ? ['-100%', '100%'] : '-100%',
-                  }}
-                  transition={{ duration: 0.6 }}
-                />
               </motion.div>
             ))}
           </div>
